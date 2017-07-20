@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 const HomePage = () => (
