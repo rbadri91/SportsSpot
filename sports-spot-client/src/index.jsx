@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore,applyMiddleware} from 'redux';
 import { BrowserRouter as Router,Route } from 'react-router-dom';
 import routes from './routes.jsx';
+var NavBar = require('./components/navbar');
 import registerServiceWorker from './registerServiceWorker';
 import remoteActionMiddleware from './remote_action_middleware';
 import io from 'socket.io-client';
@@ -20,6 +21,7 @@ const createStoreWithMiddleware = applyMiddleware(
   remoteActionMiddleware(socket)
 )(createStore);
 
+
 // ReactDOM.render( < App / > , document.getElementById('root'));
 ReactDOM.render((
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -27,4 +29,5 @@ ReactDOM.render((
   </MuiThemeProvider>), 
         document.getElementById('root')
 );
+
 registerServiceWorker();

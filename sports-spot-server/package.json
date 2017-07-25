@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node index.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
@@ -25,6 +26,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "immutable": "^3.8.1",
+    "node-cricapi": "^1.2.5",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "redux": "^3.7.2",
