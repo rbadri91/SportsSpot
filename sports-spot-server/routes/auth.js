@@ -64,5 +64,6 @@ function validateLoginForm(payload) {
         success: isFormValid,
         message,
         errors
+
     };
 }

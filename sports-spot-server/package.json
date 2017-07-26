@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js",
+    "start": "babel-node app.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
@@ -24,11 +24,14 @@
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "immutable": "^3.8.1",
+    "mysportsfeeds-node": "^0.2.2",
     "node-cricapi": "^1.2.5",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-transport": "^2.7.4",
+    "promise": "^8.0.1",
     "redux": "^3.7.2",
     "socket.io": "^2.0.3",
     "validator": "^8.0.0"

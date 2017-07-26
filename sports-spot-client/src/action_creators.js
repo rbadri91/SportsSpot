@@ -19,6 +19,14 @@ export function login(email, password) {
     };
 }
 
+export function setCurrentAllNews(curr_all_news) {
+    console.log("curr_all_news here:", curr_all_news);
+    return {
+        type: 'SET_CURRENT_ALL_NEWS',
+        curr_all_news
+    };
+}
+
 export function setConnectionState(state, connected) {
     return {
         type: 'SET_CONNECTION_STATE',

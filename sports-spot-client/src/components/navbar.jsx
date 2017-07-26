@@ -16,12 +16,26 @@ class MainNav extends Component {
              <div>
                 <Navbar inverse collapseOnSelect>
                     <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href="/">SportsSpot</a>
-                    </Navbar.Brand>
+                        <Navbar.Brand>
+                            <a href="/">SportsSpot</a>
+                        </Navbar.Brand>
                     <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
+                        <Nav>
+                            <LinkContainer to="/nfl">
+                               <NavItem>NFL</NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/mlb">
+                               <NavItem>MLB</NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/nba">
+                               <NavItem>NBA</NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/nhl">
+                               <NavItem>NHL</NavItem>
+                            </LinkContainer>   
+                        </Nav>
                     <Nav pullRight>
                         <LinkContainer to="/login">
                                 <NavItem>Login</NavItem>
