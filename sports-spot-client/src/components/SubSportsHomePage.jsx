@@ -20,10 +20,10 @@ class SubHomePage extends PureComponent{
         )
     }
 }
-function mapNewsToProps(curr_nhl_news){
-  console.log("curr_all_news here:",curr_nhl_news);
+function mapNewsToProps(curr_feeds){
+  console.log("curr_feeds here:",curr_feeds);
   return {
-    news:curr_nhl_news
+    news:curr_feeds
   }
 }
 export const subHomePageContainer = connect(mapNewsToProps,actionCreators)(SubHomePage);

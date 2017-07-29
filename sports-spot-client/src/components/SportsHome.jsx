@@ -20,9 +20,9 @@ render() {
   }
 };
 
-function mapNewsToProps(curr_all_news){
+function mapNewsToProps(curr_feeds){
   return {
-    news:curr_all_news
+    news:curr_feeds
   }
 }
 export const HomePageContainer = connect(mapNewsToProps,actionCreators)(HomePage);

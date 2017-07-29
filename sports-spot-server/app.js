@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var http = require('http');
+const httpTransport = require('https');
 var MySportsFeeds = require("mysportsfeeds-node");
 var Promise = require('promise');
 var spawn = require("child_process").spawn;

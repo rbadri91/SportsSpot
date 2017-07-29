@@ -9,5 +9,6 @@ export default function startServer(store) {
     io.on('connection', (socket) => {
         socket.emit('curr_news', store.getState().toJS());
         socket.on('action', store.dispatch.bind(store));
+        socket.on('GET_CURRENT_NFL_NEWS', store.dispatch.bind(store));
     });
 }

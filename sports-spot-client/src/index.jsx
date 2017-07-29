@@ -50,7 +50,8 @@ var rAMiddleware = remoteActionMiddleware(socket);
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
+  applyMiddleware(remoteActionMiddleware(socket))
 );
 
 ReactDOM.render((
@@ -62,7 +63,7 @@ ReactDOM.render((
 
 ReactDOM.render((
   <Provider store={store}>
-   <Router>{subNavroutes}</Router>
+   <Router component ={SubNavigation}>{subNavroutes}</Router>
   </Provider>
 ), 
         document.getElementById('subNavbar')

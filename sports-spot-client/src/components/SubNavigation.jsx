@@ -17,22 +17,22 @@ class subNavigation extends Component{
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <LinkContainer to={this.props.location.pathname +"/"}>
+                            <LinkContainer to={"/"}>
                                <NavItem>Home</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={this.props.location.pathname +"/scores"}>
+                            <LinkContainer to={"/scores"}>
                                <NavItem>Scores</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={this.props.location.pathname +"/schedules"}>
+                            <LinkContainer to={"/schedules"}>
                                <NavItem>Schedule</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={this.props.location.pathname +"/standings"}>
+                            <LinkContainer to={"/standings"}>
                                <NavItem >Standings</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={this.props.location.pathname +"/stats"}>
+                            <LinkContainer to={"/stats"}>
                                <NavItem>Stats</NavItem>
                             </LinkContainer> 
-                            <LinkContainer to={this.props.location.pathname +"/teams"}>
+                            <LinkContainer to={"/teams"}>
                                <NavItem>Teams</NavItem>
                             </LinkContainer>  
                         </Nav>

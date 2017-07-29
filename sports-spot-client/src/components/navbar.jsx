@@ -14,14 +14,18 @@ class MainNav extends Component {
          loggedIn: 1,
         };
     }
+    button_click(){
+    }
     render() {
         return (
             <div>
                 <Navbar inverse fixedTop collapseOnSelect>
                     <Navbar.Header>
-                        <Navbar.Brand>
-                            <a href="/">SportsSpot</a>
+                    <LinkContainer to={`/`} style={{cursor:"pointer"}}>    
+                        <Navbar.Brand onClick={this.props.getCurrentALLNews} >
+                          SportsSpot
                         </Navbar.Brand>
+                    </LinkContainer>    
                     <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
@@ -59,6 +63,7 @@ MainNav.propTypes = {
   getCurrentMLBNews : PropTypes.func.isRequired,
   getCurrentNFLNews : PropTypes.func.isRequired,
   getCurrentNBANews : PropTypes.func.isRequired,
+  getCurrentALLNews : PropTypes.func.isRequired
 };
 
 export default connect(null,actionCreators)(MainNav);
