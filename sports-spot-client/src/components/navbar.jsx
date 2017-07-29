@@ -1,7 +1,10 @@
 /*jshint esversion: 6 */
 import React, { Component, PropTypes } from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem,NavLink } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actionCreators from '../action_creators';
 
 class MainNav extends Component {
 
@@ -13,8 +16,8 @@ class MainNav extends Component {
     }
     render() {
         return (
-             <div>
-                <Navbar inverse collapseOnSelect>
+            <div>
+                <Navbar inverse fixedTop collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
                             <a href="/">SportsSpot</a>
@@ -23,39 +26,40 @@ class MainNav extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <LinkContainer to="/nfl">
-                               <NavItem>NFL</NavItem>
+                            <LinkContainer to={`/nfl`}>
+                                <NavItem onClick={this.props.getCurrentNFLNews} eventKey={1}>NFL</NavItem>
                             </LinkContainer>
-                            <LinkContainer to="/mlb">
-                               <NavItem>MLB</NavItem>
+                            <LinkContainer to = {`/mlb`}>
+                               <NavItem onClick={this.props.getCurrentMLBNews} eventKey={2} >MLB</NavItem>
                             </LinkContainer>
-                            <LinkContainer to="/nba">
-                               <NavItem>NBA</NavItem>
+                            <LinkContainer to={`/nba`}>
+                               <NavItem onClick={this.props.getCurrentNBANews} eventKey={3}>NBA</NavItem>
                             </LinkContainer>
-                            <LinkContainer to="/nhl">
-                               <NavItem>NHL</NavItem>
+                            <LinkContainer to={`/nhl`}>
+                               <NavItem onClick={this.props.getCurrentNHLNews} eventKey={4}>NHL</NavItem>
                             </LinkContainer>   
                         </Nav>
                     <Nav pullRight>
-                        <LinkContainer to="/login">
+                        <LinkContainer to={`/login`}>
                                 <NavItem>Login</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/signup">
+                        <LinkContainer to={`/signup`}>
                             <NavItem>Sign Up</NavItem>
                         </LinkContainer>
                     </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <div className="content">
-                        {this.props.children}
                 </div>
-            </div>
         )
     }
 }
 
 MainNav.propTypes = {
-  children: PropTypes.element.isRequired,
+  getCurrentNHLNews : PropTypes.func.isRequired,
+  getCurrentMLBNews : PropTypes.func.isRequired,
+  getCurrentNFLNews : PropTypes.func.isRequired,
+  getCurrentNBANews : PropTypes.func.isRequired,
 };
 
-export default MainNav;
+export default connect(null,actionCreators)(MainNav);
+// export default MainNav;

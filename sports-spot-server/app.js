@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 var http = require('http');
 var MySportsFeeds = require("mysportsfeeds-node");
 var Promise = require('promise');
+var spawn = require("child_process").spawn;
 
 import makeStore from './src/store';
 import startServer from './src/server';
 import { getAllNews } from './src/core';
+
 
 var msf = new MySportsFeeds("1.0", true);
 
@@ -25,6 +27,18 @@ getAllNews(http, process.env.NEWSAPI_API_KEY, Promise).then((data) => {
         news: data
     });
 });
+
+
+// getAllNews(http, process.env.NEWSAPI_API_KEY, Promise).then((data) => {
+//     store.dispatch({
+//         type: 'SET_CURRENT_ALL_NEWS',
+//         news: data
+//     });
+// });
+
+
+
+
 
 const app = express();
 

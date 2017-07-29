@@ -3,15 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
 // import App from './App';
+import MainNav from './components/navbar.jsx';
+import SubNavigation from './components/SubNavigation.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore,applyMiddleware} from 'redux';
-import { BrowserRouter as Router,Route } from 'react-router-dom';
-import routes from './routes.jsx';
-import {setCurrentAllNews,setConnectionState} from './action_creators';
+import { HashRouter as Router} from 'react-router-dom';
+import routes,{subNavroutes} from './routes.jsx';
+import {setCurrentNews,setConnectionState} from './action_creators';
 import reducer from './reducer';
 import {Provider} from 'react-redux';
+const thunk = require('redux-thunk').default;
 
 import registerServiceWorker from './registerServiceWorker';
 import remoteActionMiddleware from './remote_action_middleware';
@@ -21,8 +24,8 @@ injectTapEventPlugin();
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
-socket.on('curr_all_news', curr_all_news =>
-  store.dispatch(setCurrentAllNews(curr_all_news))
+socket.on('curr_news', curr_news =>
+  store.dispatch(setCurrentNews(curr_news))
 );
 
 [
@@ -37,11 +40,34 @@ socket.on('curr_all_news', curr_all_news =>
   socket.on(ev, () => store.dispatch(setConnectionState(ev, socket.connected)))
 );
 
+var rAMiddleware = remoteActionMiddleware(socket);
 
-const createStoreWithMiddleware = applyMiddleware(
-  remoteActionMiddleware(socket)
-)(createStore);
-const store = createStoreWithMiddleware(reducer);
+
+// const createStoreWithMiddleware = applyMiddleware(
+//   remoteActionMiddleware(socket)
+// )(createStore);
+// const store = createStoreWithMiddleware(reducer);
+
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
+
+ReactDOM.render((
+  <Provider store={store}>
+    <Router><MainNav>{routes}</MainNav></Router>
+</Provider>), 
+        document.getElementById('mainNavbar')
+);
+
+ReactDOM.render((
+  <Provider store={store}>
+   <Router>{subNavroutes}</Router>
+  </Provider>
+), 
+        document.getElementById('subNavbar')
+);
+
 
 ReactDOM.render((
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -51,5 +77,7 @@ ReactDOM.render((
   </MuiThemeProvider>), 
         document.getElementById('root')
 );
+
+
 
 registerServiceWorker();

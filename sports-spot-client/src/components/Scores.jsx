@@ -1,18 +1,15 @@
 import React ,{PureComponent}from 'react';
-import NewsPanel from './NewsPanel';
-import ImpNewsPanel from './ImpNewsPanel';
 import {connect} from 'react-redux';
 import * as actionCreators from '../action_creators';
 
 
-class HomePage extends PureComponent{
-render() {
+class ScoresPage extends PureComponent{
+  render() {
           return <div className="news-holder">
             <div className="containerWrapper">
               <div className="s-row">
                 <div className="col-sm-12">
-                  <NewsPanel {...this.props} />
-                  <ImpNewsPanel {...this.props} />
+                    Scores Page
                 </div> 
               </div>
             </div>
@@ -20,9 +17,10 @@ render() {
   }
 };
 
-function mapNewsToProps(curr_all_news){
+function mapNewsToProps(curr_scores){
   return {
-    news:curr_all_news
+    scores:curr_scores
   }
 }
-export const HomePageContainer = connect(mapNewsToProps,actionCreators)(HomePage);
+
+export const ScorePageContainer = connect(mapNewsToProps,actionCreators)(ScoresPage);
