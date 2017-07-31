@@ -1,6 +1,10 @@
 /*jshint esversion: 6 */
 import { List } from 'immutable';
 var fs = require("fs");
+var Promise = require('promise');
+var MySportsFeeds = require("mysportsfeeds-node");
+
+var msf;
 
 export const CURRENT_FEEDS = List();
 
@@ -35,11 +39,13 @@ export function getSportsFeed(https, btoa, uName, passWord, Promise, seasonName,
     const responseEncoding = 'utf8';
     const httpOptions = {
         hostname: 'api.mysportsfeeds.com',
-        path: '/v1.1/pull/' + game + '/' + seasonName + '/' + reqData + '.json' + (forDate) ? '? fordate = ' + forDate : '',
+        path: '/v1.1/pull/' + game + '/' + seasonName + '/' + reqData + '.json' + (forDate) ? '?fordate =' + forDate : '',
         method: 'GET',
         headers: { "Authorization": "Basic " + btoa("rbadri91" + ":" + "Test123") }
     };
+
     httpOptions.headers['User-Agent'] = 'node ' + process.version;
+
     return new Promise(function(resolve, reject) {
         const request = httpTransport.request(httpOptions, (res) => {
                 let responseBufs = [];
@@ -67,7 +73,11 @@ export function getSportsFeed(https, btoa, uName, passWord, Promise, seasonName,
     });
 }
 
-export function getAllNews(http, apiKey, Promise) {
+export function setMSFConfig(MSFConfig) {
+    msf = MSFConfig;
+}
+
+export function getAllNews(Promise) {
     return new Promise(function(resolve) {
         fs.readFile('public/json/ALLSports.json', "utf8", (err, data) => {
             if (err) throw err;
@@ -76,35 +86,79 @@ export function getAllNews(http, apiKey, Promise) {
     });
 }
 
+function testfunction() {
+    return new Promise(function(resolve) {
+        fs.readFile('results/full_game_schedule-mlb-2016-playoff.json', "utf8", (err, data) => {
+            if (err) throw err;
+            console.log("data here:", JSON.parse(data));
+            resolve(List(JSON.parse(data).fullgameschedule.gameentry));
+        });
+    });
+}
+
 
 export function setCurrentNews(curr_feeds, newsList) {
     const list = List(newsList);
     curr_feeds = List(newsList);
-    return curr_feeds;
+    return Promise.resolve(curr_feeds);
 }
 
 export function getCurrentAllNews(curr_feeds) {
+    console.log("in get all current news");
     curr_feeds = List(JSON.parse(fs.readFileSync("public/json/AllSports.json")));
-    return curr_feeds;
+    return Promise.resolve(curr_feeds);
 }
 export function getCurrentNBANews(curr_feeds) {
     curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NBA.json")));
-    return curr_feeds;
+    return Promise.resolve(curr_feeds);
 }
 export function getCurrentNFLNews(curr_feeds) {
     curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NFL.json")));
-    return curr_feeds;
+    return Promise.resolve(curr_feeds);
 }
 export function getCurrentNHLNews(curr_feeds) {
     curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NHL.json")));
-    return curr_feeds;
+    return Promise.resolve(curr_feeds);
 }
 
 export function getCurrentMLBNews(curr_feeds) {
     curr_feeds = List(JSON.parse(fs.readFileSync("public/json/MLB.json")));
+    return Promise.resolve(curr_feeds);
+}
+
+export function getScores(curr_feeds, game, season, forDate) {
+    console.log("game here:", game);
+    console.log("season here:", season);
+    console.log("forDate here:", forDate);
+    console.log("user name here:", process.env.MY_SF_LOGIN);
+    var msf = new MySportsFeeds("1.0", true);
+    msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
+    curr_feeds = new Promise((resolve, reject) => {
+        msf.getData(game, season, 'scoreboard', 'json', { fordate: forDate }).then((data) => {
+            return resolve(List(data.scoreboard.gameScore));
+        }).catch(() => {
+            return reject();
+        });
+    });
     return curr_feeds;
 }
 
-export function getScores(curr_feeds, game, season) {
+export function getSchedules(curr_feeds, game, season) {
+    curr_feeds = new Promise((resolve, reject) => {
+        msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50 }).then((data) => {
+            console.log("data here");
+            return resolve(List(data.fullgameschedule.gameentry));
+        }).catch(() => {
+            return reject();
+        });
+    });
+    return curr_feeds;
+}
 
+export function getStandings(curr_feeds, game, season, teamStats) {
+    return msf.getData(game, season, 'conference_team_standings', 'json', { teamstats: teamStats })
+}
+
+export function getStats(curr_feeds, game, season, ) {
+    return msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerstats })
 }

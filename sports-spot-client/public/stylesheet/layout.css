@@ -8,6 +8,23 @@ body {
     background: #efefef;
 }
 
+div,
+span,
+p,
+dl,
+dt,
+dd,
+ol,
+ul,
+li {
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
 a {
     color: #00bcd4;
     font-weight: bold;
@@ -86,7 +103,6 @@ a:hover {
 }
 
 .news-holder {
-    height: 100%;
     min-height: 100%;
     height: auto !important;
     background-color: #efefef;
@@ -136,7 +152,7 @@ a:hover {
 }
 
 .HeadLinesList {
-    margin-left: -10%;
+    margin-left: 4%;
 }
 
 .author_holder {
@@ -197,8 +213,26 @@ a:hover {
     text-decoration-line: none;
 }
 
+.scorecard-container .sectionTitle {
+    margin-top: 20px;
+}
+
+.sectionTitle {
+    display: table;
+    margin: 26px 0;
+    width: 100%;
+}
+
+.sectionTitle {
+    margin: 0 0 24px;
+    text-transform: uppercase;
+}
+
 .panelHeader {
     border-bottom: 1px solid #fbf1f1;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: #b19696;
 }
 
 .newsDescription {
@@ -215,4 +249,330 @@ a.active {
     position: fixed;
     width: 100%;
     z-index: 1000;
+}
+
+.weekHeader {
+    background: #efefef;
+    color: #777;
+}
+
+.subHeader {
+    margin-bottom: 4px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    padding: 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.dateHeader {
+    background: #efefef;
+    color: #777;
+}
+
+.even {
+    border-top: 2px solid #eee;
+    background-color: #efefef;
+}
+
+.scorecard-container {
+    padding: 0;
+    margin-bottom: 60px !important;
+    min-height: 100%;
+    height: auto !important;
+    background-color: #efefef;
+    position: relative;
+    max-width: 100%;
+    margin: 2%;
+}
+
+.ss-row {
+    zoom: 1;
+    width: auto;
+}
+
+.ss-row-height {
+    border-spacing: 20px;
+    display: table;
+    margin-bottom: -20px;
+    margin-left: -20px;
+    margin-top: -20px;
+    table-layout: fixed;
+    width: calc(100% + 40px);
+}
+
+
+/* .navbar-inverse .navbar-nav>li>a {
+    color: white;
+} */
+
+.ss-row-height>* {
+    border-spacing: 0;
+    display: table-cell;
+    vertical-align: top;
+    width: auto;
+}
+
+.gameLocation {
+    font-size: 12px;
+    color: #5b6c77;
+    float: left;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.scorecard-container.ss-row {
+    margin-bottom: 30px;
+}
+
+.scoreCardWrapper {
+    webkit-box-shadow: 0 2px 0 0 rgba(230, 230, 230, 0.5);
+    -moz-box-shadow: 0 2px 0 0 rgba(230, 230, 230, 0.5);
+    box-shadow: 0 2px 0 0 rgba(230, 230, 230, 0.5);
+    -webkit-transition: box-shadow 0.5s ease;
+    -moz-transition: box-shadow 0.5s ease;
+    -o-transition: box-shadow 0.5s ease;
+    transition: box-shadow 0.5s ease;
+    background-color: #fff;
+    border: 1px solid #e6e7e9;
+    position: relative;
+}
+
+.score-innerWrapper {
+    clear: both;
+    overflow: hidden;
+}
+
+.gamedetailBar {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 1.15;
+    padding: 20px 12px 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #5b6c77;
+    display: inline-block;
+    width: 100%;
+}
+
+.gamedetailBar.game-time-info {
+    color: #232323;
+    font-weight: 400;
+    float: left;
+    text-transform: uppercase;
+    display: inline;
+}
+
+.scoreCardWrapper.scorecard-info {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.scoreSection {
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    padding: 16px 12px;
+    width: 100%;
+}
+
+.scoreSection table {
+    table-layout: fixed;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.scoreSection tr {
+    border-bottom: 0;
+}
+
+.scoreSection th {
+    text-align: center;
+}
+
+.scoreSection th {
+    color: #94a1a9;
+    font-size: 10px;
+    line-height: 1;
+    text-transform: uppercase;
+    width: 14px;
+}
+
+.scoreSection tbody tr:first-child {
+    border-bottom: 6px solid transparent;
+}
+
+.scoreSection tr {
+    border-bottom: 0;
+}
+
+.scoreSection td {
+    color: #232323;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.scoreSection td {
+    font-size: 12px;
+    text-align: center;
+}
+
+.scoreSection td. {
+    font-weight: 400;
+}
+
+.scoreSection td:first-child {
+    text-align: left;
+}
+
+.scoreSection td.team-info {
+    color: #232323;
+    letter-spacing: 0.5px;
+    padding-left: 0;
+    text-align: left;
+    white-space: nowrap;
+    width: 60%;
+}
+
+.scoreSection td.scores {
+    width: 14px;
+}
+
+.dateHeaderLabel {
+    background: #fff;
+    color: #2b2c2d;
+    font-size: 16px;
+    font-weight: 600;
+    height: 44px;
+    line-height: 2.8;
+    position: relative;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+table.schedule th:first-child:not(.date) {
+    width: 130px;
+}
+
+.schedule-holder {
+    min-height: 100%;
+    height: auto !important;
+    background-color: #efefef;
+    position: relative;
+    margin: 0 auto;
+    transition: opacity .08s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+    .schedule-holder {
+        padding: 0 10px;
+    }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    .schedule-holder {
+        width: 740px;
+        padding: 0;
+    }
+}
+
+.schedule-content-wrapper {
+    background: #fff;
+    margin-right: 0;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.schedule-innerWrapper table td,
+.schedule-innerWrapper table th {
+    overflow: hidden;
+    position: relative;
+}
+
+.schedule-innerWrapper table thead:first-of-type th {
+    height: 22px;
+    padding-top: 0;
+}
+
+table th:first-child {
+    text-align: left;
+}
+
+.schedule-innerWrapper table th {
+    border-bottom: 1px #dcdddf solid;
+    color: #48494a;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 0 4px;
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+    .outerTableWrapper td:first-child,
+    .outerTableWrapper th:first-child {
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .outerTableWrapper {
+        margin: 0 -20px !important;
+    }
+}
+
+.schedule-innerWrapper {
+    margin: 0 0 21px;
+    overflow: hidden;
+    position: relative;
+}
+
+.scheduleData {
+    width: 100%;
+}
+
+.outerTableWrapper table {
+    border-top: 1px #dcdddf solid;
+}
+
+.schedule-innerWrapper table thead tr,
+.schedule-innerWrapper table thead tr:nth-child(odd) {
+    background: none;
+    border-top: 0;
+}
+
+.schedule-innerWrapper table tr {
+    border-top: 1px solid #f1f2f3;
+}
+
+.schedule-innerWrapper table td {
+    overflow: hidden;
+    position: relative;
+}
+
+.scheduleData td {
+    color: #6c6d6f;
+    font-size: 12px;
+    font-weight: 400;
+    height: 28px;
+    line-height: 1.2;
+    padding: 1px 4px 0 4px;
+    margin: 0;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+
+}
+.scheduleData td:first-child {
+    text-align: left;
+}
+table.scheduleData td {
+    padding: 1px 4px 0 4px;
 }

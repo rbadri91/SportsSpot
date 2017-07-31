@@ -1,7 +1,7 @@
 import React ,{PureComponent}from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../action_creators';
-
+import StandingPanel from './StandingPanel';
 
 class StandingsPage extends PureComponent{
   render() {
@@ -9,7 +9,7 @@ class StandingsPage extends PureComponent{
             <div className="containerWrapper">
               <div className="s-row">
                 <div className="col-sm-12">
-                    Standings Page
+                    <StandingPanel {...this.props} />
                 </div> 
               </div>
             </div>

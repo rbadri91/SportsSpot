@@ -1,12 +1,33 @@
 /*jshint esversion: 6 */
 import React ,{PureComponent} from 'react';
+import io from 'socket.io-client';
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
 export default class NewsPanel extends PureComponent{
+    constructor(props){
+        super(props);
+        this.state={response:{}}
+    }
     getNews(){
         console.log("news here:",this.props.news);
         return this.props.news ||[];
     }
+    getInitialState(){
+        return {
+        response: {}
+        }
+    }
+     componentDidMount()
+    {
+        socket.once("curr_news",(data)=>{
+                 this.setState({response:data});
+         })
+    }
     render() {
+        if(Object.keys(this.state.response).length ==0)
+        {
+                    return <div>Loading ....</div>;
+        }
         return <div className = 'newsPanel col-sm-9'>
             {
                 this.getNews().map(news =>

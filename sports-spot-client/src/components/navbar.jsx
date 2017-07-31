@@ -14,14 +14,12 @@ class MainNav extends Component {
          loggedIn: 1,
         };
     }
-    button_click(){
-    }
     render() {
         return (
             <div>
-                <Navbar inverse fixedTop collapseOnSelect>
+                <Navbar inverse fixedTop collapseOnSelect style={{background:"#5959c5",color:"white"}}>
                     <Navbar.Header>
-                    <LinkContainer to={`/`} style={{cursor:"pointer"}}>    
+                    <LinkContainer to={`/`} style={{cursor:"pointer",color:"white"}}>    
                         <Navbar.Brand onClick={this.props.getCurrentALLNews} >
                           SportsSpot
                         </Navbar.Brand>
@@ -30,16 +28,16 @@ class MainNav extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <LinkContainer to={`/nfl`}>
+                            <LinkContainer to={`/nfl`} style={{color:"white"}}>
                                 <NavItem onClick={this.props.getCurrentNFLNews} eventKey={1}>NFL</NavItem>
                             </LinkContainer>
-                            <LinkContainer to = {`/mlb`}>
+                            <LinkContainer to = {`/mlb`} style={{color:"white"}}>
                                <NavItem onClick={this.props.getCurrentMLBNews} eventKey={2} >MLB</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={`/nba`}>
-                               <NavItem onClick={this.props.getCurrentNBANews} eventKey={3}>NBA</NavItem>
+                            <LinkContainer to={`/nba`} style={{color:"white"}}>
+                               <NavItem onClick={this.props.getCurrentNBANews} eventKey={3} >NBA</NavItem>
                             </LinkContainer>
-                            <LinkContainer to={`/nhl`}>
+                            <LinkContainer to={`/nhl`} style={{color:"white"}}>
                                <NavItem onClick={this.props.getCurrentNHLNews} eventKey={4}>NHL</NavItem>
                             </LinkContainer>   
                         </Nav>

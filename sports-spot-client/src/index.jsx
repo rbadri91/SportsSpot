@@ -42,12 +42,6 @@ socket.on('curr_news', curr_news =>
 
 var rAMiddleware = remoteActionMiddleware(socket);
 
-
-// const createStoreWithMiddleware = applyMiddleware(
-//   remoteActionMiddleware(socket)
-// )(createStore);
-// const store = createStoreWithMiddleware(reducer);
-
 const store = createStore(
   reducer,
   applyMiddleware(thunk),
@@ -63,7 +57,7 @@ ReactDOM.render((
 
 ReactDOM.render((
   <Provider store={store}>
-   <Router component ={SubNavigation}>{subNavroutes}</Router>
+   <Router><SubNavigation>{subNavroutes}</SubNavigation></Router>
   </Provider>
 ), 
         document.getElementById('subNavbar')

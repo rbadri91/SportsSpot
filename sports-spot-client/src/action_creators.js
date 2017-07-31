@@ -19,60 +19,11 @@ export function login(email, password) {
     };
 }
 export function setCurrentNews(current_news) {
-    console.log("set current news to dispatch");
     return {
         type: 'SET_CURRENT_NEWS',
         current_news
     };
 }
-
-
-// export function getTestNFLNews() {
-//     console.log("in getTestNFLNews");
-//     return {
-//         meta: { remote: true },
-//         type: 'GET_CURRENT_NFL_NEWS'
-//     };
-// }
-// export function getCurrentNBANews() {
-//     console.log("it comes here");
-//     return dispatch => {
-//         console.log("it comes inside dispatch");
-//         return getNBANewsJSON()
-//             .then(response => {
-//                 return response.json();
-//             }).then(function(data) {
-//                 dispatch(setCurrentNews(data));
-//             });
-//     };
-// }
-
-// export function getCurrentNHLNews() {
-//     return dispatch => {
-//         return getNHLNewsJSON()
-//             .then(response => {
-//                 return response.json();
-//             }).then(function(data) {
-//                 dispatch(setCurrentNews(data));
-//             });
-//     };
-// }
-
-// function getNHLNewsJSON() {
-//     return fetch('json/NHL.json');
-// }
-
-// function getMLBNewsJSON() {
-//     return fetch('json/MLB.json');
-// }
-
-// function getNBANewsJSON() {
-//     return fetch('json/NBA.json');
-// }
-
-// function getNFLNewsJSON() {
-//     return fetch('json/NFL.json');
-// }
 
 export function getCurrentALLNews() {
     console.log("in getCurrentAllNews");
@@ -110,47 +61,54 @@ export function getCurrentNHLNews() {
     };
 }
 
-// export function getCurrentMLBNews() {
-//     return dispatch => {
-//         return getMLBNewsJSON()
-//             .then(response => {
-//                 return response.json();
-//             }).then(function(data) {
-//                 dispatch(setCurrentNews(data));
-//             });
-//     };
-// }
-
-function getScores(game, season) {
+export function getScores(game = 'nhl', season = '2016-2017-regular', forDate = '20170101') {
+    console.log("it comes to get scores");
     return {
+        meta: { remote: true },
         type: 'GET_SCORES',
-        game,
-        season
-    }
+        gameType: game,
+        season: season,
+        forDate: forDate
+    };
 }
 
-function getSchedule(game, season) {
+export function getSchedule(game = 'nhl', season = '2016-2017-regular') {
+    console.log("it comes to getSchedule");
     return {
+        meta: { remote: true },
         type: 'GET_SCHEDULES',
         game,
         season
-    }
+    };
 }
 
-function getStandings(game, season) {
+export function getStandings(game = 'nhl', season = '2016-2017-regular') {
+    console.log("it comes to getStandings");
     return {
+        meta: { remote: true },
         type: 'GET_STANDINGS',
         game,
         season
-    }
+    };
 }
 
-function getStats(game, season) {
+export function getStats(game = 'nhl', season = '2016-2017-regular') {
+    console.log("it comes to getStats");
     return {
+        meta: { remote: true },
         type: 'GET_STATS',
         game,
         season
-    }
+    };
+}
+
+export function getTeams(game = 'nhl', season = '2016-2017-regular') {
+    return {
+        meta: { remote: true },
+        type: 'GET_TEAMS',
+        game,
+        season
+    };
 }
 
 function getScoresCallback(game = 'nhl', season = '2017-playoff') {

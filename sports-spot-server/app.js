@@ -9,7 +9,7 @@ var spawn = require("child_process").spawn;
 
 import makeStore from './src/store';
 import startServer from './src/server';
-import { getAllNews } from './src/core';
+import { getAllNews, setMSFConfig } from './src/core';
 
 
 var msf = new MySportsFeeds("1.0", true);
@@ -19,10 +19,16 @@ dotenv.load();
 
 msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
 
+// msf.getData('mlb', '2016-playoff', 'full_game_schedule', 'json', {}).then((data) => {
+//     console.log("test data:", data.fullgameschedule.gameentry);
+// });
+
+setMSFConfig(msf);
+
 export const store = makeStore();
 startServer(store);
 
-getAllNews(http, process.env.NEWSAPI_API_KEY, Promise).then((data) => {
+getAllNews(Promise).then((data) => {
     store.dispatch({
         type: 'SET_CURRENT_ALL_NEWS',
         news: data

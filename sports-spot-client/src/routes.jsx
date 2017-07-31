@@ -19,20 +19,33 @@ import App from './components/App';
 const routes =  <div>
                 <Switch>
                     <Route  exact path="/" component={HomePageContainer}/>
-                    <Route  path="/nfl" component={subHomePageContainer}/>
-                    <Route  path="/nhl" component={subHomePageContainer}/>
-                    <Route  path="/nba" component={subHomePageContainer}/>
-                    <Route  path="/mlb" component={subHomePageContainer}/>
+                    <Route exact path="/nfl" component={subHomePageContainer}/>
+                    <Route exact path="/nhl" component={subHomePageContainer}/>
+                    <Route exact path="/nba" component={subHomePageContainer}/>
+                    <Route exact path="/mlb" component={subHomePageContainer}/>
                     <Route  path ="/login" component = {LoginPage}/>
                     <Route  path ="/signup" component = {SignUpPage}/>
-                </Switch>
-                </div>
-
-export const subNavroutes = <SubNavigation>
-                    <Route  path="/scores" component={ScorePageContainer}/>
+                    <Route  path="/nba/scores" component={ScorePageContainer}/>
+                    <Route  path="/mlb/scores" component={ScorePageContainer}/>
+                    <Route  path="/nfl/scores" component={ScorePageContainer}/>
+                    <Route  path="/nhl/scores" component={ScorePageContainer}/>
                     <Route  path="/schedules" component={SchedulePageContainer}/>
                     <Route  path="/standings" component={StandingsPageContainer}/>
                     <Route  path="/stats" component={StatsPageContainer}/>
                     <Route  path ="/teams" component = {TeamsPageContainer}/>
-    </SubNavigation>          
+                </Switch>
+                </div>
+
+export const subNavroutes = <div>
+                <Switch>
+                    <Route  path="/nba/scores" component={ScorePageContainer}/>
+                    <Route  path="/mlb/scores" component={ScorePageContainer}/>
+                    <Route  path="/nfl/scores" component={ScorePageContainer}/>
+                    <Route  path="/nhl/scores" component={ScorePageContainer}/>
+                    <Route  path="/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/standings" component={StandingsPageContainer}/>
+                    <Route  path="/stats" component={StatsPageContainer}/>
+                    <Route  path ="/teams" component = {TeamsPageContainer}/>
+                </Switch>
+    </div>          
 export default routes;
