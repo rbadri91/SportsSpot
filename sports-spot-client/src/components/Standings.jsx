@@ -5,21 +5,19 @@ import StandingPanel from './StandingPanel';
 
 class StandingsPage extends PureComponent{
   render() {
-          return <div className="news-holder">
-            <div className="containerWrapper">
-              <div className="s-row">
-                <div className="col-sm-12">
+          return <div className="standings-holder">
+            <div className="standings-content-wrapper">
+               <div className="standings-content">
                     <StandingPanel {...this.props} />
-                </div> 
               </div>
             </div>
           </div>;
   }
 };
 
-function mapNewsToProps(curr_scores){
+function mapNewsToProps(curr_feeds){
   return {
-    scores:curr_scores
+    standings:curr_feeds
   }
 }
 

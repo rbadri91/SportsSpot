@@ -19,7 +19,7 @@ def main():
     er = EventRegistry(apiKey = "356d961c-b25b-45b0-b52a-6b8e1b8be55e")
     sport = "Hockey Ice Hockey" 
     # [er.getConceptUri("Major League Baseball"),er.getConceptUri("National Basketball Association"),er.getConceptUri("National Hockey League"),er.getConceptUri("National Football League")
-    q = QueryArticles(conceptUri= QueryItems.OR([er.getConceptUri("National Football League")]), sourceUri =QueryItems.OR([er.getNewsSourceUri("cbssports"),er.getNewsSourceUri("espn.go.com"),er.getNewsSourceUri("foxsports.com")]))
+    q = QueryArticles(conceptUri= QueryItems.OR([er.getConceptUri("Major League Baseball"),er.getConceptUri("National Basketball Association"),er.getConceptUri("National Hockey League"),er.getConceptUri("National Football League")]), sourceUri =QueryItems.OR([er.getNewsSourceUri("cbssports"),er.getNewsSourceUri("espn.go.com"),er.getNewsSourceUri("foxsports.com")]))
     infoList =list()
 
     q.setRequestedResult(RequestArticlesInfo(page = 1, count = 50,
@@ -31,7 +31,7 @@ def main():
     # for article in er.execQuery(q):
     #     infoList.append(article)
 
-    with open('public/json/NFL.json', 'w') as fp:
+    with open('public/json/ALLSports.json', 'w') as fp:
         json.dump(res['articles']['results'], fp)
     
     # print("ended")

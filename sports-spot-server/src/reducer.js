@@ -17,12 +17,11 @@ export default function reducer(curr_feeds = CURRENT_FEEDS, action) {
         case 'GET_CURRENT_MLB_NEWS':
             return getCurrentMLBNews(curr_feeds);
         case 'GET_SCORES':
-            console.log("it comes to GET_SCORES");
             return getScores(curr_feeds, action.gameType, action.season, action.forDate);
         case 'GET_SCHEDULES':
             return getSchedules(curr_feeds, action.game, action.season);
         case 'GET_STANDINGS':
-            return getStandings(curr_feeds, action.game, action.season);
+            return getStandings(curr_feeds, action.game, action.season, action.teamStats);
         case 'GET_STATS':
             return getStats(curr_feeds, action.game, action.season);
     }

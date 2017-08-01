@@ -2,7 +2,6 @@ import React ,{PureComponent} from 'react';
 
 export default class ImpNewsPanel extends PureComponent{
     getImpNews(){
-        console.log("nes here:",this.props.news);
         return (this.props.news)?this.props.news.slice(0,7):[];
     }
     render() {

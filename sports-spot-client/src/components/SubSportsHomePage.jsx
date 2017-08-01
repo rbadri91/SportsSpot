@@ -21,7 +21,6 @@ class SubHomePage extends PureComponent{
     }
 }
 function mapNewsToProps(curr_feeds){
-  console.log("curr_feeds here:",curr_feeds);
   return {
     news:curr_feeds
   }

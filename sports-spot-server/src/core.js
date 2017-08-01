@@ -146,7 +146,6 @@ export function getScores(curr_feeds, game, season, forDate) {
 export function getSchedules(curr_feeds, game, season) {
     curr_feeds = new Promise((resolve, reject) => {
         msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50 }).then((data) => {
-            console.log("data here");
             return resolve(List(data.fullgameschedule.gameentry));
         }).catch(() => {
             return reject();
@@ -156,7 +155,18 @@ export function getSchedules(curr_feeds, game, season) {
 }
 
 export function getStandings(curr_feeds, game, season, teamStats) {
-    return msf.getData(game, season, 'conference_team_standings', 'json', { teamstats: teamStats })
+    console.log("game here:", game);
+    console.log("season here:", season);
+    console.log("teamStats here:", teamStats);
+    curr_feeds = new Promise((resolve, reject) => {
+        return msf.getData(game, season, 'division_team_standings', 'json', { teamstats: teamStats }).then((data) => {
+            console.log("data here");
+            return resolve(List(data.divisionteamstandings.division));
+        }).catch(() => {
+            return reject();
+        });
+    });
+    return curr_feeds;
 }
 
 export function getStats(curr_feeds, game, season, ) {

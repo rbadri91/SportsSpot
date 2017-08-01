@@ -239,9 +239,49 @@ a:hover {
     color: grey;
 }
 
-a.active {
-    color: #000000 !important;
-    text-decoration: underline !important;
+.navbar-inverse .navbar-nav>.active>a {
+    background-color: rgb(89, 89, 197);
+}
+
+.seasonPanel {
+    margin-left: 30px;
+    border: 0;
+    display: inline-block;
+    float: left;
+    padding: 0;
+    top: 0;
+    border: inherit;
+    font-size: inherit;
+    height: auto;
+    letter-spacing: inherit;
+    line-height: inherit;
+    margin: inherit;
+    padding: inherit;
+    text-transform: default;
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.season-dropdown-menu {
+    border-radius: 38px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    line-height: 1.1;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    vertical-align: middle;
+    border: 1px solid #147cd1;
+    color: #147cd1;
+    padding: 0;
 }
 
 .subNavConfig {
@@ -459,7 +499,8 @@ table.schedule th:first-child:not(.date) {
     width: 130px;
 }
 
-.schedule-holder {
+.schedule-holder,
+.standings-holder {
     min-height: 100%;
     height: auto !important;
     background-color: #efefef;
@@ -475,26 +516,28 @@ table.schedule th:first-child:not(.date) {
 }
 
 @media screen and (max-width: 1023px) and (min-width: 768px) {
-    .schedule-holder {
+    .schedule-holder,
+    .standings-holder {
         width: 740px;
         padding: 0;
     }
 }
 
-.schedule-content-wrapper {
+.schedule-content-wrapper,
+.standings-content-wrapper {
     background: #fff;
     margin-right: 0;
     padding: 0 20px;
     width: 100%;
 }
 
-.schedule-innerWrapper table td,
-.schedule-innerWrapper table th {
+.content-innerWrapper table td,
+.content-innerWrapper table th {
     overflow: hidden;
     position: relative;
 }
 
-.schedule-innerWrapper table thead:first-of-type th {
+.content-innerWrapper table thead:first-of-type th {
     height: 22px;
     padding-top: 0;
 }
@@ -503,7 +546,7 @@ table th:first-child {
     text-align: left;
 }
 
-.schedule-innerWrapper table th {
+.content-innerWrapper table th {
     border-bottom: 1px #dcdddf solid;
     color: #48494a;
     font-size: 11px;
@@ -527,13 +570,13 @@ table th:first-child {
     }
 }
 
-.schedule-innerWrapper {
+.content-innerWrapper {
     margin: 0 0 21px;
     overflow: hidden;
     position: relative;
 }
 
-.scheduleData {
+.contentTable {
     width: 100%;
 }
 
@@ -541,22 +584,22 @@ table th:first-child {
     border-top: 1px #dcdddf solid;
 }
 
-.schedule-innerWrapper table thead tr,
-.schedule-innerWrapper table thead tr:nth-child(odd) {
+.content-innerWrapper table thead tr,
+.content-innerWrapper table thead tr:nth-child(odd) {
     background: none;
     border-top: 0;
 }
 
-.schedule-innerWrapper table tr {
+.content-innerWrapper table tr {
     border-top: 1px solid #f1f2f3;
 }
 
-.schedule-innerWrapper table td {
+.content-innerWrapper table td {
     overflow: hidden;
     position: relative;
 }
 
-.scheduleData td {
+.contentTable td {
     color: #6c6d6f;
     font-size: 12px;
     font-weight: 400;
@@ -570,9 +613,35 @@ table th:first-child {
 
 
 }
-.scheduleData td:first-child {
+.contentTable td:first-child {
     text-align: left;
 }
-table.scheduleData td {
+table.contentTable td {
     padding: 1px 4px 0 4px;
+}
+.main-section-title {
+    height: 28px;
+    padding: 0 4px;
+    background-color: #1f6ae6;
+    border: solid 1px #1f6ae6;
+    border-bottom: 0;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.16em;
+    margin-left: -3%;
+    margin-right: -3%;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+}
+.sub-section-title {
+    text-transform: uppercase;
+    background: #ddd;
+    font-weight: 600;
+    border: solid 1px #ddd;
+    font-family: 'Josefin Slab', serif;
+    line-height: 1.15;
+    font-size: 1rem;
 }

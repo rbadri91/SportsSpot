@@ -15,7 +15,6 @@ export default class SchedulePanel extends PureComponent{
         this.week ="0";
     }
     getSchedules(){
-        console.log("schedule here:",this.props.schedule);
         return this.props.schedule ||[];
     }
     checkDateEqual(date){
@@ -27,7 +26,6 @@ export default class SchedulePanel extends PureComponent{
         }
     }
     checkWeekEqual(week){
-        console.log("week here in check equl:",week);
          if(this.week == week){
             return true;
         }else{
@@ -61,7 +59,7 @@ export default class SchedulePanel extends PureComponent{
                 start=end;
                 end++;
             }
-            i++;
+            i++;    
         }while (end< len);
         result.push(array.slice(start, end));
         return result;
@@ -81,7 +79,7 @@ export default class SchedulePanel extends PureComponent{
                     <div key ={index}  className ="schedulePanelHolder">    
                         <h4 className="dateHeaderLabel">{schedulelot[0].date}</h4>
                         <div className ="outerTableWrapper">
-                            <div className ="schedule-innerWrapper">
+                            <div className ="content-innerWrapper">
                             <table className="scheduleData">
                                 <thead>
                                     <tr className="ss-row tablelabel">

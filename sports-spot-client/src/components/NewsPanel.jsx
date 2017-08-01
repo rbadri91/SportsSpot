@@ -9,7 +9,6 @@ export default class NewsPanel extends PureComponent{
         this.state={response:{}}
     }
     getNews(){
-        console.log("news here:",this.props.news);
         return this.props.news ||[];
     }
     getInitialState(){

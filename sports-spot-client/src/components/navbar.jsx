@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem,NavLink } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
@@ -20,15 +21,15 @@ class MainNav extends Component {
                 <Navbar inverse fixedTop collapseOnSelect style={{background:"#5959c5",color:"white"}}>
                     <Navbar.Header>
                     <LinkContainer to={`/`} style={{cursor:"pointer",color:"white"}}>    
-                        <Navbar.Brand onClick={this.props.getCurrentALLNews} >
+                        <Navbar.Brand onClick={this.props.getCurrentALLNews}>
                           SportsSpot
                         </Navbar.Brand>
                     </LinkContainer>    
-                    <Navbar.Toggle />
+                    <Navbar.Toggle />   
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <LinkContainer to={`/nfl`} style={{color:"white"}}>
+                            <LinkContainer to={`/nfl`} style={{color:"white"}} >
                                 <NavItem onClick={this.props.getCurrentNFLNews} eventKey={1}>NFL</NavItem>
                             </LinkContainer>
                             <LinkContainer to = {`/mlb`} style={{color:"white"}}>
@@ -64,5 +65,7 @@ MainNav.propTypes = {
   getCurrentALLNews : PropTypes.func.isRequired
 };
 
-export default connect(null,actionCreators)(MainNav);
+export default connect(null,actionCreators,null,{
+  pure: false
+})(MainNav);
 // export default MainNav;

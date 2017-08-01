@@ -26,7 +26,6 @@ export function setCurrentNews(current_news) {
 }
 
 export function getCurrentALLNews() {
-    console.log("in getCurrentAllNews");
     return {
         meta: { remote: true },
         type: 'GET_CURRENT_ALL_NEWS'
@@ -61,8 +60,28 @@ export function getCurrentNHLNews() {
     };
 }
 
-export function getScores(game = 'nhl', season = '2016-2017-regular', forDate = '20170101') {
-    console.log("it comes to get scores");
+export function getScores(game = 'nhl', season = 'default', forDate = 'default') {
+    if (season == 'default') {
+        season = '2016-2017-regular';
+    }
+    if (forDate == 'default') {
+        if (season == '2016-2017-regular') {
+            if (game == 'mlb') forDate = '20160404';
+            else if (game == 'nba') forDate = '20161025';
+            else if (game == 'nfl') forDate = '20160908';
+            else forDate = '20161012';
+        } else if (season == '2015-2016-regular') {
+            if (game == 'mlb') forDate = '20150404';
+            else if (game == 'nba') forDate = '20151027';
+            else if (game == 'nfl') forDate = '20150910';
+            else forDate = '20151007';
+        } else if (season == '2014-2015-regular') {
+            if (game == 'mlb') forDate = '20140404';
+            else if (game == 'nba') forDate = '20141028';
+            else if (game == 'nfl') forDate = '20140904';
+            else forDate = '20141008';
+        } else forDate = '20170101';
+    }
     return {
         meta: { remote: true },
         type: 'GET_SCORES',
@@ -73,7 +92,6 @@ export function getScores(game = 'nhl', season = '2016-2017-regular', forDate = 
 }
 
 export function getSchedule(game = 'nhl', season = '2016-2017-regular') {
-    console.log("it comes to getSchedule");
     return {
         meta: { remote: true },
         type: 'GET_SCHEDULES',
@@ -82,13 +100,20 @@ export function getSchedule(game = 'nhl', season = '2016-2017-regular') {
     };
 }
 
-export function getStandings(game = 'nhl', season = '2016-2017-regular') {
-    console.log("it comes to getStandings");
+export function getStandings(game = 'nhl', season = '2016-2017-regular', teamStats = 'default') {
+    if (teamStats === 'default') {
+        if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA';
+        else if (game === 'nba') teamStats = 'W,L,Win %,GB';
+        else if (game === 'mlb') teamStats = 'W,L,GB,Win %,RF,RA,RUNDIFF';
+        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF';
+    }
+
     return {
         meta: { remote: true },
         type: 'GET_STANDINGS',
         game,
-        season
+        season,
+        teamStats
     };
 }
 
