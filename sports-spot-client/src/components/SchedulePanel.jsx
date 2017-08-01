@@ -80,7 +80,7 @@ export default class SchedulePanel extends PureComponent{
                         <h4 className="dateHeaderLabel">{schedulelot[0].date}</h4>
                         <div className ="outerTableWrapper">
                             <div className ="content-innerWrapper">
-                            <table className="scheduleData">
+                            <table className="contentTable">
                                 <thead>
                                     <tr className="ss-row tablelabel">
                                                             <th className ="matchLabel">Game</th>
