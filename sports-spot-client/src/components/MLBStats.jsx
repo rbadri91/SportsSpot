@@ -1,0 +1,158 @@
+import React ,{PureComponent}from 'react';
+import {connect} from 'react-redux';
+import * as actionCreators from '../action_creators';
+import StatsPanel from './StatsPanel';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+class MLBStatsPage extends PureComponent{
+
+  getSortAbbreviation(name){
+      if(name==='Batting Average') return 'stats.AVG.D';
+      else if(name==='ERA') return 'stats.ERA.D';
+      else if(name==='Fielding Percentage') return 'stats.FPCT.D';
+      else if(name==='Home Runs') return 'stats.HR.D';
+      else if(name==='Wins') return 'stats.W.D';
+      else if(name==='Double Plays') return 'stats.FDP.D';
+      else if(name==='Runs Batted In') return 'stats.RBI.D';
+      else if(name==='Saves') return 'stats.SV.D';
+      else if(name==='Errors') return 'stats.E';
+      else if(name==='Hits') return 'stats.H.D';
+      else if(name==='Strikeouts') return 'stats.SO.D';
+      else if(name==='Total Chances') return 'stats.TC.D';
+      else if(name==='On-Base Percentage') return 'stats.OBP.D';
+      else if(name==='WHIP') return 'stats.WHIP.D';
+      else if(name==='Outfield Assists') return 'stats.A.D';
+
+  }
+  handleLinkClick(functionParam,statType,orderBy,game){
+      functionParam(statType,orderBy,game);
+  }
+
+  constructColumn(statsFor,data1,data2,data3,functionParam){
+    var columns =[];
+    var data1_sortAbb= this.getSortAbbreviation(data1);
+    var data2_sortAbb= this.getSortAbbreviation(data2);
+    var data3_sortAbb= this.getSortAbbreviation(data3);
+    var location1 = '/mlb/showStatPanel/'+statsFor+"_"+data1;
+    var location2 = '/mlb/showStatPanel/'+statsFor+"_"+data2;
+    var location3 = '/mlb/showStatPanel/'+statsFor+"_"+data3;
+    columns.push(<td><Link to={location1} onClick={() => this.handleLinkClick(functionParam,'batting',data1_sortAbb,'mlb')}>{data1}</Link></td>);
+    columns.push(<td><Link to={location2} onClick={() => this.handleLinkClick(functionParam,'pitching',data2_sortAbb,'mlb')}>{data2}</Link></td>);
+    columns.push(<td><Link to={location3} onClick={() => this.handleLinkClick(functionParam,'fielding',data3_sortAbb,'mlb')}>{data3}</Link></td>);
+    return columns;
+  }
+  render() {
+          return <div className="schedule-holder">
+            <div className="schedule-content-wrapper">
+                <div className="sorttable-content-innerwrapper">
+                      <div className="sort-container sort-table">
+                            <div className="sort-header">
+                              <h4 className="main-section-title">Sortables</h4>
+                            </div>
+                            <div className="sorttable-content">
+                              <table className= "optionData">
+                                  <tbody>
+                                    <tr className = "tableSectionHeader">
+                                      <td colSpan ={2}>Entire MLB</td>
+                                      </tr>
+                                      <tr className = "tableLabel">
+                                        <td>Players</td>
+                                        <td>Teams</td>
+                                      </tr>
+                                      <tr className="tableContent">
+                                        <td>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'batting','stats.AVG','mlb')}>Batting</Link>
+                                          <br/>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'pitching','stats.W','mlb')}>Pitching</Link>
+                                          <br/>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'fielding','stats.FPCT','mlb')}>Fielding</Link>
+                                        </td>
+                                        <td>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'batting','stats.AVG','mlb')}>Batting</Link>
+                                          <br/>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'pitching','stats.ERA','mlb')}>Pitching</Link>
+                                          <br/>
+                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'fielding','stats.FPCT','mlb')}>Fielding</Link>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                              </table>
+                            </div>
+                        </div>
+                        <div className="PlayerStatsWrapper">
+                          <table className="optionData">
+                                <tbody>
+                                  <tr className="tableTitle">
+                                    <td colSpan={3}>Player Stats</td>
+                                   </tr>
+                                   <tr className="tableSectionHeader">
+                                     <td>Batting</td>
+                                     <td>Pitching</td>
+                                     <td>Fielding</td>
+                                     </tr>
+                                     <tr className="even">
+                                       {this.constructColumn('player','Batting Average','ERA','Fielding Percentage',this.props.getStats)}
+                                     </tr>
+                                     <tr className="odd">
+                                        {this.constructColumn('player','Home Runs','Wins','Double Plays',this.props.getStats)}
+                                     </tr>
+                                     <tr className="even">
+                                        {this.constructColumn('player','Runs Batted In','Saves','Errors',this.props.getStats)}
+                                     </tr>
+                                      <tr className="odd">
+                                        {this.constructColumn('player','Hits','Strikeouts','Total Chances',this.props.getStats)}
+                                     </tr>
+                                     <tr className="even">
+                                        {this.constructColumn('player','On-Base Percentage','WHIP','Outfield Assists',this.props.getStats)}
+                                     </tr>
+                                  </tbody>
+                            </table>
+                        </div>
+                        <div className="TeamStatsWrapper">
+                          <table className="optionData">
+                                <tbody>
+                                  <tr className="tableTitle">
+                                    <td colSpan={3}>Team Stats</td>
+                                   </tr>
+                                   <tr className="tableSectionHeader">
+                                     <td>Batting</td>
+                                     <td>Pitching</td>
+                                     <td>Fielding</td>
+                                     </tr>
+                                     <tr className="even">
+                                       {this.constructColumn('team','Runs Scored','ERA','	Errors',this.props.getStandings)}
+                                     </tr>
+                                     <tr className="odd">
+                                        {this.constructColumn('team','Home Runs','Wins','Double Plays',this.props.getStandings)}
+                                     </tr>
+                                     <tr className="even">
+                                        {this.constructColumn('team','Runs Batted In','Saves','Fielding Percentage',this.props.getStandings)}
+                                     </tr>
+                                      <tr className="odd">
+                                        {this.constructColumn('team','Hits','Strikeouts','Total Chances',this.props.getStandings)}
+                                     </tr>
+                                     <tr className="even">
+                                        {this.constructColumn('team','On-Base Percentage','WHIP','Outfield Assists',this.props.getStandings)}
+                                     </tr>
+                                  </tbody>
+                            </table>
+                        </div>
+                </div> 
+              </div>
+            </div>
+  }
+};
+
+function mapMLBStatsToProps(curr_stats){
+  return {
+    stats:curr_stats
+  }
+}
+
+MLBStatsPage.propTypes = {
+  getStats : PropTypes.func.isRequired,
+  getStandings: PropTypes.func.isRequired,
+};
+
+export const MLBStatsPageContainer = connect(mapMLBStatsToProps,actionCreators)(MLBStatsPage);

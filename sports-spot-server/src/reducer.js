@@ -21,9 +21,9 @@ export default function reducer(curr_feeds = CURRENT_FEEDS, action) {
         case 'GET_SCHEDULES':
             return getSchedules(curr_feeds, action.game, action.season);
         case 'GET_STANDINGS':
-            return getStandings(curr_feeds, action.game, action.season, action.teamStats);
+            return getStandings(curr_feeds, action.game, action.season, action.teamStats, action.sortBy);
         case 'GET_STATS':
-            return getStats(curr_feeds, action.game, action.season);
+            return getStats(curr_feeds, action.game, action.season, action.sortBy, action.playerStats);
     }
     return Promise.resolve(curr_feeds);
 }

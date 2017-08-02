@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../action_creators';
 
 class subNavigation extends Component{
-    handleScoresClick(functionParam){
+    handleNavClick(functionParam){
         var currPath = window.location.href;
         if(currPath.indexOf('nfl')!=-1){
                 functionParam('nfl');
@@ -44,30 +44,6 @@ class subNavigation extends Component{
              functionParam('nba');
         }
     }
-    handleStatsClick(functionParam){
-        var currPath = window.location.href;
-        if(currPath.indexOf('nfl')!=-1){
-                functionParam('nfl');
-        }else if(currPath.indexOf('nhl')!=-1){
-            functionParam('nhl');
-        }else if(currPath.indexOf('mlb')!=-1){
-            functionParam('mlb');
-        }else{
-             functionParam('nba');
-        }
-    }
-    handleStandingsClick(functionParam){
-        var currPath = window.location.href;
-        if(currPath.indexOf('nfl')!=-1){
-                functionParam('nfl');
-        }else if(currPath.indexOf('nhl')!=-1){
-            functionParam('nhl');
-        }else if(currPath.indexOf('mlb')!=-1){
-            functionParam('mlb');
-        }else{
-             functionParam('nba');
-        }
-    }
     getHeader(){
         var header ='';
         var currPath = window.location.href;
@@ -86,13 +62,13 @@ class subNavigation extends Component{
         var path ='';
         var currPath = window.location.href;
         if(currPath.indexOf('nfl')!=-1){
-                path= 'nfl';
+                path= '/nfl';
         }else if(currPath.indexOf('nhl')!=-1 && currPath.indexOf('/nhl/')==-1){
-                path= 'nhl';
+                path= '/nhl';
         }else if(currPath.indexOf('mlb')!=-1){
-                path= 'mlb';
+                path= '/mlb';
         }else if(currPath.indexOf('nba')!=-1){
-                path= 'nba';
+                path= '/nba';
         }
         return path;
     }
@@ -111,16 +87,16 @@ class subNavigation extends Component{
                                <NavItem  eventKey={1} onClick={() => this.handleHomeClick()}>Home</NavItem>
                             </LinkContainer>
                             <LinkContainer to={this.getRalativePath()+"/scores"}>
-                               <NavItem value ={'nfl'} onClick={() => this.handleScoresClick(this.props.getScores)} eventKey={2}>Scores</NavItem>
+                               <NavItem value ={'nfl'} onClick={() => this.handleNavClick(this.props.getScores)} eventKey={2}>Scores</NavItem>
                             </LinkContainer>
                             <LinkContainer to={this.getRalativePath()+"/schedules"}>
-                               <NavItem onClick={() => this.handleScheduleClick(this.props.getSchedule)} eventKey={3}>Schedule</NavItem>
+                               <NavItem onClick={() => this.handleNavClick(this.props.getSchedule)} eventKey={3}>Schedule</NavItem>
                             </LinkContainer>
                             <LinkContainer to={this.getRalativePath()+"/standings"}>
-                               <NavItem onClick={() => this.handleScheduleClick(this.props.getStandings)} eventKey={4}>Standings</NavItem>
+                               <NavItem onClick={() => this.handleNavClick(this.props.getStandings)} eventKey={4}>Standings</NavItem>
                             </LinkContainer>
                             <LinkContainer to={this.getRalativePath()+"/stats"}>
-                               <NavItem onClick={() => this.handleScheduleClick(this.props.getStats)} eventKey={5}>Stats</NavItem>
+                               <NavItem eventKey={5}>Stats</NavItem>
                             </LinkContainer> 
                             <LinkContainer to={this.getRalativePath()+"/teams"}>
                                <NavItem onClick={this.props.getTeams} eventKey={6}>Teams</NavItem>
@@ -135,7 +111,6 @@ subNavigation.propTypes = {
   getScores : PropTypes.func.isRequired,
   getSchedule : PropTypes.func.isRequired,
   getStandings : PropTypes.func.isRequired,
-  getStats : PropTypes.func.isRequired,
   getTeams : PropTypes.func.isRequired,
   getCurrentNFLNews:PropTypes.func.isRequired,
   getCurrentMLBNews:PropTypes.func.isRequired,

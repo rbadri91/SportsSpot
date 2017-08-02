@@ -2,10 +2,14 @@
 import {HomePageContainer} from './components/SportsHome.jsx';
 import {subHomePageContainer} from './components/SubSportsHomePage.jsx';
 import {ScorePageContainer} from './components/Scores.jsx';
-import {StatsPageContainer} from './components/Stats.jsx';
+import {MLBStatsPageContainer} from './components/MLBStats.jsx';
+import {NBAStatsPageContainer} from './components/NBAStats.jsx';
+import {NFLStatsPageContainer} from './components/NFLStats.jsx';
+import {NHLStatsPageContainer} from './components/NHLStats.jsx';
 import {SchedulePageContainer} from './components/Schedule.jsx';
 import {TeamsPageContainer} from './components/Teams.jsx';
 import {StandingsPageContainer} from './components/Standings.jsx';
+import StatsPanel from './components/StatsPanel.jsx';
 
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
@@ -29,12 +33,10 @@ const routes =  <div>
                     <Route  path="/mlb/home" component={subHomePageContainer}/>
                     <Route  path="/nfl/home" component={subHomePageContainer}/>
                     <Route  path="/nhl/home" component={subHomePageContainer}/>
-                    <Route  path="/scores" component={ScorePageContainer}/>
                     <Route  path="/nba/scores" component={ScorePageContainer}/>
                     <Route  path="/mlb/scores" component={ScorePageContainer}/>
                     <Route  path="/nfl/scores" component={ScorePageContainer}/>
                     <Route  path="/nhl/scores" component={ScorePageContainer}/>
-                    <Route  path="/schedules" component={ScorePageContainer}/>
                     <Route  path="/nba/schedules" component={SchedulePageContainer}/>
                     <Route  path="/mlb/schedules" component={SchedulePageContainer}/>
                     <Route  path="/nfl/schedules" component={SchedulePageContainer}/>
@@ -43,15 +45,18 @@ const routes =  <div>
                     <Route  path="/mlb/standings" component={StandingsPageContainer}/>
                     <Route  path="/nfl/standings" component={StandingsPageContainer}/>
                     <Route  path="/nhl/standings" component={StandingsPageContainer}/>
-                    <Route  path="/stats" component={ScorePageContainer}/>
-                    <Route  path="/nba/stats" component={StatsPageContainer}/>
-                    <Route  path="/mlb/stats" component={StatsPageContainer}/>
-                    <Route  path="/nfl/stats" component={ScorePageContainer}/>
-                    <Route  path="/nhl/stats" component={StatsPageContainer}/>
+                    <Route  path="/nba/stats" component={NBAStatsPageContainer}/>
+                    <Route  path="/mlb/stats" component={MLBStatsPageContainer}/>
+                    <Route  path="/nfl/stats" component={NFLStatsPageContainer}/>
+                    <Route  path="/nhl/stats" component={NHLStatsPageContainer}/>
                     <Route  path="/nba/teams" component={TeamsPageContainer}/>
                     <Route  path="/mlb/teams" component={TeamsPageContainer}/>
                     <Route  path="/nfl/teams" component={TeamsPageContainer}/>
                     <Route  path="/nhl/teams" component={TeamsPageContainer}/>
+                    <Route  path="/nba/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/mlb/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/nfl/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/nhl/showStatPanel" component={StatsPanel}/>
                 </Switch>
                 </div>
 
@@ -63,7 +68,18 @@ export const subNavroutes = <div>
                     <Route  path="/nhl/scores" component={ScorePageContainer}/>
                     <Route  path="/schedules" component={SchedulePageContainer}/>
                     <Route  path="/standings" component={StandingsPageContainer}/>
-                    <Route  path="/stats" component={StatsPageContainer}/>
+                    <Route  path="/nba/standings" component={StandingsPageContainer}/>
+                    <Route  path="/mlb/standings" component={StandingsPageContainer}/>
+                    <Route  path="/nfl/standings" component={StandingsPageContainer}/>
+                    <Route  path="/nhl/standings" component={StandingsPageContainer}/>
+                    <Route  path="/nba/stats" component={NBAStatsPageContainer}/>
+                    <Route  path="/mlb/stats" component={MLBStatsPageContainer}/>
+                    <Route  path="/nfl/stats" component={NFLStatsPageContainer}/>
+                    <Route  path="/nhl/stats" component={NHLStatsPageContainer}/>
+                    <Route  path="/nba/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/mlb/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/nfl/showStatPanel" component={StatsPanel}/>
+                    <Route  path="/nhl/showStatPanel" component={StatsPanel}/>
                     <Route  path ="/teams" component = {TeamsPageContainer}/>
                      <Route  path ="/home" component = {subHomePageContainer}/>
                 </Switch>

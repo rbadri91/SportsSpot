@@ -631,7 +631,7 @@ table.contentTable td {
     margin-left: -3%;
     margin-right: -3%;
     color: #fff;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     text-transform: uppercase;
     font-family: 'Lato', sans-serif;
@@ -644,4 +644,93 @@ table.contentTable td {
     font-family: 'Josefin Slab', serif;
     line-height: 1.15;
     font-size: 1rem;
+}
+.sort-container {
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+    clear: both;
+}
+.sort-header {
+    height: 25px;
+    clear: both;
+    background: #0f4871;
+    color: #fff;
+}
+.sort-header h4 {
+    color: #fff;
+    margin: 0;
+    padding: 0 0 0 10px;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1rem;
+    line-height: 25px;
+    letter-spacing: .3px;
+}
+.sorttable-content {
+    padding: 0 !important;
+    margin-bottom: 6px;
+    border-bottom-width: 1px;
+    padding-bottom: 2px;
+    background: #fff;
+    font-size: 11px;
+    overflow: hidden;
+    font-family: 'Vollkorn', serif;
+}
+.tableContent td {
+    margin: 0 auto;
+}
+.tablewrapper {
+    border-collapse: separate !important;
+    border-spacing: 1px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+table.optionData {
+    margin: 0 0 20px 0;
+    padding: 0;
+    border-collapse: collapse;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.2em;
+    width: 100%;
+}
+table.optionData td {
+    padding: 7px 4px;
+}
+table.optionData .tableSectionHeader td {
+    text-transform: uppercase;
+    background: #ddd;
+    font-weight: 700;
+    border: solid 1px #ddd;
+}
+table.optionData tr.tableTitle td {
+    height: 28px;
+    padding: 0 4px;
+    background-color: #1f6ae6;
+    border: solid 1px #1f6ae6;
+    border-bottom: 0;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.16em;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+table.optionData .tableLabel td {
+    background-color: #fff;
+    background-color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Vollkorn', serif;
+}
+.tableContent td a {
+    text-decoration: none;
+}
+table.optionData tr td a {
+    text-decoration: none;
+}
+.sorttable-content-innerwrapper {
+    padding-top: 2%;
+    padding-bottom: 30px;
 }

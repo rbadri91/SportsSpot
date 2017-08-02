@@ -154,21 +154,55 @@ export function getSchedules(curr_feeds, game, season) {
     return curr_feeds;
 }
 
-export function getStandings(curr_feeds, game, season, teamStats) {
-    console.log("game here:", game);
-    console.log("season here:", season);
-    console.log("teamStats here:", teamStats);
-    curr_feeds = new Promise((resolve, reject) => {
-        return msf.getData(game, season, 'division_team_standings', 'json', { teamstats: teamStats }).then((data) => {
-            console.log("data here");
-            return resolve(List(data.divisionteamstandings.division));
-        }).catch(() => {
-            return reject();
+export function getStandings(curr_feeds, game, season, teamStats, sortBy) {
+
+    if (!sortBy || sortBy == 'default') {
+        curr_feeds = new Promise((resolve, reject) => {
+            return msf.getData(game, season, 'division_team_standings', 'json', { teamstats: teamStats }).then((data) => {
+                console.log("data here");
+                return resolve(List(data.divisionteamstandings.division));
+            }).catch(() => {
+                return reject();
+            });
         });
-    });
+    } else {
+        curr_feeds = new Promise((resolve, reject) => {
+            return msf.getData(game, season, 'division_team_standings', 'json', { teamstats: teamStats, sort: sortBy }).then((data) => {
+                console.log("data here");
+                return resolve(List(data.divisionteamstandings.division));
+            }).catch(() => {
+                return reject();
+            });
+        });
+    }
     return curr_feeds;
 }
 
-export function getStats(curr_feeds, game, season, ) {
-    return msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerstats })
+export function getStats(curr_feeds, game, season, sortBy, playerStats) {
+    console.log("playerStats here:", playerStats);
+    console.log("sortBy here:", sortBy);
+    console.log("game here:", game);
+    console.log("season here:", season);
+    console.log("offset here:", offset);
+    console.log("limit here:", limit);
+    if (sortBy != 'default') {
+        curr_feeds = new Promise((resolve, reject) => {
+            msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy }).then((data) => {
+                return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+            }).catch(() => {
+                return reject();
+            });
+        });
+    } else {
+
+
+        curr_feeds = new Promise((resolve, reject) => {
+            msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats }).then((data) => {
+                return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+            }).catch(() => {
+                return reject();
+            });
+        });
+    }
+    return curr_feeds;
 }
