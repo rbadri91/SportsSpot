@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
-
+var Loader = require('react-loader');
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
@@ -12,20 +12,27 @@ export default class StandingsPanel extends PureComponent{
         this.state={response:{}};
         this.division ="";
         this.subDivision="";
+        this.standingsMainGroups =[];
     }
     getInitialState(){
         return {
-        response: {}
+        response: {},
+        loaded:false
         }
     }
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
-                 this.setState({response:data});
+                 this.setState({response:data,loaded:true});
+                 this.setStandingsMainGroups();
          })
     }
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
+    }
+
+    setStandingsMainGroups(){
+        this.standingsMainGroups = this.chunk(this.state.response);
     }
 
     chunk(array){
@@ -186,14 +193,10 @@ export default class StandingsPanel extends PureComponent{
     }
 
     render(){
-        if(Object.keys(this.state.response).length ==0)
-        {
-                    return <div>Loading ....</div>;
-        }
-        const standingsMainGroups = this.chunk(this.state.response);
-        return <div className ="standingsPanel">
+        return  <div className ="standingsPanel">
+            <Loader loaded={this.state.loaded}>
                         {
-                            standingsMainGroups.map((standingSubGroups) =>(
+                            this.standingsMainGroups.map((standingSubGroups) =>(
                             <div key ={this.getDivision(standingSubGroups[0]['@name'])} className ='standingWrapper'>    
                                 <h3 className="main-section-title">{this.getDivision(standingSubGroups[0]['@name'])}</h3>
                             {
@@ -220,6 +223,8 @@ export default class StandingsPanel extends PureComponent{
                         
                         ))
                         }
+                    </Loader>
                     </div>
+                    
     }
 }

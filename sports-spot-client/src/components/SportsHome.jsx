@@ -2,10 +2,15 @@ import React ,{PureComponent}from 'react';
 import NewsPanel from './NewsPanel';
 import ImpNewsPanel from './ImpNewsPanel';
 import {connect} from 'react-redux';
+import io from 'socket.io-client';
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
 import * as actionCreators from '../action_creators';
 
 
 class HomePage extends PureComponent{
+  constructor(props){
+        super(props);
+  }
 render() {
           return <div className="news-holder">
             <div className="containerWrapper">

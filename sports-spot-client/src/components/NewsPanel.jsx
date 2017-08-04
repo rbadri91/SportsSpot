@@ -2,6 +2,7 @@
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
+var Loader = require('react-loader');
 
 export default class NewsPanel extends PureComponent{
     constructor(props){
@@ -9,30 +10,34 @@ export default class NewsPanel extends PureComponent{
         this.state={response:[]}
     }
     getNews(){
-        return this.props.news ||[];
+        return this.state.response ||[];
     }
     getInitialState(){
+        console.log("initial state:");
         return {
-        response: []
+        response: [],
+        loaded:false
         }
+    
     }
      componentDidMount()
     {
         socket.on("curr_news",(data)=>{
-                 this.setState({response:data});
+                if(data[0] && data[0].title){
+                    console.log("it comes inside loaded");
+                     this.setState({response:data,loaded:true});
+                }
          });
     }
 
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
+         this.setState({loaded:false});
     }
 
     render() {
-        if(this.state.response.length ==0)
-        {
-                    return <div>Loading ....</div>;
-        }
         return <div className = 'newsPanel col-sm-9'>
+            <Loader loaded={this.state.loaded}>
             {
                 this.getNews().map(news =>
                     <article key={news.id} className="contentWrapper">
@@ -60,6 +65,7 @@ export default class NewsPanel extends PureComponent{
                         </section>
                     </article>
             )}
+           </Loader> 
         </div>;
     }
 }

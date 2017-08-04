@@ -611,14 +611,14 @@ table th:first-child {
     white-space: nowrap;
 }
 
-
-}
 .contentTable td:first-child {
     text-align: left;
 }
+
 table.contentTable td {
     padding: 1px 4px 0 4px;
 }
+
 .main-section-title {
     height: 28px;
     padding: 0 4px;
@@ -634,6 +634,7 @@ table.contentTable td {
     text-transform: uppercase;
     font-family: 'Lato', sans-serif;
 }
+
 .sub-section-title {
     text-transform: uppercase;
     background: #ddd;
@@ -643,17 +644,20 @@ table.contentTable td {
     line-height: 1.15;
     font-size: 1rem;
 }
+
 .sort-container {
     font-family: 'Lato', sans-serif;
     width: 100%;
     clear: both;
 }
+
 .sort-header {
     height: 25px;
     clear: both;
     background: #0f4871;
     color: #fff;
 }
+
 .sort-header h4 {
     color: #fff;
     margin: 0;
@@ -663,6 +667,7 @@ table.contentTable td {
     line-height: 25px;
     letter-spacing: .3px;
 }
+
 .sorttable-content {
     padding: 0 !important;
     margin-bottom: 6px;
@@ -673,9 +678,11 @@ table.contentTable td {
     overflow: hidden;
     font-family: 'Vollkorn', serif;
 }
+
 .tableContent td {
     margin: 0 auto;
 }
+
 .tablewrapper {
     border-collapse: separate !important;
     border-spacing: 1px;
@@ -683,6 +690,7 @@ table.contentTable td {
     padding: 0;
     width: 100%;
 }
+
 table.optionData {
     margin: 0 0 20px 0;
     padding: 0;
@@ -692,15 +700,18 @@ table.optionData {
     line-height: 1.2em;
     width: 100%;
 }
+
 table.optionData td {
     padding: 7px 4px;
 }
+
 table.optionData .tableSectionHeader td {
     text-transform: uppercase;
     background: #ddd;
     font-weight: 700;
     border: solid 1px #ddd;
 }
+
 table.optionData tr.tableTitle td {
     height: 28px;
     padding: 0 4px;
@@ -715,12 +726,14 @@ table.optionData tr.tableTitle td {
     text-decoration: none;
     text-transform: uppercase;
 }
+
 table.optionData .tableLabel td {
     background-color: #fff;
     text-transform: uppercase;
     font-weight: 700;
     font-family: 'Vollkorn', serif;
 }
+
 table.optionData .statsTableLabel td {
     background-color: #5a5ac7;
     text-transform: uppercase;
@@ -728,16 +741,20 @@ table.optionData .statsTableLabel td {
     font-weight: 700;
     font-family: 'Vollkorn', serif;
 }
+
 .tableContent td a {
     text-decoration: none;
 }
+
 table.optionData tr td a {
     text-decoration: none;
 }
+
 .sorttable-content-innerwrapper {
     padding-top: 2%;
     padding-bottom: 30px;
 }
+
 .statsPanel {
     width: 790px;
     margin: 0 auto;
@@ -746,6 +763,7 @@ table.optionData tr td a {
     padding: 2% 0;
     background: #fff;
 }
+
 table.optionData .tableLabel th {
     background-color: #fff;
     border: 1px solid #f5f5f5;
@@ -753,13 +771,20 @@ table.optionData .tableLabel th {
     text-transform: uppercase;
     font-weight: 700;
 }
+
 table.optionData th {
     padding: 7px 4px;
 }
+
 .statsContent {
     background: #fff;
 }
+
 table.optionData tbody .even td,
 table.optionData tbody .odd td {
     border-right: 1px solid #f5f5f5;
+}
+
+.pagination li>a {
+    cursor: pointer;
 }

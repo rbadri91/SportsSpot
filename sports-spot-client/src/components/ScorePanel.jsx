@@ -1,6 +1,7 @@
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
 var chunk = require('lodash.chunk');
+var Loader = require('react-loader');
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
@@ -12,21 +13,28 @@ export default class ScorePanel extends PureComponent{
         this.currentDate = d.getFullYear()+"-"+d.getMonth()+ "-"+ d.getDate();
         this.week ="1";
         this.numQuarters =4;
+        this.rowScores =[];
     }
     getInitialState(){
         return {
-        response: {}
+        response: {},
+        loaded:false
         }
     }
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
-                 this.setState({response:data});
+                 this.setState({response:data,loaded:true});
                  this.setQuaters();
+                 this.setRowScores();
          })
     }
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
+    }
+
+    setRowScores(){
+        this.rowScores = chunk(this.state.response,3);
     }
     setQuaters(){
          var currPath = window.location.href;
@@ -105,12 +113,9 @@ export default class ScorePanel extends PureComponent{
       return game;
   }
     render() {
-        if(Object.keys(this.state.response).length ==0)
-        {
-                    return <div>Loading ....</div>;
-        }
-        const rowScores = chunk(this.props.scores,3);
-        return  <div className = 'scorePanel'>
+        
+        return  <Loader loaded={this.state.loaded}>
+            <div className = 'scorePanel'>
                     <div className ="sectionTitle">{this.getGameName()} Scoreboard</div> 
                     <div className="seasonPanel">
                         <select id ="seasonSelector" className="season-dropdown-menu" onChange={() => this.handleSeasonChange(this.props.getScores)}>{this.getseasonOptions()}</select>
@@ -119,7 +124,7 @@ export default class ScorePanel extends PureComponent{
                 
                 {
                     
-                    rowScores.map((row) =>(
+                    this.rowScores.map((row) =>(
                    <div className="ss-row scorecard-row">
                     <div className="ss-row-height">
                     {
@@ -184,5 +189,6 @@ export default class ScorePanel extends PureComponent{
                 ))
                 }
             </div>
+            </Loader>
     }
 }

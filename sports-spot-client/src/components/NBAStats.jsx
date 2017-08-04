@@ -4,6 +4,7 @@ import * as actionCreators from '../action_creators';
 import StatsPanel from './StatsPanel';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+var Loader = require('react-loader');
 
 class NBAStatsPage extends PureComponent{
 
@@ -30,13 +31,13 @@ class NBAStatsPage extends PureComponent{
       else if(name==='Opponent Points') return 'stats.PTSA/G';
       else if(name==='Rebounds') return 'stats.DREB/G.D';
       else if(name==='Assists') return 'stats.AST/G.D';
-      else if(name==='Opponent Assists') return 'stats.AST/G.D';
+      else if(name==='Opponent Assists') return 'stats.AST/G';
       else if(name==='Blocks') return 'stats.BS/G.D';
       else if(name==='Field Goals') return 'stats.FG%.D';
-      else if(name==='Opponent Field Goals') return 'stats.FG%.D';
+      else if(name==='Opponent Field Goals') return 'stats.FG%';
       else if(name==='Steals') return 'stats.STL/G.D';
       else if(name==='Free Throws') return 'stats.FT%.D';
-      else if(name==='Opponent Free Throws') return 'stats.FT%.D';
+      else if(name==='Opponent Free Throws') return 'stats.FT%';
       else if(name==='Turnovers') return 'stats.TOV/G.D';
       else if(name==='3-Point Field Goals') return 'stats.3P%.D';
       else if(name==='Opponent 3-Point Field Goals') return 'stats.3P%.D';

@@ -136,13 +136,13 @@ export function getStandings(game = 'nhl', season = '2017-2018-regular', teamSta
 
 export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', teamStats = 'default') {
     if (teamStats === 'default') {
-        if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA';
-        else if (game === 'nba') teamStats = 'W,L,Win %,PTS/G,PTSA/G,FG%,3P%,FT%,OREB/G,DREB/G,REB/G,TOV/G,FGM,3PM/G,FGM/G,FGA/G,3PA/G,FTM/G,FTA/G,AST/G';
-        else if (game === 'mlb') teamStats = 'W,L,GP,Win %,RF,RA,RUNDIFF,AB,R,H,2B,3B,HR,TB,RBI,AVG,OBP,SLG,OPS';
-        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec,Blk';
+        if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA,';
+        else if (game === 'nba') teamStats = 'W,L,Win %,PTS/G,PTSA/G,FG%,3P%,FT%,OREB/G,DREB/G,REB/G,TOV/G,FGM,3PM/G,FGM/G,FGA/G,3PA/G,FTM/G,FTA/G,AST/G,PF,PF/G,FF1,TF,EJE,F/G';
+        else if (game === 'mlb') teamStats = 'W,L,Win %,RF,RA,RUNDIFF,AB,R,H,2B,3B,HR,TB,RBI,AVG,OBP,SLG,OPS,LOB,ERA,SO,IP,ER,BB,SHO,WHIP,TC,E,FPO,A,FDP,PK,FPCT';
+        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec,Blk,Comp,Pct,Yards/Att,TD,Int,QBRating,SackY,NetYds,Fum,20+';
     }
 
-    if (season === '2017-2018-regular' && game === 'nba') {
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
 
@@ -173,13 +173,13 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-reg
             else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds,OwnRec';
             else playerStats = 'Made,Att,FG%,Lng,Made1-19,Att1-19,Made20-29,Att20-29,Made30-39,Att30-39,Made50+,Att50+,Xp%';
         } else {
-            if (statType === 'scoring') playerStats = 'G,A,Pts,+/-,PIM,Sh,Sh%,GWG,PPG,PPA,SHG,SHA';
-            else if (statType === 'goaltending') playerStats = 'W,L,OTL,GAA,GA,SA,Sv,Sv%,SO,';
+            if (statType === 'scoring') playerStats = 'G,A,Pts,+/-,PIM,Sh,Sh%,GWG,GTG,PPG,PPA,SHG,SHA';
+            else if (statType === 'goaltending') playerStats = 'G,A,Pts,Sh,W,L,OTL,GAA,GA,SA,Sv,Sv%,SO';
             else playerStats = 'G,A,Pts,Sh,Pn,PIM';
         }
     }
 
-    if (season === '2017-2018-regular' && game === 'nba') {
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
 

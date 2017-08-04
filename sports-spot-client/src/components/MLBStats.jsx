@@ -4,6 +4,7 @@ import * as actionCreators from '../action_creators';
 import StatsPanel from './StatsPanel';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+var Loader = require('react-loader');
 
 class MLBStatsPage extends PureComponent{
 
@@ -40,9 +41,9 @@ class MLBStatsPage extends PureComponent{
     var data1_sortAbb= this.getSortAbbreviation(data1);
     var data2_sortAbb= this.getSortAbbreviation(data2);
     var data3_sortAbb= this.getSortAbbreviation(data3);
-    var location1 = '/mlb/showStatPanel/'+statsFor+"_"+data1;
-    var location2 = '/mlb/showStatPanel/'+statsFor+"_"+data2;
-    var location3 = '/mlb/showStatPanel/'+statsFor+"/"+data3;
+    var location1 = '/mlb/showStatPanel/'+statsFor+"_"+data1.trim();
+    var location2 = '/mlb/showStatPanel/'+statsFor+"_"+data2.trim();
+    var location3 = '/mlb/showStatPanel/'+statsFor+"_"+data3.trim();
     if(statsFor==='player'){
       columns.push(<td><Link to={location1} onClick={() => this.props.getStats('batting',data1_sortAbb,'mlb')}>{data1}</Link></td>);
       columns.push(<td><Link to={location2} onClick={() => this.props.getStats('pitching',data2_sortAbb,'mlb')}>{data2}</Link></td>);
@@ -133,7 +134,7 @@ class MLBStatsPage extends PureComponent{
                                      <td>Fielding</td>
                                      </tr>
                                      <tr className="even">
-                                       {this.constructColumn('team','Runs Scored','ERA','	Errors',this.props.getTeamStats)}
+                                       {this.constructColumn('team','Runs Scored','ERA','Errors',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="odd">
                                         {this.constructColumn('team','Home Runs','Wins','Double Plays',this.props.getTeamStats)}

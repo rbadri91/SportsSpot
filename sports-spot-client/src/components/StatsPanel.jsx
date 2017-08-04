@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import io from 'socket.io-client';
 import * as actionCreators from '../action_creators';
 import {connect} from 'react-redux';
+var Loader = require('react-loader');
 
 import Pagination from './Pagination';
 
@@ -31,19 +32,21 @@ class StatsPanel extends PureComponent{
     
     getInitialState(){
         return {
-        response: []
+        response: [],
+        loaded: false
         }
     }
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
                 console.log("data here:",data);
-                 this.setState({response:data,responseReceived:true});
+                 this.setState({response:data,responseReceived:true,loaded: true});
          });
     }
 
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
+         this.setState({loaded:false});
     }
 
     getTitle(){
@@ -61,7 +64,7 @@ class StatsPanel extends PureComponent{
     }
 
     getNBATeamOffenseHeader(){
-        var headers =["TEAM","GP","PPG","FGM","FGA","PCT","3PM","3PA","PCT","FTM","FTA","PCT"];
+        var headers =["TEAM","GP","PPG","AST/G","FGM","FGA","FGPCT","3PM","3PA","3P%","FTM","FTA","FTPCT"];
         return headers;
     }
     getNBATeamReboundsHeader(){
@@ -71,6 +74,11 @@ class StatsPanel extends PureComponent{
     getNBATeamBlockStealandTurnoverHeader(){
         var headers =["TEAM","GP","BLK","BPG","STL","STG","TO","TOG","TECH"];
         return headers;
+    }
+
+    getNBATeamFoulsHeader(){
+        var header =["TEAM","G","PF","PF/G","FF1","TF","EJE"];
+        return header;
     }
 
     getNBAPlayerOffenseHeader(){
@@ -110,7 +118,7 @@ class StatsPanel extends PureComponent{
         var columns =[];
         if(this.statFor==='player'){
                 switch(this.title){
-                     case "Points":
+                    case "Points":
                     case "Assists":
                     case "Field Goals":
                     case "Free Throws":
@@ -165,15 +173,25 @@ class StatsPanel extends PureComponent{
                 }else{
                     switch(this.title){
                         case "Points":
+                        case "Opponent Points":
                         case "Assists":
+                        case "Opponent Assists":
                         case "Field Goals":
+                        case "Opponent Field Goals":
                         case "Free Throws":
+                        case "Opponent Free Throws":
                         case "3-Point Field Goals":
+                        case "Opponent 3-Point Field Goals":
                             columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.PtsPerGame["#text"],
-                            items.stats.FgMadePerGame["#text"],items.stats.FgAttPerGame["#text"],items.stats.FgPct["#text"],
+                            items.stats.AstPerGame["#text"],items.stats.FgMadePerGame["#text"],items.stats.FgAttPerGame["#text"],items.stats.FgPct["#text"],
                             items.stats.Fg3PtMadePerGame["#text"],items.stats.Fg3PtAttPerGame["#text"],items.stats.Fg3PtPct["#text"],
                             items.stats.FtMadePerGame["#text"],items.stats.FtAttPerGame["#text"],items.stats.FtPct["#text"]]
                             break;
+                        case "Fouls":
+                            columns =[items.team.Name,items.stats.GamesPlayed["#text"],items.stats.FoulPers["#text"],
+                            items.stats.FoulPersPerGame["#text"],items.stats.FoulFlag1["#text"],items.stats.FoulTech["#text"],
+                            items.stats.Ejections["#text"]];
+                            break;    
                         case "Rebounds":
                              columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.OffReb["#text"],
                              items.stats.DefReb["#text"],items.stats.DefRebPerGame["#text"],items.stats.Reb["#text"],
@@ -211,12 +229,12 @@ class StatsPanel extends PureComponent{
         return headers;
     }
     getMLBTeamPitchingHeader(){
-        var headers =["TEAM","GP","W","L","ERA","SHO","IP","ER","BB","WHIP"];
+        var headers =["TEAM","GP","W","L","ERA","SHO","SO","IP","ER","BB","WHIP"];
         return headers;
     }
 
     getMLBTeamFieldingHeader(){
-        var headers =["TEAM","GP","TC","E","FPO","A","FDP","PK"];
+        var headers =["TEAM","GP","TC","E","FPO","A","FDP","FPCT","PK"];
         return headers;
     }
 
@@ -283,7 +301,7 @@ class StatsPanel extends PureComponent{
                     case "WHIP":
                             columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.Wins["#text"],
                             items.stats.Losses["#text"],items.stats.EarnedRunAvg["#text"],items.stats.Shutouts["#text"],
-                            items.stats.InningsPitched["#text"],items.stats.EarnedRunsAllowed["#text"],items.stats.PitcherWalks["#text"],
+                            items.stats.PitcherStrikeouts["#text"],items.stats.InningsPitched["#text"],items.stats.EarnedRunsAllowed["#text"],items.stats.PitcherWalks["#text"],
                             items.stats.WalksAndHitsPerInningPitched["#text"]];
                             break;
                     case "Fielding":        
@@ -294,7 +312,7 @@ class StatsPanel extends PureComponent{
                     case "Outfield Assists":
                             columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.TotalChances["#text"],
                             items.stats.Errors["#text"],items.stats.FielderPutOuts["#text"],items.stats.Assists["#text"],
-                            items.stats.FielderDoublePlays["#text"],items.stats.Pickoffs["#text"]]
+                            items.stats.FielderDoublePlays["#text"],items.stats.FieldingPct["#text"],items.stats.Pickoffs["#text"]]
                             break;
                     default:
                         break;        
@@ -338,7 +356,7 @@ class StatsPanel extends PureComponent{
     }
 
     getNFLTeamPassingHeader(){
-        var headers= ["TEAM","ATT","COMP","PCT","YDS","YDS/A","LONG","TD","INT","SACK","SACKY","QBRRate"];
+        var headers= ["TEAM","ATT","COMP","PCT","YDS","YDS/A","NETYDS","LONG","TD","INT","SACK","SACKY","QBRRate"];
         return headers;
     }
 
@@ -452,7 +470,7 @@ class StatsPanel extends PureComponent{
                     case "Passing Offense":
                     case "Passing Defence":
                         columns =[items.team.Name,items.stats.PassAttempts["#text"],items.stats.PassCompletions["#text"],items.stats.PassPct["#text"],
-                        items.stats.PassGrossYards["#text"],items.stats.PassYardsPerAtt["#text"],items.stats.PassLng["#text"],items.stats.PassTD["#text"],
+                        items.stats.PassGrossYards["#text"],items.stats.PassYardsPerAtt["#text"],items.stats.PassNetYards["#text"],items.stats.PassLng["#text"],items.stats.PassTD["#text"],
                         items.stats.PassInt["#text"],items.stats.PassSacks["#text"],items.stats.PassSackY["#text"],items.stats.QBRating["#text"]];
                         break;
                     case "Rushing Offense":
@@ -512,8 +530,8 @@ class StatsPanel extends PureComponent{
         return columns;        
     }
 
-    getNHLPlayerGoalsAssistAndPointsHeaders(){
-        var headers =["PLAYER","TEAM","POS","GP","G","A","PTS","+/-","PIM","SHOTS","SHOTPCT","GWG","PPG","PPA","SHG","SHA"];
+    getNHLPlayerScoringHeaders(){
+        var headers =["PLAYER","TEAM","POS","GP","G","A","PTS","+/-","PIM","SHOTS","SHOTPCT","GWG","GTG","PPG","PPA","SHG","SHA"];
         return headers;
     }
 
@@ -527,20 +545,101 @@ class StatsPanel extends PureComponent{
         return headers;
     }
 
+    getNHLTeamScoringHeaders(){
+        var headers =["TEAM","GP","PTS","GF","GA","PPG","PP%","SHGF","SH","PIM"];
+        return headers;
+    }
+
+    getNHLTeamSpecialTeamHeaders(){
+        var headers =["TEAM","GP","PP","PPG","PP%","GA","SHGA"];
+        return headers;
+    }
+    getNHLTeamPenaltiesHeaders(){
+        var headers= ["TEAM","GP","PN","PIM","PK","PKGA","PK%"];
+        return headers;
+    }
+
+     getNHLRowContent(items){
+        var columns =[];
+
+            if(this.statFor==='player'){
+                switch(this.title){
+                    case "Goals":
+                    case "Assists":
+                    case "Points":
+                    case "Goals Breakdown":
+                        columns =[items.player.FirstName+" "+items.player.LastName,items.team.Name,items.player.Position,
+                        items.stats.GamesPlayed["#text"],items.stats.stats.Goals["#text"],items.stats.stats.Assists["#text"],items.stats.stats.Points["#text"],
+                        items.stats.stats.PlusMinus["#text"],items.stats.stats.PenaltyMinutes["#text"],items.stats.stats.Shots["#text"],items.stats.stats.ShotPercentage["#text"],
+                        items.stats.stats.GameWinningGoals["#text"],items.stats.stats.GameTyingGoals["#text"],items.stats.stats.PowerplayGoals["#text"],items.stats.stats.PowerplayAssists["#text"],
+                        items.stats.stats.ShorthandedGoals["#text"],items.stats.stats.ShorthandedAssists["#text"]];
+                        break;
+                    case "Wins":
+                    case "Goals Against Avg.":
+                    case "Save Percentage":
+                        columns =[items.player.FirstName+" "+items.player.LastName,items.team.Name,items.player.Position,
+                        items.stats.GamesPlayed["#text"],(items.stats.stats.Wins)?items.stats.stats.Wins["#text"]:0,
+                        (items.stats.stats.Losses)?items.stats.stats.Losses["#text"]:0,(items.stats.stats.OvertimeLosses)?items.stats.stats.OvertimeLosses["#text"]:0,
+                        (items.stats.stats.GoalsAgainstAverage)?items.stats.stats.GoalsAgainstAverage["#text"]:0,
+                        (items.stats.stats.GoalsAgainst)?items.stats.stats.GoalsAgainst["#text"]:0,
+                        (items.stats.stats.ShotsAgainst)?items.stats.stats.ShotsAgainst["#text"]:0,(items.stats.stats.Saves)?items.stats.stats.Saves["#text"]:0,
+                        (items.stats.stats.SavePercentage)?items.stats.stats.SavePercentage["#text"]:0,(items.stats.stats.Shutouts)?items.stats.stats.Shutouts["#text"]:0];
+                        break; 
+                    case "Penalty Minutes":
+                    case "Penalty Minutes/Game":
+                        columns = [items.player.FirstName+" "+items.player.LastName,items.team.Name,items.player.Position,
+                        items.stats.stats.PenaltyMinutes["#text"]];
+                        break;
+                    default:
+                        break;    
+                }
+            }else{
+                switch(this.title){
+                    case "Points":
+                    case "Goals Breakdown - Offensive":
+                    case "Shots":
+                        columns  =[items.team.Name,items.stats.GamesPlayed["#text"],items.stats.Points["#text"],
+                        items.stats.GoalsFor["#text"],items.stats.GoalsAgainst["#text"],items.stats.PowerplayGoals["#text"],
+                        items.stats.PowerplayPercent["#text"],items.stats.ShorthandedGoalsFor["#text"],items.stats.Shots["#text"],
+                        items.stats.PenaltyMinutes["#text"]];
+                        break;
+                    case "Power Play Goals":
+                    case "Goals Against":
+                        columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.Powerplays["#text"],
+                        items.stats.PowerplayGoals["#text"],items.stats.PowerplayPercent["#text"],items.stats.GoalsAgainst["#text"],
+                        items.stats.ShorthandedGoalsAgainst["#text"]];
+                        break; 
+                    case "Penalty Minutes":
+                    case "Penalty Minutes/Game":
+                    case "Penalty Kill Percentage":
+                        columns = [items.team.Name,items.stats.GamesPlayed["#text"],items.stats.Penalties["#text"],
+                        items.stats.PenaltyMinutes["#text"],items.stats.PenaltyKills["#text"],items.stats.PenaltyKillGoalsAllowed["#text"],
+                        items.stats.PenaltyKillPercent["#text"]];
+                        break;
+                }
+            }
+            return columns;
+     }    
 
     handleRowContent(items){
         var columns =[];
-        console.log("this.statFor:",this.statFor);
-        console.log("this.game:",this.game);
-        if(this.game ==="nba"){
-            return this.getNBARowContent(items);
-        }else if(this.game === "mlb"){
-            return this.getMLBRowContent(items);
-        }else if(this.game ==='nfl'){
-            return this.getNFLRowContent(items);
+        switch(this.game){
+            case 'nba':
+                columns = this.getNBARowContent(items);
+                break;
+            case 'mlb':
+                columns = this.getMLBRowContent(items);
+                break;
+            case 'nfl':
+                columns = this.getNFLRowContent(items);
+                break;
+            case 'nhl':
+                columns = this.getNHLRowContent(items);
+                break;
+            default:
+                break;           
         }
-        console.log("columsn here:",columns);
-            return columns;
+       return columns; 
     }
 
     getNBAHeaders(){
@@ -548,12 +647,20 @@ class StatsPanel extends PureComponent{
         if(this.statFor==='team'){
                 switch(this.title){
                     case "Points":
+                    case "Opponent Points":
                     case "Assists":
+                    case "Opponent Assists":
                     case "Field Goals":
+                    case "Opponent Field Goals":
                     case "Free Throws":
+                    case "Opponent Free Throws":
                     case "3-Point Field Goals":
+                    case "Opponent 3-Point Field Goals":
                         headers= this.getNBATeamOffenseHeader();
                         break;
+                    case "Fouls":
+                        headers = this.getNBATeamFoulsHeader();
+                        break;    
                     case "Rebounds":
                         headers = this.getNBATeamReboundsHeader();
                         break;
@@ -737,6 +844,51 @@ class StatsPanel extends PureComponent{
         return headers;
     }
 
+    getNHLHeaders(){
+        var headers =[];
+        if(this.statFor==='player'){
+            switch(this.title){
+                case "Goals":
+                case "Assists":
+                case "Points":
+                case "Goals Breakdown":
+                    headers= this.getNHLPlayerScoringHeaders();
+                    break;
+                case "Wins":
+                case "Goals Against Avg.":
+                case "Save Percentage":
+                    headers =this.getNHLPlayerGoalTendingHeaders();
+                    break;
+                case "Penalty Minutes":
+                case "Penalty Minutes/Game":
+                    headers = this.getNHLPlayerPenaltyHeaders();  
+                    break;
+                default:
+                    break;    
+            }
+        }else{
+            switch(this.title){
+                case "Points":
+                case "Goals Breakdown - Offensive":
+                case "Shots":
+                    headers = this.getNHLTeamScoringHeaders();
+                    break;
+                case "Power Play Goals":
+                case "Goals Against":
+                    headers = this.getNHLTeamSpecialTeamHeaders();
+                    break;
+                case "Penalty Minutes":
+                case "Penalty Minutes/Game":
+                case "Penalty Kill Percentage":
+                    headers = this.getNHLTeamPenaltiesHeaders();
+                    break;
+                default:
+                    break;    
+            }
+        }
+        return headers;
+    }
+
     getID(item){
         if(this.statFor==='team'){
             return item.team.ID;
@@ -749,8 +901,12 @@ class StatsPanel extends PureComponent{
       var startYear = 2017;
       var endYear = 2018;
       var options =[];
-      var season = ["2017-2018-regular","2017-playoff","2016-2017-regular","2016-playoff"];
-      var seasonName = ["2017 Regular",'2017 Playoff','2016 Regular','2016 Playoff']
+      var season = ["2016-2017-regular","2017-playoff","2015-2016-regular","2016-playoff"];
+      var seasonName = ["2016 Regular",'2017 Playoff','2015 Regular'];
+      if(this.game==='mlb'){
+          season = ["2017-regular","2017-playoff","2016-2017-regular","2016-playoff"];
+          seasonName = ["2017 Regular",'2017 Playoff','2016 Regular'];
+      }
       for(var i=0;i<season.length;i++){
         var optionVal = startYear+"-"+endYear+'-regular';
         options.push(<option value ={season[i]}>{seasonName[i]} Season</option>)
@@ -771,6 +927,7 @@ class StatsPanel extends PureComponent{
               this.tableHeaders = this.getNFLHeaders();
         }else if(currPath.indexOf('nhl')!=-1){
               this.game='nhl';
+              this.tableHeaders = this.getNHLHeaders();
         }else if(currPath.indexOf('mlb')!=-1){
                this.game='mlb';
                this.tableHeaders=this.getMLBHeaders();
@@ -938,13 +1095,9 @@ class StatsPanel extends PureComponent{
     }
 
     render() {
-        if(this.state.response.length ===0 && !this.state.responseReceived)
-        {
-                        return <div>Loading ....</div>;
-        }else if(this.state.response.length ===0){
-            return <div>No Stats to Display</div>;
-        }
-        return <div className = 'statsPanel'>
+        return <Loader loaded={this.state.loaded}>
+        <div className = 'statsPanel'>
+
                 <div className="seasonPanel">
                         <select id ="seasonSelector" className="season-dropdown-menu" onChange={() => this.handleSeasonChange()}>{this.getseasonOptions()}</select>
                 </div>
@@ -973,6 +1126,7 @@ class StatsPanel extends PureComponent{
                     <Pagination items={this.state.response} onChangePage={this.onChangePage} />
                 </div>
             </div>
+             </Loader>
 
     }
 }

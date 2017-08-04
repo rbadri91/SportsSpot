@@ -63,7 +63,7 @@ class subNavigation extends Component{
         var currPath = window.location.href;
         if(currPath.indexOf('nfl')!=-1){
                 path= '/nfl';
-        }else if(currPath.indexOf('nhl')!=-1 && currPath.indexOf('/nhl/')==-1){
+        }else if(currPath.indexOf('nhl')!=-1){
                 path= '/nhl';
         }else if(currPath.indexOf('mlb')!=-1){
                 path= '/mlb';

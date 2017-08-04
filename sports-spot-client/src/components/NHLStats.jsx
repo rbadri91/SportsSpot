@@ -4,6 +4,7 @@ import * as actionCreators from '../action_creators';
 import StatsPanel from './StatsPanel';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+var Loader = require('react-loader');
 
 class NHLStatsPage extends PureComponent{
 
@@ -26,7 +27,7 @@ class NHLStatsPage extends PureComponent{
       else if(name==='Goals Breakdown - Offensive') return 'stats.GF.D';
       else if(name==='Goals Against') return 'stats.GA.D';
       else if(name==='Penalty Minutes/Game') return 'stats.PIM.D';
-      else if(name==='Penalty Kill Percentage') return 'stats.PK%.D';//Shots
+      else if(name==='Penalty Kill Percentage') return 'stats.PK%.D';
       else if(name==='Shots') return 'stats.Sh.D';
   }
   handleLinkClick(functionParam,statType,orderBy,game){
@@ -64,22 +65,34 @@ class NHLStatsPage extends PureComponent{
 
     if(data1!=''){
       var location1 = '/nhl/showStatPanel/'+statsFor+"_"+data1;
-      columns.push(<td><Link to={location1} onClick={() => this.handleLinkClick(functionParam,'scoring',data1_sortAbb,'nba')}>{data1}</Link></td>);
+      if(statsFor==='player'){
+          columns.push(<td><Link to={location1} onClick={() => this.props.getStats('scoring',data1_sortAbb,'nhl')}>{data1}</Link></td>);
+      }else{
+          columns.push(<td><Link to={location1} onClick={() => this.props.getTeamStats('scoring',data1_sortAbb,'nhl')}>{data1}</Link></td>);
+      }
     }else{
       columns.push(<td>&nbsp;</td>);
     }
     
     if(data2!=''){
        var location2 = '/nhl/showStatPanel/'+statsFor+"_"+data2;
-      columns.push(<td><Link to={location2} onClick={() => this.handleLinkClick(functionParam,'goaltending',data2_sortAbb,'nba')}>{data2}</Link></td>);
+       if(statsFor==='player'){
+            columns.push(<td><Link to={location2} onClick={() => this.props.getStats('goaltending',data2_sortAbb,'nhl')}>{data2}</Link></td>);
+       }else{
+           columns.push(<td><Link to={location2} onClick={() => this.props.getTeamStats('goaltending',data2_sortAbb,'nhl')}>{data2}</Link></td>);
+       }
     }else{
       columns.push(<td>&nbsp;</td>);
     }
 
     if(data3!=''){
         var location3 = '/nhl/showStatPanel/'+statsFor+"_"+data3;
-        columns.push(<td><Link to={location3} onClick={() => this.handleLinkClick(functionParam,'penalities',data3_sortAbb,'nba')}>{data3}</Link></td>);
-    }else{
+        if(statsFor==='player'){
+              columns.push(<td><Link to={location3} onClick={() => this.props.getStats('penalities',data3_sortAbb,'nhl')}>{data3}</Link></td>);
+        }else{
+              columns.push(<td><Link to={location3} onClick={() => this.props.getTeamStats('penalities',data3_sortAbb,'nhl')}>{data3}</Link></td>);
+        }
+      }else{
        columns.push(<td>&nbsp;</td>);
     }
     return columns;
@@ -122,7 +135,7 @@ class NHLStatsPage extends PureComponent{
                                    </tr>
                                    <tr className="tableSectionHeader">
                                      <td>SCORING</td>
-                                     <td>GOALTENDING</td>
+                                     <td>SPECIAL TEAMS</td>
                                      <td>PENALTIES</td>
                                      </tr>
                                      <tr className="even">
@@ -151,7 +164,7 @@ function mapNHLStatsToProps(curr_stats){
 
 NHLStatsPage.propTypes = {
   getStats : PropTypes.func.isRequired,
-  getStandings: PropTypes.func.isRequired,
+  getTeamStats: PropTypes.func.isRequired,
 };
 
 export const NHLStatsPageContainer = connect(mapNHLStatsToProps,actionCreators)(NHLStatsPage);

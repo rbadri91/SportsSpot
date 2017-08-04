@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
-
+var Loader = require('react-loader');
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
@@ -13,6 +13,7 @@ export default class SchedulePanel extends PureComponent{
         var d = new Date();
         this.currentDate = d.getFullYear()+"-"+d.getMonth()+ "-"+ d.getDate();
         this.week ="0";
+        this.scheduleGroup =[];
     }
     getSchedules(){
         return this.props.schedule ||[];
@@ -35,15 +36,21 @@ export default class SchedulePanel extends PureComponent{
     }
     getInitialState(){
         return {
-        response: {}
+        response: {},
+        loaded:false
         }
     }
     componentDidMount()
     {
         socket.once("curr_news",(data)=>{
-                 this.setState({response:data});
+                 this.setState({response:data,loaded:true});
+                 this.setScheduleGroup();
          })
     }
+
+   setScheduleGroup(){
+       this.scheduleGroup = this.chunk(this.state.response);
+   } 
     
     chunk(array){
         if(!array) return [];
@@ -65,17 +72,13 @@ export default class SchedulePanel extends PureComponent{
         return result;
     }
     render() {
-            if(Object.keys(this.state.response).length ==0)
-            {
-                        return <div>Loading ....</div>;
-            }
 
-            const scheduleGroup = this.chunk(this.state.response);
 
-            return <div className = 'schedulePanel'>
+            return <Loader loaded={this.state.loaded}> 
+                <div className = 'schedulePanel'>
                 
                 {
-                    scheduleGroup.map((schedulelot,index) => (
+                    this.scheduleGroup.map((schedulelot,index) => (
                     <div key ={index}  className ="schedulePanelHolder">    
                         <h4 className="dateHeaderLabel">{schedulelot[0].date}</h4>
                         <div className ="outerTableWrapper">
@@ -113,5 +116,6 @@ export default class SchedulePanel extends PureComponent{
                 }
                 
                 </div>
+                </Loader>
     }
 }

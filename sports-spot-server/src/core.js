@@ -8,33 +8,6 @@ var msf;
 
 export const CURRENT_FEEDS = List();
 
-// export function getAllNews(http, apiKey, Promise) {
-//     var options = {
-//         host: 'newsapi.org',
-//         path: '/v1/articles?source=espn&sortBy=top&apiKey='+apiKey
-//     };
-//     console.log("in get all news");
-//     return new Promise(function(resolve, reject) {
-//         var request = http.request(options, function(res) {
-//             var data = '';
-//             console.log("comes inside data accumulation");
-
-//             res.on('data', function(chunk) {
-//                 data += chunk;
-//             });
-//             res.on('end', function() {
-//                 console.log("data here:" + JSON.parse(data).articles);
-//                 data = JSON.parse(data);
-//                 resolve(data.articles);
-//             });
-//         });
-//         request.on('error', function(e) {
-//             console.log(e.message);
-//             reject();
-//         });
-//         request.end();
-//     });
-// }
 export function getSportsFeed(https, btoa, uName, passWord, Promise, seasonName, game, reqData, forDate) {
     const responseEncoding = 'utf8';
     const httpOptions = {
@@ -154,76 +127,107 @@ export function getSchedules(curr_feeds, game, season) {
     return curr_feeds;
 }
 
-function getSortedData(statType, sortBy, game, data) {
-    console.log("game here:", game);
-    console.log("sortBy here:", sortBy);
-    console.log("statType here:", statType);
-    if (game === 'nba') {
-        if (statType === "offence") {
-            if (sortBy === "stats.PTS/G.D") {
-                console.log("it comes inside sort points");
-                data.sort(function(a, b) {
-                    if (a.stats.PtsPerGame["#text"] > b.stats.PtsPerGame["#text"]) return -1;
-                    if (b.stats.PtsPerGame["#text"] > a.stats.PtsPerGame["#text"]) return 1;
-                    return 0;
-                });
-                return data;
-            } else if (sortBy === 'stats.AST/G.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.AstPerGame["#text"] > b.stats.AstPerGame["#text"]) return -1;
-                    if (b.stats.AstPerGame["#text"] > a.stats.AstPerGame["#text"]) return 1;
-                    return 0;
-                });
-            } else if (sortBy === 'stats.FG%.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.FgPct["#text"] > b.stats.FgPct["#text"]) return -1;
-                    if (b.stats.FgPct["#text"] > a.stats.FgPct["#text"]) return 1;
-                    return 0;
-                });
-            } else if (sortBy === 'stats.FT%.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.FtPct["#text"] > b.stats.FtPct["#text"]) return -1;
-                    if (b.stats.FtPct["#text"] > a.stats.FtPct["#text"]) return 1;
-                    return 0;
-                });
-            } else if (sortBy === 'stats.3P%.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.Fg3PtPct["#text"] > b.stats.Fg3PtPct["#text"]) return -1;
-                    if (b.stats.Fg3PtPct["#text"] > a.stats.Fg3PtPct["#text"]) return 1;
-                    return 0;
-                });
-            } else if (sortBy === 'stats.F/G.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.FoulsPerGame["#text"] > b.stats.FoulsPerGame["#text"]) return -1;
-                    if (b.stats.FoulsPerGame["#text"] > a.stats.FoulsPerGame["#text"]) return 1;
-                    return 0;
-                });
-            }
-        } else if (statType === 'defence') {
-            if (sortBy === 'stats.REB/G.D') {
-                data.sort(function(a, b) {
-                    if (a.stats.RebPerGame["#text"] > b.stats.RebPerGame["#text"]) return -1;
-                    if (b.stats.RebPerGame["#text"] > a.stats.RebPerGame["#text"]) return 1;
-                    return 0;
-                });
-            }
-        }
+function sortdata(data, key, sortOrder) {
+    if (sortOrder == 'desc') {
+        data.sort(function(a, b) {
+            if (a.stats[key]["#text"] > b.stats[key]["#text"]) return -1;
+            if (b.stats[key]["#text"] > a.stats[key]["#text"]) return 1;
+            return 0;
+        });
+    } else {
+        data.sort(function(a, b) {
+            if (a.stats[key]["#text"] < b.stats[key]["#text"]) return -1;
+            if (b.stats[key]["#text"] < a.stats[key]["#text"]) return 1;
+            return 0;
+        });
     }
+
     return data;
 }
 
+function getSortedData(statType, sortBy, game, data) {
+    var sortedData = [];
+    if (false && game === 'nba') {
+        switch (sortBy) {
+            case 'stats.PTS/G.D':
+                sortedData = sortdata(data, "PtsPerGame", 'desc');
+                break;
+            case 'stats.AST/G.D':
+                sortedData = sortdata(data, "AstPerGame", 'desc');
+                break;
+            case 'stats.FG%.D':
+                sortedData = sortdata(data, "FgPct", 'desc');
+                break;
+            case 'stats.FT%.D':
+                sortedData = sortdata(data, "FtPct", 'desc');
+                break;
+            case 'stats.3P%.D':
+                sortedData = sortdata(data, "Fg3PtPct", 'desc');
+                break;
+            case 'stats.F/G.D':
+                sortedData = sortdata(data, "FoulsPerGame", 'desc');
+                break;
+            case 'stats.REB/G.D':
+                sortedData = sortdata(data, "RebPerGame", 'desc');
+                break;
+            case 'stats.BS/G.D':
+                sortedData = sortdata(data, "BlkPerGame", 'desc');
+                break;
+            case 'stats.STL/G.D':
+                data = sortdata(data, "StlPerGame", 'desc');
+                break;
+            case 'stats.TOV/G.D':
+                sortedData = sortdata(data, "TovPerGame", 'desc');
+                break;
+            case 'stats.PTSA/G':
+                sortedData = sortdata(data, "PtsAgainstPerGame", 'asc');
+                break;
+            case 'stats.AST/G':
+                sortedData = sortdata(data, "AstPerGame", 'asc');
+                break;
+            case 'stats.FG%':
+                sortedData = sortdata(data, "FgPct", 'asc');
+                break;
+            case 'stats.FT%':
+                sortedData = sortdata(data, "FtPct", 'asc');
+                break;
+            case 'stats.3P%':
+                sortedData = sortdata(data, "Fg3PtPct", 'asc');
+                break;
+            default:
+                sortedData = data;
+                break;
+        }
+    } else {
+        sortedData = data;
+    }
+    return sortedData;
+}
+
 export function getTeamStats(curr_feeds, game, season, teamStats, sortBy, statType) {
-    curr_feeds = new Promise((resolve, reject) => {
-        return msf.getData(game, season, 'overall_team_standings', 'json', { teamstats: teamStats }).then((data) => {
-            console.log("data fetched");
-            var sortedData = getSortedData(statType, sortBy, game, data.overallteamstandings.teamstandingsentry);
-            console.log("sorted data here:");
-            return resolve(List(sortedData));
-        }).catch((reason) => {
-            console.log("it comes here to reject:", reason);
-            return reject();
+    if (teamStats != 'default') {
+        curr_feeds = new Promise((resolve, reject) => {
+            return msf.getData(game, season, 'overall_team_standings', 'json', { teamstats: teamStats, sort: sortBy }).then((data) => {
+                sortedData = getSortedData(statType, sortBy, game, data.overallteamstandings.teamstandingsentry);
+                return resolve(List(sortedData));
+            }).catch((reason) => {
+                console.log("it comes here to reject:", reason);
+                return reject();
+            });
         });
-    });
+    } else {
+        curr_feeds = new Promise((resolve, reject) => {
+            return msf.getData(game, season, 'overall_team_standings', 'json', { sort: sortBy }).then((data) => {
+                console.log("data fetched");
+                return resolve(List(data.overallteamstandings.teamstandingsentry));
+            }).catch((reason) => {
+                console.log("it comes here to reject:", reason);
+                return reject();
+            });
+        });
+    }
+
+
     return curr_feeds;
 }
 
