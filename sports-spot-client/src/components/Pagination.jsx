@@ -19,7 +19,6 @@ class Pagination extends React.Component {
     componentWillMount() {
         // set page if items array isn't empty
         if (this.props.items && this.props.items.length) {
-            console.log("items here:",this.props.items);
             this.setPage(this.props.initialPage);
         }
     }

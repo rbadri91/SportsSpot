@@ -312,8 +312,8 @@ a:hover {
 }
 
 .even {
-    border-top: 2px solid #eee;
-    background-color: #efefef;
+    border-top: 2px solid #f1e4e4;
+    background-color: #ece6e6;
 }
 
 .scorecard-container {
@@ -628,8 +628,6 @@ table.contentTable td {
     text-align: left;
     vertical-align: middle;
     font-size: 1.16em;
-    margin-left: -3%;
-    margin-right: -3%;
     color: #fff;
     font-weight: 600;
     text-decoration: none;
@@ -719,8 +717,14 @@ table.optionData tr.tableTitle td {
 }
 table.optionData .tableLabel td {
     background-color: #fff;
-    background-color: #fff;
     text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Vollkorn', serif;
+}
+table.optionData .statsTableLabel td {
+    background-color: #5a5ac7;
+    text-transform: uppercase;
+    color: white;
     font-weight: 700;
     font-family: 'Vollkorn', serif;
 }
@@ -733,4 +737,29 @@ table.optionData tr td a {
 .sorttable-content-innerwrapper {
     padding-top: 2%;
     padding-bottom: 30px;
+}
+.statsPanel {
+    width: 790px;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    padding: 2% 0;
+    background: #fff;
+}
+table.optionData .tableLabel th {
+    background-color: #fff;
+    border: 1px solid #f5f5f5;
+    background-color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+table.optionData th {
+    padding: 7px 4px;
+}
+.statsContent {
+    background: #fff;
+}
+table.optionData tbody .even td,
+table.optionData tbody .odd td {
+    border-right: 1px solid #f5f5f5;
 }

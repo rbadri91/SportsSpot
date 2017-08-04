@@ -54,8 +54,7 @@ class NFLStatsPage extends PureComponent{
   handleLinkClick(functionParam,statType,orderBy,game){
       console.log("statType here:",statType);
       console.log("game here:",game);
-      console.log("orderBy here:",orderBy);
-      functionParam(statType,orderBy,game);
+      functionParam(game,undefined,undefined,orderBy,statType);
   }
 
   constructColumn(statsFor,data1,data2,data3,data4,functionParam){
@@ -86,31 +85,42 @@ class NFLStatsPage extends PureComponent{
     if(data4){
         data4_sortAbb= this.getTeamSortAbbreviations(data4);
     }
-    console.log("data1_sortAbb:",data1_sortAbb);
     if(data1!=''){
       var location1 = '/nfl/showStatPanel/'+statsFor+"_"+data1;
-      columns.push(<td><Link to={location1} onClick={() => this.handleLinkClick(functionParam,'offence',data1_sortAbb,'nba')}>{data1}</Link></td>);
+      if(statsFor==='player'){
+        columns.push(<td><Link to={location1} onClick={() => this.props.getStats('offence',data1_sortAbb,'nfl')}>{data1}</Link></td>);
+      }else{
+         columns.push(<td><Link to={location1} onClick={() => this.props.getTeamStats('offence',data1_sortAbb,'nfl')}>{data1}</Link></td>);
+      }
     }else{
       columns.push(<td>&nbsp;</td>);
     }
     
     if(data2!=''){
       var location2 = '/nfl/showStatPanel/'+statsFor+"_"+data2;
-      columns.push(<td><Link to={location2} onClick={() => this.handleLinkClick(functionParam,'defence',data2_sortAbb,'nba')}>{data2}</Link></td>);
-    }else{
+      if(statsFor==='player'){
+          columns.push(<td><Link to={location2} onClick={() => this.props.getStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
+      }else{
+          columns.push(<td><Link to={location2} onClick={() => this.props.getTeamStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
+      }
+      }else{
       columns.push(<td>&nbsp;</td>);
     }
 
     if(data3!=''){
         var location3 = '/nfl/showStatPanel/'+statsFor+"_"+data3;
-        columns.push(<td><Link to={location3} onClick={() => this.handleLinkClick(functionParam,'special_teams',data3_sortAbb,'nba')}>{data3}</Link></td>);
+        if(statsFor==='player'){
+            columns.push(<td><Link to={location3} onClick={() => this.props.getStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
+        }else{
+            columns.push(<td><Link to={location3} onClick={() => this.props.getTeamStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
+        }
     }else{
        columns.push(<td>&nbsp;</td>);
     }
     
     if(data4){
       var location4 = '/nfl/showStatPanel/'+statsFor+"_"+data4;
-      columns.push(<td><Link to={location4} onClick={() => this.handleLinkClick(functionParam,'sp_teams_opp',data4_sortAbb,'nba')}>{data4}</Link></td>);
+      columns.push(<td><Link to={location4} onClick={() => this.props.getTeamStats('sp_teams_opp',data4_sortAbb,'nfl')}>{data4}</Link></td>);
     }
 
     return columns;
@@ -145,9 +155,6 @@ class NFLStatsPage extends PureComponent{
                                      <tr className="even">
                                         {this.constructColumn('player','Scoring','','Punt Returns',null,this.props.getStats)}
                                      </tr>
-                                     <tr className="odd">
-                                        {this.constructColumn('player','Total QBR','','',null,this.props.getStats)}
-                                     </tr>
                                   </tbody>
                             </table>
                         </div>
@@ -164,22 +171,22 @@ class NFLStatsPage extends PureComponent{
                                      <td>OPPONENT SPECIAL TEAMS</td>
                                      </tr>
                                      <tr className="even">
-                                       {this.constructColumn('team','Passing Offense','Passing Defense','Field Goals','Opponent Field Goals',this.props.getStandings)}
+                                       {this.constructColumn('team','Passing Offense','Passing Defense','Field Goals','Opponent Field Goals',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="odd">
-                                        {this.constructColumn('team','Rushing Offense','Rushing Defense','Kickoffs','Opponent Kickoffs',this.props.getStandings)}
+                                        {this.constructColumn('team','Rushing Offense','Rushing Defense','Kickoffs','Opponent Kickoffs',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="even">
-                                        {this.constructColumn('team','Receiving Offense','Receiving Defense','Punting','Opponent Punting',this.props.getStandings)}
+                                        {this.constructColumn('team','Receiving Offense','Receiving Defense','Punting','Opponent Punting',this.props.getTeamStats)}
                                      </tr>
                                       <tr className="odd">
-                                        {this.constructColumn('team','Scoring Offense','Scoring Defense','Punt Returns','Opponent Punt Returns',this.props.getStandings)}
+                                        {this.constructColumn('team','Scoring Offense','Scoring Defense','Punt Returns','Opponent Punt Returns',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="even">
-                                        {this.constructColumn('team','Total Offense','Total Defense','Kick Returns','Opponent Kick Returns',this.props.getStandings)}
+                                        {this.constructColumn('team','Total Offense','Total Defense','Kick Returns','Opponent Kick Returns',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="odd">
-                                        {this.constructColumn('team','Sacks / Interceptions','Sacks / Interceptions Defense','Fumbles Forced','Fumbles Lost',this.props.getStandings)}
+                                        {this.constructColumn('team','Sacks / Interceptions','Sacks / Interceptions Defense','Fumbles Forced','Fumbles Lost',this.props.getTeamStats)}
                                      </tr>
                                   </tbody>
                             </table>
@@ -198,7 +205,7 @@ function mapNFLStatsToProps(curr_stats){
 
 NFLStatsPage.propTypes = {
   getStats : PropTypes.func.isRequired,
-  getStandings: PropTypes.func.isRequired,
+  getTeamStats: PropTypes.func.isRequired,
 };
 
 export const NFLStatsPageContainer = connect(mapNFLStatsToProps,actionCreators)(NFLStatsPage);

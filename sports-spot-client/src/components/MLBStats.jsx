@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 
 class MLBStatsPage extends PureComponent{
 
+  constructor(props){
+        super(props);
+    }
+
   getSortAbbreviation(name){
       if(name==='Batting Average') return 'stats.AVG.D';
       else if(name==='ERA') return 'stats.ERA.D';
@@ -23,10 +27,12 @@ class MLBStatsPage extends PureComponent{
       else if(name==='On-Base Percentage') return 'stats.OBP.D';
       else if(name==='WHIP') return 'stats.WHIP.D';
       else if(name==='Outfield Assists') return 'stats.A.D';
+      else if(name==='Runs Scored') return 'stats.R.D';
+      else if(name==='Runs Scored') return 'stats.R.D';
 
   }
   handleLinkClick(functionParam,statType,orderBy,game){
-      functionParam(statType,orderBy,game);
+      functionParam(game,undefined,undefined,orderBy,statType);
   }
 
   constructColumn(statsFor,data1,data2,data3,functionParam){
@@ -36,10 +42,16 @@ class MLBStatsPage extends PureComponent{
     var data3_sortAbb= this.getSortAbbreviation(data3);
     var location1 = '/mlb/showStatPanel/'+statsFor+"_"+data1;
     var location2 = '/mlb/showStatPanel/'+statsFor+"_"+data2;
-    var location3 = '/mlb/showStatPanel/'+statsFor+"_"+data3;
-    columns.push(<td><Link to={location1} onClick={() => this.handleLinkClick(functionParam,'batting',data1_sortAbb,'mlb')}>{data1}</Link></td>);
-    columns.push(<td><Link to={location2} onClick={() => this.handleLinkClick(functionParam,'pitching',data2_sortAbb,'mlb')}>{data2}</Link></td>);
-    columns.push(<td><Link to={location3} onClick={() => this.handleLinkClick(functionParam,'fielding',data3_sortAbb,'mlb')}>{data3}</Link></td>);
+    var location3 = '/mlb/showStatPanel/'+statsFor+"/"+data3;
+    if(statsFor==='player'){
+      columns.push(<td><Link to={location1} onClick={() => this.props.getStats('batting',data1_sortAbb,'mlb')}>{data1}</Link></td>);
+      columns.push(<td><Link to={location2} onClick={() => this.props.getStats('pitching',data2_sortAbb,'mlb')}>{data2}</Link></td>);
+      columns.push(<td><Link to={location3} onClick={() => this.props.getStats('fielding',data3_sortAbb,'mlb')}>{data3}</Link></td>);
+    }else{
+      columns.push(<td><Link to={location1} onClick={() => this.props.getTeamStats('batting',data1_sortAbb,'mlb')}>{data1}</Link></td>);
+      columns.push(<td><Link to={location2} onClick={() => this.props.getTeamStats('pitching',data2_sortAbb,'mlb')}>{data2}</Link></td>);
+      columns.push(<td><Link to={location3} onClick={() => this.props.getTeamStats('fielding',data3_sortAbb,'mlb')}>{data3}</Link></td>);
+    }
     return columns;
   }
   render() {
@@ -62,18 +74,18 @@ class MLBStatsPage extends PureComponent{
                                       </tr>
                                       <tr className="tableContent">
                                         <td>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'batting','stats.AVG','mlb')}>Batting</Link>
+                                          <Link to='/mlb/showStatPanel/player_Batting' onClick={() => this.props.getStats('batting','stats.AVG.D','mlb')}>Batting</Link>
                                           <br/>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'pitching','stats.W','mlb')}>Pitching</Link>
+                                          <Link to='/mlb/showStatPanel/player_Pitching' onClick={() => this.props.getStats('pitching','stats.W.D','mlb')}>Pitching</Link>
                                           <br/>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStats,'fielding','stats.FPCT','mlb')}>Fielding</Link>
+                                          <Link to='/mlb/showStatPanel/player_Fielding' onClick={() => this.props.getStats('fielding','stats.FPCT.D','mlb')}>Fielding</Link>
                                         </td>
                                         <td>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'batting','stats.AVG','mlb')}>Batting</Link>
+                                          <Link to='/mlb/showStatPanel/team_Batting' onClick={() => this.props.getTeamStats('batting','stats.AVG.D','mlb')}>Batting</Link>
                                           <br/>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'pitching','stats.ERA','mlb')}>Pitching</Link>
+                                          <Link to='/mlb/showStatPanel/team_Pitching' onClick={() => this.props.getTeamStats('pitching','stats.ERA.D','mlb')}>Pitching</Link>
                                           <br/>
-                                          <Link to='/showStatPanel' onClick={() => this.handleLinkClick(this.props.getStandings,'fielding','stats.FPCT','mlb')}>Fielding</Link>
+                                          <Link to='/mlb/showStatPanel/team_Fielding' onClick={() => this.props.getTeamStats('fielding','stats.FPCT.D','mlb')}>Fielding</Link>
                                         </td>
                                         </tr>
                                     </tbody>
@@ -121,19 +133,19 @@ class MLBStatsPage extends PureComponent{
                                      <td>Fielding</td>
                                      </tr>
                                      <tr className="even">
-                                       {this.constructColumn('team','Runs Scored','ERA','	Errors',this.props.getStandings)}
+                                       {this.constructColumn('team','Runs Scored','ERA','	Errors',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="odd">
-                                        {this.constructColumn('team','Home Runs','Wins','Double Plays',this.props.getStandings)}
+                                        {this.constructColumn('team','Home Runs','Wins','Double Plays',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="even">
-                                        {this.constructColumn('team','Runs Batted In','Saves','Fielding Percentage',this.props.getStandings)}
+                                        {this.constructColumn('team','Runs Batted In','Saves','Fielding Percentage',this.props.getTeamStats)}
                                      </tr>
                                       <tr className="odd">
-                                        {this.constructColumn('team','Hits','Strikeouts','Total Chances',this.props.getStandings)}
+                                        {this.constructColumn('team','Hits','Strikeouts','Total Chances',this.props.getTeamStats)}
                                      </tr>
                                      <tr className="even">
-                                        {this.constructColumn('team','On-Base Percentage','WHIP','Outfield Assists',this.props.getStandings)}
+                                        {this.constructColumn('team','On-Base Percentage','WHIP','Outfield Assists',this.props.getTeamStats)}
                                      </tr>
                                   </tbody>
                             </table>
@@ -152,7 +164,7 @@ function mapMLBStatsToProps(curr_stats){
 
 MLBStatsPage.propTypes = {
   getStats : PropTypes.func.isRequired,
-  getStandings: PropTypes.func.isRequired,
+  getTeamStats: PropTypes.func.isRequired,
 };
 
 export const MLBStatsPageContainer = connect(mapMLBStatsToProps,actionCreators)(MLBStatsPage);

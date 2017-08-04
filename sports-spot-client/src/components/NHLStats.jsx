@@ -33,7 +33,7 @@ class NHLStatsPage extends PureComponent{
       console.log("statType here:",statType);
       console.log("game here:",game);
       console.log("orderBy here:",orderBy);
-      functionParam(statType,orderBy,game);
+      functionParam(game,undefined,undefined,orderBy,statType);
   }
 
   constructColumn(statsFor,data1,data2,data3,functionParam){

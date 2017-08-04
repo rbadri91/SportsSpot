@@ -62,6 +62,9 @@ export function getCurrentNHLNews() {
 
 export function getScores(game = 'nhl', season = 'default', forDate = 'default') {
     if (season == 'default') {
+        season = '2017-2018-regular';
+    }
+    if (season === '2017-2018-regular' && game === 'nba') {
         season = '2016-2017-regular';
     }
     if (forDate == 'default') {
@@ -80,7 +83,12 @@ export function getScores(game = 'nhl', season = 'default', forDate = 'default')
             else if (game == 'nba') forDate = '20141028';
             else if (game == 'nfl') forDate = '20140904';
             else forDate = '20141008';
-        } else forDate = '20170101';
+        } else if (season == '2017-2018-regular') {
+            if (game == 'mlb') forDate = '20170402';
+            else if (game == 'nba') forDate = '20171020';
+            else if (game == 'nfl') forDate = '20170907';
+            else forDate = '20171004';
+        }
     }
     return {
         meta: { remote: true },
@@ -91,7 +99,11 @@ export function getScores(game = 'nhl', season = 'default', forDate = 'default')
     };
 }
 
-export function getSchedule(game = 'nhl', season = '2016-2017-regular') {
+export function getSchedule(game = 'nhl', season = '2017-2018-regular') {
+
+    if (season === '2017-2018-regular' && game === 'nba') {
+        season = '2016-2017-regular';
+    }
     return {
         meta: { remote: true },
         type: 'GET_SCHEDULES',
@@ -100,12 +112,16 @@ export function getSchedule(game = 'nhl', season = '2016-2017-regular') {
     };
 }
 
-export function getStandings(game = 'nhl', season = '2016-2017-regular', teamStats = 'default', sortBy = 'default') {
+export function getStandings(game = 'nhl', season = '2017-2018-regular', teamStats = 'default', sortBy = 'default') {
     if (teamStats === 'default') {
         if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA';
         else if (game === 'nba') teamStats = 'W,L,Win %,GB,PTS/G,PTSA/G,FG%,3P%,FT%,OREB/G,DREB/G,REB/G,TOV/G';
         else if (game === 'mlb') teamStats = 'W,L,GB,Win %,RF,RA,RUNDIFF,AB,R,H,2B,3B,HR,TB,RBI,AVG,OBP,SLG,OPS';
         else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec';
+    }
+
+    if (season === '2017-2018-regular' && game === 'nba') {
+        season = '2016-2017-regular';
     }
 
     return {
@@ -118,19 +134,43 @@ export function getStandings(game = 'nhl', season = '2016-2017-regular', teamSta
     };
 }
 
-export function getStats(statType, sortBy, game = 'nhl', season = '2016-2017-regular', playerStats = 'default') {
+export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', teamStats = 'default') {
+    if (teamStats === 'default') {
+        if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA';
+        else if (game === 'nba') teamStats = 'W,L,Win %,PTS/G,PTSA/G,FG%,3P%,FT%,OREB/G,DREB/G,REB/G,TOV/G,FGM,3PM/G,FGM/G,FGA/G,3PA/G,FTM/G,FTA/G,AST/G';
+        else if (game === 'mlb') teamStats = 'W,L,GP,Win %,RF,RA,RUNDIFF,AB,R,H,2B,3B,HR,TB,RBI,AVG,OBP,SLG,OPS';
+        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec,Blk';
+    }
+
+    if (season === '2017-2018-regular' && game === 'nba') {
+        season = '2016-2017-regular';
+    }
+
+    return {
+        meta: { remote: true },
+        type: 'GET_TEAMSTATS',
+        game,
+        season,
+        teamStats,
+        sortBy,
+        statType
+    };
+}
+
+export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', playerStats = 'default') {
+
     if (playerStats === 'default') {
         if (game === 'mlb') {
             if (statType === 'batting') playerStats = 'AVG,AB,R,H,2B,3B,HR,RBI,SB,CS,BB,K/9,OBP,SLG,OPS';
             else if (statType === 'pitching') playerStats = 'IP,W,L,SV,SVO,H,R,HR,ER,ERA,BB,K/9,FTP,WHIP';
             else playerStats = 'TC,E,FPO,A,BDP,OF,PK,FDP';
         } else if (game === 'nba') {
-            if (statType === 'offence') playerStats = 'MIN/G,PTS,FGA/G,FGM/G,FG%,3PM/G,3PA/G,3P%,FTM/G,FTA/G,FT%';
-            else if (statType === 'defence') playerStats = 'MIN/G,OREB,OREB/G,DREB,DREB/G,REB,REB/G';
-            else playerStats = 'MIN/G,PF,PF/G,FF1,TF,EJE';
+            if (statType === 'offence') playerStats = 'MIN/G,PTS,FGA/G,FGM/G,FG%,3PM/G,3PA/G,3P%,FTM/G,FTA/G,FT%,AST,AST/G';
+            else if (statType === 'defence') playerStats = 'MIN/G,OREB,OREB/G,DREB,DREB/G,REB,REB/G,BS,BS/G';
+            else playerStats = 'MIN/G,PF,PF/G,FF1,TF,EJE,FF1/G';
         } else if (game === 'nfl') {
-            if (statType === 'offence') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,';
-            else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds';
+            if (statType === 'offence') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,Yards/Att';
+            else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds,OwnRec';
             else playerStats = 'Made,Att,FG%,Lng,Made1-19,Att1-19,Made20-29,Att20-29,Made30-39,Att30-39,Made50+,Att50+,Xp%';
         } else {
             if (statType === 'scoring') playerStats = 'G,A,Pts,+/-,PIM,Sh,Sh%,GWG,PPG,PPA,SHG,SHA';
@@ -139,7 +179,9 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2016-2017-reg
         }
     }
 
-    console.log("sortBy here:", sortBy);
+    if (season === '2017-2018-regular' && game === 'nba') {
+        season = '2016-2017-regular';
+    }
 
     return {
         meta: { remote: true },
@@ -151,29 +193,7 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2016-2017-reg
     };
 }
 
-
-
-export function getTeamStats(statType, sortBy, game = 'nhl', season = '2016-2017-regular', playerStats = 'default') {
-
-    if (playerStats === 'default') {
-        if (game === 'mlb') {
-            if (statType == 'batting') playerStats = 'AVG,AB,R,H,2B,3B,HR,RBI,SB,CS,BB,K/9,OBP,SLG,OPS';
-            else if (statType == 'pitching') playerStats = 'IP,W,L,SV,SVO,H,R,HR,ER,ERA,BB,K/9,FTP,WHIP';
-            else playerStats = 'TC,E,FPO,A,BDP,OF,PK,FDP';
-        }
-    }
-
-    return {
-        meta: { remote: true },
-        type: 'GET_STATS',
-        game,
-        season,
-        sortBy,
-        playerStats
-    };
-}
-
-export function getTeams(game = 'nhl', season = '2016-2017-regular') {
+export function getTeams(game = 'nhl', season = '2017-2018-regular') {
     return {
         meta: { remote: true },
         type: 'GET_TEAMS',

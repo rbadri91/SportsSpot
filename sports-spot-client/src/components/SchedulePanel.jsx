@@ -82,7 +82,7 @@ export default class SchedulePanel extends PureComponent{
                             <div className ="content-innerWrapper">
                             <table className="contentTable">
                                 <thead>
-                                    <tr className="ss-row tablelabel">
+                                    <tr className="ss-row tableLabel">
                                                             <th className ="matchLabel">Game</th>
                                                             <th className ="matchLabel"></th>
                                                             <th className ="timeName">Time</th>

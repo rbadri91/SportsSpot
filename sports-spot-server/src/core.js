@@ -154,6 +154,79 @@ export function getSchedules(curr_feeds, game, season) {
     return curr_feeds;
 }
 
+function getSortedData(statType, sortBy, game, data) {
+    console.log("game here:", game);
+    console.log("sortBy here:", sortBy);
+    console.log("statType here:", statType);
+    if (game === 'nba') {
+        if (statType === "offence") {
+            if (sortBy === "stats.PTS/G.D") {
+                console.log("it comes inside sort points");
+                data.sort(function(a, b) {
+                    if (a.stats.PtsPerGame["#text"] > b.stats.PtsPerGame["#text"]) return -1;
+                    if (b.stats.PtsPerGame["#text"] > a.stats.PtsPerGame["#text"]) return 1;
+                    return 0;
+                });
+                return data;
+            } else if (sortBy === 'stats.AST/G.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.AstPerGame["#text"] > b.stats.AstPerGame["#text"]) return -1;
+                    if (b.stats.AstPerGame["#text"] > a.stats.AstPerGame["#text"]) return 1;
+                    return 0;
+                });
+            } else if (sortBy === 'stats.FG%.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.FgPct["#text"] > b.stats.FgPct["#text"]) return -1;
+                    if (b.stats.FgPct["#text"] > a.stats.FgPct["#text"]) return 1;
+                    return 0;
+                });
+            } else if (sortBy === 'stats.FT%.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.FtPct["#text"] > b.stats.FtPct["#text"]) return -1;
+                    if (b.stats.FtPct["#text"] > a.stats.FtPct["#text"]) return 1;
+                    return 0;
+                });
+            } else if (sortBy === 'stats.3P%.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.Fg3PtPct["#text"] > b.stats.Fg3PtPct["#text"]) return -1;
+                    if (b.stats.Fg3PtPct["#text"] > a.stats.Fg3PtPct["#text"]) return 1;
+                    return 0;
+                });
+            } else if (sortBy === 'stats.F/G.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.FoulsPerGame["#text"] > b.stats.FoulsPerGame["#text"]) return -1;
+                    if (b.stats.FoulsPerGame["#text"] > a.stats.FoulsPerGame["#text"]) return 1;
+                    return 0;
+                });
+            }
+        } else if (statType === 'defence') {
+            if (sortBy === 'stats.REB/G.D') {
+                data.sort(function(a, b) {
+                    if (a.stats.RebPerGame["#text"] > b.stats.RebPerGame["#text"]) return -1;
+                    if (b.stats.RebPerGame["#text"] > a.stats.RebPerGame["#text"]) return 1;
+                    return 0;
+                });
+            }
+        }
+    }
+    return data;
+}
+
+export function getTeamStats(curr_feeds, game, season, teamStats, sortBy, statType) {
+    curr_feeds = new Promise((resolve, reject) => {
+        return msf.getData(game, season, 'overall_team_standings', 'json', { teamstats: teamStats }).then((data) => {
+            console.log("data fetched");
+            var sortedData = getSortedData(statType, sortBy, game, data.overallteamstandings.teamstandingsentry);
+            console.log("sorted data here:");
+            return resolve(List(sortedData));
+        }).catch((reason) => {
+            console.log("it comes here to reject:", reason);
+            return reject();
+        });
+    });
+    return curr_feeds;
+}
+
 export function getStandings(curr_feeds, game, season, teamStats, sortBy) {
 
     if (!sortBy || sortBy == 'default') {
@@ -178,13 +251,11 @@ export function getStandings(curr_feeds, game, season, teamStats, sortBy) {
     return curr_feeds;
 }
 
-export function getStats(curr_feeds, game, season, sortBy, playerStats) {
+export function getStats(curr_feeds, game, season, playerStats, sortBy) {
     console.log("playerStats here:", playerStats);
     console.log("sortBy here:", sortBy);
     console.log("game here:", game);
     console.log("season here:", season);
-    console.log("offset here:", offset);
-    console.log("limit here:", limit);
     if (sortBy != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
             msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy }).then((data) => {

@@ -70,8 +70,8 @@ export default class ScorePanel extends PureComponent{
     }
 
     getseasonOptions(){
-      var startYear = 2016;
-      var endYear = 2017;
+      var startYear = 2017;
+      var endYear = 2018;
       var options =[];
       for(var i=0;i<3;i++){
         var optionVal = startYear+"-"+endYear+'-regular';

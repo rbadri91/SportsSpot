@@ -6,24 +6,29 @@ const socket = io(`${location.protocol}//${location.hostname}:8090`);
 export default class NewsPanel extends PureComponent{
     constructor(props){
         super(props);
-        this.state={response:{}}
+        this.state={response:[]}
     }
     getNews(){
         return this.props.news ||[];
     }
     getInitialState(){
         return {
-        response: {}
+        response: []
         }
     }
      componentDidMount()
     {
-        socket.once("curr_news",(data)=>{
+        socket.on("curr_news",(data)=>{
                  this.setState({response:data});
-         })
+         });
     }
+
+    componentWillUnmount(){
+        socket.removeAllListeners("curr_news");
+    }
+
     render() {
-        if(Object.keys(this.state.response).length ==0)
+        if(this.state.response.length ==0)
         {
                     return <div>Loading ....</div>;
         }

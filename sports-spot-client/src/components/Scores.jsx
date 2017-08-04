@@ -19,8 +19,8 @@ class ScoresPage extends PureComponent{
       return game;
   }
     getseasonOptions(){
-      var startYear = 2016;
-      var endYear = 2017;
+      var startYear = 2017;
+      var endYear = 2018;
       var options =[];
       for(var i=0;i<3;i++){
         options.push(<option value ='{startYear}-{endYear}-regular'>{startYear} Season</option>)
