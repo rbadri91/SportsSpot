@@ -45,6 +45,7 @@
     "react-dev-utils": "^3.0.2",
     "react-dom": "^15.6.1",
     "react-error-overlay": "^1.0.9",
+    "react-loader": "^2.4.2",
     "react-paginate": "^4.4.3",
     "react-redux": "^5.0.5",
     "react-router": "^2.0.0",
