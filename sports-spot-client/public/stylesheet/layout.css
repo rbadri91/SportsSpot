@@ -291,12 +291,6 @@ a:hover {
     z-index: 1000;
 }
 
-@media screen and (min-width:1260px) {
-    .subNavConfig {
-        top: 12%;
-    }
-}
-
 .weekHeader {
     background: #efefef;
     color: #777;
