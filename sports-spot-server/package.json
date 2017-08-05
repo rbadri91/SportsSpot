@@ -2,7 +2,7 @@
     "name": "sports-spot-server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
         "build": "babel . --ignore node_modules,build --out-dir build",
         "start": "babel-node app.js",
