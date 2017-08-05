@@ -3,6 +3,7 @@ import { List } from 'immutable';
 var fs = require("fs");
 var Promise = require('promise');
 var MySportsFeeds = require("mysportsfeeds-node");
+var PythonShell = require('python-shell');
 
 var msf;
 
@@ -78,25 +79,95 @@ export function setCurrentNews(curr_feeds, newsList) {
 
 export function getCurrentAllNews(curr_feeds) {
     console.log("in get all current news");
-    curr_feeds = List(JSON.parse(fs.readFileSync("public/json/AllSports.json")));
-    return Promise.resolve(curr_feeds);
+    curr_feeds = new Promise((resolve, reject) => {
+        var options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: './',
+            args: ['ALL']
+        };
+
+        PythonShell.run('sportsEvent.py', options, function(err, results) {
+            if (err) throw err;
+            curr_feeds = List(JSON.parse(fs.readFileSync("public/json/AllSports.json")));
+            resolve(curr_feeds);
+        });
+    });
+    return curr_feeds;
 }
 export function getCurrentNBANews(curr_feeds) {
-    curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NBA.json")));
-    return Promise.resolve(curr_feeds);
+    curr_feeds = new Promise((resolve, reject) => {
+        var options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: './',
+            args: ['nba']
+        };
+
+        PythonShell.run('sportsEvent.py', options, function(err, results) {
+            if (err) throw err;
+            curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NBA.json")));
+            resolve(curr_feeds);
+        });
+    });
+    return curr_feeds;
 }
 export function getCurrentNFLNews(curr_feeds) {
-    curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NFL.json")));
-    return Promise.resolve(curr_feeds);
+    curr_feeds = new Promise((resolve, reject) => {
+        var options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: './',
+            args: ['nfl']
+        };
+
+        PythonShell.run('sportsEvent.py', options, function(err, results) {
+            if (err) throw err;
+            curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NFL.json")));
+            resolve(curr_feeds);
+        });
+    });
+    return curr_feeds;
 }
 export function getCurrentNHLNews(curr_feeds) {
-    curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NHL.json")));
-    return Promise.resolve(curr_feeds);
+    curr_feeds = new Promise((resolve, reject) => {
+        var options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: './',
+            args: ['nhl']
+        };
+
+        PythonShell.run('sportsEvent.py', options, function(err, results) {
+            if (err) throw err;
+            curr_feeds = List(JSON.parse(fs.readFileSync("public/json/NHL.json")));
+            resolve(curr_feeds);
+        });
+    });
+    return curr_feeds;
 }
 
 export function getCurrentMLBNews(curr_feeds) {
-    curr_feeds = List(JSON.parse(fs.readFileSync("public/json/MLB.json")));
-    return Promise.resolve(curr_feeds);
+    curr_feeds = new Promise((resolve, reject) => {
+        var options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: './',
+            args: ['mlb']
+        };
+
+        PythonShell.run('sportsEvent.py', options, function(err, results) {
+            if (err) throw err;
+            curr_feeds = List(JSON.parse(fs.readFileSync("public/json/MLB.json")));
+            resolve(curr_feeds);
+        });
+    });
+    return curr_feeds;
 }
 
 export function getScores(curr_feeds, game, season, forDate) {

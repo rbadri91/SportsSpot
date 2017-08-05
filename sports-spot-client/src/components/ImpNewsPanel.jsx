@@ -9,11 +9,13 @@ export default class ImpNewsPanel extends PureComponent{
         this.state={response:[]}
     }
     getImpNews(){
+        this.state.dataloaded = false;
         return (this.state.response.length!==0)?this.state.response.slice(0,7):[];
     }
     getInitialState(){
         return {
-        response: []
+        response: [],
+        dataloaded : false
         }
     }
      componentDidMount()

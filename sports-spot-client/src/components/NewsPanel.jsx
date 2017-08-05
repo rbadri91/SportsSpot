@@ -7,7 +7,7 @@ var Loader = require('react-loader');
 export default class NewsPanel extends PureComponent{
     constructor(props){
         super(props);
-        this.state={response:[]}
+        this.state={response:[],loaded:false}
     }
     getNews(){
         return this.state.response ||[];
@@ -23,6 +23,7 @@ export default class NewsPanel extends PureComponent{
      componentDidMount()
     {
         socket.on("curr_news",(data)=>{
+            console.log("data comes here:")
                 if(data[0] && data[0].title){
                     console.log("it comes inside loaded");
                      this.setState({response:data,loaded:true});
