@@ -285,10 +285,16 @@ a:hover {
 }
 
 .subNavConfig {
-    top: 7%;
+    top: 8%;
     position: fixed;
     width: 100%;
     z-index: 1000;
+}
+
+@media screen and (min-width:1260px) {
+    .subNavConfig {
+        top: 12%;
+    }
 }
 
 .weekHeader {
@@ -444,6 +450,10 @@ a:hover {
     border-bottom: 6px solid transparent;
 }
 
+.mainGroupRow td:first-child {
+    padding-right: 2.5%
+}
+
 .scoreSection tr {
     border-bottom: 0;
 }
@@ -528,7 +538,15 @@ table.schedule th:first-child:not(.date) {
     background: #fff;
     margin-right: 0;
     padding: 0 20px;
-    width: 100%;
+    width: 924px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+    .schedule-content-wrapper,
+    .standings-content-wrapper {
+        width: 100%;
+    }
 }
 
 .content-innerWrapper table td,
@@ -829,12 +847,12 @@ table.optionData tbody .odd td {
 }
 
 .teamSectionMain {
-    width: 90%;
+    width: 100%;
     margin-bottom: 3%;
 }
 
 .shrinkWidth {
-    width: 90%;
+    /* width: 90%; */
 }
 
 .setPosRight {
@@ -882,4 +900,18 @@ table.optionData tbody .odd td {
     display: block;
     line-height: 1em;
     color: transparent;
+}
+
+.subNavConfig .navbar-default .navbar-nav>.active>a {
+    background-color: #f8f8f8;
+}
+
+.subNavConfig .navbar-default .navbar-nav>.active>a:before {
+    background-color: #d00;
+    bottom: 0;
+    content: '';
+    height: 4px;
+    left: 0;
+    position: absolute;
+    right: 0;
 }

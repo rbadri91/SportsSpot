@@ -77,13 +77,19 @@ export default class ScorePanel extends PureComponent{
             }
     }
 
-    getseasonOptions(){
+     getseasonOptions(){
       var startYear = 2017;
       var endYear = 2018;
       var options =[];
-      for(var i=0;i<3;i++){
+      var season = ["2016-2017-regular","2017-playoff","2015-2016-regular","2016-playoff"];
+      var seasonName = ["2016 Regular",'2017 Playoff','2015 Regular'];
+      if(this.game==='mlb'){
+          season = ["2017-regular","2017-playoff","2016-2017-regular","2016-playoff"];
+          seasonName = ["2017 Regular",'2017 Playoff','2016 Regular'];
+      }
+      for(var i=0;i<season.length;i++){
         var optionVal = startYear+"-"+endYear+'-regular';
-        options.push(<option value ={optionVal}>{startYear} Season</option>)
+        options.push(<option value ={season[i]}>{seasonName[i]} Season</option>)
         startYear--;
         endYear--;
       }

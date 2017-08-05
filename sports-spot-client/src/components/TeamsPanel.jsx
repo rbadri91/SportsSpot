@@ -120,7 +120,7 @@ class TeamsPanel extends PureComponent{
                                            {
                                                 this.standingsMainGroups.map((standingSubGroups) =>(
                                                     <td key ={this.getDivision(standingSubGroups[0]['@name'])} className="mainGroupSubSection">
-                                                        <h3 className="main-section-title shrinkWidth">{this.getDivision(standingSubGroups[0]['@name'])}</h3>
+                                                        <h3 className="main-section-title">{this.getDivision(standingSubGroups[0]['@name'])}</h3>
                                                          {
                                                             standingSubGroups.map((division) => (
                                                                 <table key ={this.getSubDivision(division['@name'])} className="outputData teamSectionMain">
