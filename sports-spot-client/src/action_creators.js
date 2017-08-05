@@ -64,7 +64,7 @@ export function getScores(game = 'nhl', season = 'default', forDate = 'default')
     if (season == 'default') {
         season = '2017-2018-regular';
     }
-    if (season === '2017-2018-regular' && game === 'nba') {
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
     if (forDate == 'default') {
@@ -99,16 +99,18 @@ export function getScores(game = 'nhl', season = 'default', forDate = 'default')
     };
 }
 
-export function getSchedule(game = 'nhl', season = '2017-2018-regular') {
-
-    if (season === '2017-2018-regular' && game === 'nba') {
+export function getSchedule(game = 'nhl', season = '2017-2018-regular', team = 'default') {
+    console.log("team here:", team);
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
+
     return {
         meta: { remote: true },
         type: 'GET_SCHEDULES',
         game,
-        season
+        season,
+        team
     };
 }
 
@@ -120,7 +122,7 @@ export function getStandings(game = 'nhl', season = '2017-2018-regular', teamSta
         else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec';
     }
 
-    if (season === '2017-2018-regular' && game === 'nba') {
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
 
@@ -139,7 +141,7 @@ export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018
         if (game === 'nhl') teamStats = 'W,L,OTW,OTL,PTS,GF,GA,';
         else if (game === 'nba') teamStats = 'W,L,Win %,PTS/G,PTSA/G,FG%,3P%,FT%,OREB/G,DREB/G,REB/G,TOV/G,FGM,3PM/G,FGM/G,FGA/G,3PA/G,FTM/G,FTA/G,AST/G,PF,PF/G,FF1,TF,EJE,F/G';
         else if (game === 'mlb') teamStats = 'W,L,Win %,RF,RA,RUNDIFF,AB,R,H,2B,3B,HR,TB,RBI,AVG,OBP,SLG,OPS,LOB,ERA,SO,IP,ER,BB,SHO,WHIP,TC,E,FPO,A,FDP,PK,FPCT';
-        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec,Blk,Comp,Pct,Yards/Att,TD,Int,QBRating,SackY,NetYds,Fum,20+';
+        else teamStats = 'W,L,T,Win %,PF,PA,PTDIFF,Yds,Att,Avg,Ast,Sacks,SackYds,PD,Lng,TD,Forced,TotalRec,Blk,Comp,Pct,Yards/Att,Int,QBRating,SackY,NetYds,Fum,20+';
     }
 
     if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
@@ -169,9 +171,9 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-reg
             else if (statType === 'defence') playerStats = 'MIN/G,OREB,OREB/G,DREB,DREB/G,REB,REB/G,BS,BS/G';
             else playerStats = 'MIN/G,PF,PF/G,FF1,TF,EJE,FF1/G';
         } else if (game === 'nfl') {
-            if (statType === 'offence') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,Yards/Att';
-            else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds,OwnRec';
-            else playerStats = 'Made,Att,FG%,Lng,Made1-19,Att1-19,Made20-29,Att20-29,Made30-39,Att30-39,Made50+,Att50+,Xp%';
+            if (statType === 'offence') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,Yards/Att,Ret,20+,40+,Rec,Made,Blk,2PTAtt';
+            else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds,OwnRec,Ret,20+,40+';
+            else playerStats = 'Made,Att,FG%,Lng,Made1-19,Att1-19,Made20-29,Att20-29,Made30-39,Att30-39,Made50+,Att50+,Xp%,Ret,Yds,Avg,TD,20+';
         } else {
             if (statType === 'scoring') playerStats = 'G,A,Pts,+/-,PIM,Sh,Sh%,GWG,GTG,PPG,PPA,SHG,SHA';
             else if (statType === 'goaltending') playerStats = 'G,A,Pts,Sh,W,L,OTL,GAA,GA,SA,Sv,Sv%,SO';
@@ -194,11 +196,29 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-reg
 }
 
 export function getTeams(game = 'nhl', season = '2017-2018-regular') {
+    var teamStats = 'W';
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
+        season = '2016-2017-regular';
+    }
     return {
         meta: { remote: true },
         type: 'GET_TEAMS',
         game,
-        season
+        season,
+        teamStats
+    };
+}
+
+export function getRoster(game = 'nhl', season = '2017-2018-regular', team = 'default') {
+    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
+        season = '2016-2017-regular';
+    }
+    return {
+        meta: { remote: true },
+        type: 'GET_ROSTER',
+        game,
+        season,
+        team
     };
 }
 

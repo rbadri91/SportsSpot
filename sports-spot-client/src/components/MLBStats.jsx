@@ -13,7 +13,7 @@ class MLBStatsPage extends PureComponent{
     }
 
   getSortAbbreviation(name){
-      if(name==='Batting Average') return 'stats.AVG.D';
+      if(name==='Batting Average') return 'stats.Batting-AVG.D';
       else if(name==='ERA') return 'stats.ERA.D';
       else if(name==='Fielding Percentage') return 'stats.FPCT.D';
       else if(name==='Home Runs') return 'stats.HR.D';
@@ -28,7 +28,6 @@ class MLBStatsPage extends PureComponent{
       else if(name==='On-Base Percentage') return 'stats.OBP.D';
       else if(name==='WHIP') return 'stats.WHIP.D';
       else if(name==='Outfield Assists') return 'stats.A.D';
-      else if(name==='Runs Scored') return 'stats.R.D';
       else if(name==='Runs Scored') return 'stats.R.D';
 
   }

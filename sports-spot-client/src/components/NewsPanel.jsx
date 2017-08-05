@@ -20,12 +20,13 @@ export default class NewsPanel extends PureComponent{
         }
     
     }
+    resetLoaded(){
+        // this.state.loaded = false;
+    }
      componentDidMount()
     {
         socket.on("curr_news",(data)=>{
-            console.log("data comes here:")
                 if(data[0] && data[0].title){
-                    console.log("it comes inside loaded");
                      this.setState({response:data,loaded:true});
                 }
          });
@@ -65,7 +66,9 @@ export default class NewsPanel extends PureComponent{
                             </section>
                         </section>
                     </article>
+                   
             )}
+            {this.resetLoaded()}
            </Loader> 
         </div>;
     }

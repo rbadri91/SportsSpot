@@ -187,16 +187,31 @@ export function getScores(curr_feeds, game, season, forDate) {
     return curr_feeds;
 }
 
-export function getSchedules(curr_feeds, game, season) {
-    curr_feeds = new Promise((resolve, reject) => {
-        msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50 }).then((data) => {
-            return resolve(List(data.fullgameschedule.gameentry));
-        }).catch(() => {
-            return reject();
+export function getSchedules(curr_feeds, game, season, team) {
+    console.log("team here:", team);
+    console.log("game here:", game);
+    console.log("season here:", season);
+    team = team.trim();
+    if (team != 'default') {
+        curr_feeds = new Promise((resolve, reject) => {
+            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, team: team }).then((data) => {
+                return resolve(List(data.fullgameschedule.gameentry.slice(0, 50)));
+            }).catch(() => {
+                return reject();
+            });
         });
-    });
+    } else {
+        curr_feeds = new Promise((resolve, reject) => {
+            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50 }).then((data) => {
+                return resolve(List(data.fullgameschedule.gameentry));
+            }).catch(() => {
+                return reject();
+            });
+        });
+    }
     return curr_feeds;
 }
+
 
 function sortdata(data, key, sortOrder) {
     if (sortOrder == 'desc') {
@@ -279,8 +294,7 @@ export function getTeamStats(curr_feeds, game, season, teamStats, sortBy, statTy
     if (teamStats != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
             return msf.getData(game, season, 'overall_team_standings', 'json', { teamstats: teamStats, sort: sortBy }).then((data) => {
-                sortedData = getSortedData(statType, sortBy, game, data.overallteamstandings.teamstandingsentry);
-                return resolve(List(sortedData));
+                return resolve(List(data.overallteamstandings.teamstandingsentry));
             }).catch((reason) => {
                 console.log("it comes here to reject:", reason);
                 return reject();
@@ -340,8 +354,6 @@ export function getStats(curr_feeds, game, season, playerStats, sortBy) {
             });
         });
     } else {
-
-
         curr_feeds = new Promise((resolve, reject) => {
             msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats }).then((data) => {
                 return resolve(List(data.cumulativeplayerstats.playerstatsentry));
@@ -350,5 +362,17 @@ export function getStats(curr_feeds, game, season, playerStats, sortBy) {
             });
         });
     }
+    return curr_feeds;
+}
+
+export function getRosterStats(curr_feeds, game, season, team) {
+    console.log("team here:", team);
+    curr_feeds = new Promise((resolve, reject) => {
+        msf.getData(game, season, 'roster_players', 'json', { team: team }).then((data) => {
+            return resolve(List(data.rosterplayers.playerentry));
+        }).catch(() => {
+            return reject();
+        });
+    });
     return curr_feeds;
 }

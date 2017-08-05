@@ -99,7 +99,7 @@ class subNavigation extends Component{
                                <NavItem eventKey={5}>Stats</NavItem>
                             </LinkContainer> 
                             <LinkContainer to={this.getRalativePath()+"/teams"}>
-                               <NavItem onClick={this.props.getTeams} eventKey={6}>Teams</NavItem>
+                               <NavItem onClick={() => this.handleNavClick(this.props.getTeams)} eventKey={6}>Teams</NavItem>
                             </LinkContainer>  
                         </Nav>
                     </Navbar.Collapse>

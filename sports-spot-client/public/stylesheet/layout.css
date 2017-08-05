@@ -95,7 +95,7 @@ a:hover {
 }
 
 .containerWrapper {
-    margin-top: 6%;
+    margin: 6%;
 }
 
 .s-row {
@@ -787,4 +787,99 @@ table.optionData tbody .odd td {
 
 .pagination li>a {
     cursor: pointer;
+}
+
+.sportHeader.feature {
+    margin: 0;
+    padding: 0 0 0 10px;
+    font-size: 26px;
+    height: 60px;
+}
+
+.sportHeader {
+    display: table-cell;
+    vertical-align: middle;
+    width: 980px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #5a5ac7;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.multispans {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.mainGroupRow {
+    vertical-align: middle;
+}
+
+.mainGroupSubSection {
+    width: 48%;
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+}
+
+.teamSectionMain {
+    width: 90%;
+    margin-bottom: 3%;
+}
+
+.shrinkWidth {
+    width: 90%;
+}
+
+.setPosRight {
+    float: right;
+}
+
+.separateHeader {
+    margin-bottom: 3%;
+}
+
+.teamSectionMain tbody .ss-row td>a {
+    text-decoration: none;
+    color: #6076b6;
+}
+
+.setTitleHeight {
+    height: 28px;
+}
+
+.scheduleTitle {
+    text-transform: uppercase;
+    height: 60px;
+    background: #1f6ae6;
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    font-size: 2.16rem;
+}
+
+.setPosRight a {
+    text-decoration: none;
+}
+
+.rosterPanel {
+    margin: 4%;
+    background: #fff;
+}
+
+.rosterInnerWrapper {
+    padding: 2%;
+}
+
+.teamSectionMain tbody:before {
+    content: "-";
+    display: block;
+    line-height: 1em;
+    color: transparent;
 }

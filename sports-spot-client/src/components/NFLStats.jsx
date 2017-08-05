@@ -9,43 +9,43 @@ var Loader = require('react-loader');
 class NFLStatsPage extends PureComponent{
 
   getPlayerSortAbbreviation(name){
-      if(name==='Passing') return 'stats.Yds.D';
+      if(name==='Passing') return 'stats.Passing-Yds.D';
       else if(name==='Tackles') return 'stats.Total.D';
-      else if(name==='Field Goals') return 'stats.Made.D';
-      else if(name==='Rushing') return 'stats.Yds.D';
+      else if(name==='Field Goals') return 'stats.Field Goals-Made.D';
+      else if(name==='Rushing') return 'stats.Rushing-Yds.D';
       else if(name==='Sacks') return 'stats.Sacks.D';
       else if(name==='Extra Points') return 'stats.XpMade.D';
-      else if(name==='RecYards') return 'stats.Yds.D';
+      else if(name==='RecYards') return 'stats.Receiving-Yds.D';
       else if(name==='Interceptions') return 'stats.PD.D';
-      else if(name==='Punting') return 'stats.NetYds.D';
-      else if(name==='Touchdowns') return 'stats.TD.D';
+      else if(name==='Punting') return 'stats.Punting-NetYds.D';
+      else if(name==='Touchdowns') return 'stats.TotalTD.D';
       else if(name==='Fumbles Forced') return 'stats.Forced.D';
-      else if(name==='Kickoff Returns') return 'stats.Yds.D';
+      else if(name==='Kickoff Returns') return 'stats.Kickoff Returns-Yds.D';
       else if(name==='Scoring') return 'stats.FgAndXpPts.D';
-      else if(name==='Punt Returns') return 'stats.RetYds.D';
+      else if(name==='Punt Returns') return 'stats.Punting-RetYds.D';
       else if(name==='Total QBR') return 'stats.QBRating.D';
   }
 
   getTeamSortAbbreviations(name){
-      if(name==='Passing Offense') return 'stats.NetYds.D';
-      else if(name==='Passing Defense') return 'stats.Int.D';
-      else if(name==='Field Goals') return 'stats.Made.D';
-      else if(name==='Rushing Offense') return 'stats.Yds.D';
+      if(name==='Passing Offense') return 'stats.Passing-NetYds.D';
+      else if(name==='Passing Defense') return 'stats.Passing-Int.D';
+      else if(name==='Field Goals') return 'stats.Field Goals-Made.D';
+      else if(name==='Rushing Offense') return 'stats.Rushing-Yds.D';
       else if(name==='Rushing Defense') return 'stats.Rushing.D';
       else if(name==='Kickoffs') return 'stats.KO%.D';
-      else if(name==='Opponent Kickoffs') return 'stats.Ret.D';
-      else if(name==='Receiving Offense') return 'stats.Yds.D';
-      else if(name==='Receiving Defense') return 'stats.Yds.D';
-      else if(name==='Punting') return 'stats.NetYds.D';
-      else if(name==='Opponent Punting') return 'stats.NetYds.D';
+      else if(name==='Opponent Kickoffs') return 'stats.Kickoffs-Ret.D';
+      else if(name==='Receiving Offense') return 'stats.Receiving-Yds.D';
+      else if(name==='Receiving Defense') return 'stats.Receiving-Yds';
+      else if(name==='Punting') return 'stats.Punting-NetYds.D';
+      else if(name==='Opponent Punting') return 'stats.Punting-NetYds';
       else if(name==='Scoring Offense') return 'stats.PF.D';
       else if(name==='Scoring Defense') return 'stats.PA';
-      else if(name==='Punt Returns') return 'stats.Ret.D';
-      else if(name==='Opponent Punt Returns') return 'stats.Ret';
+      else if(name==='Punt Returns') return 'stats.Punting-Ret.D';
+      else if(name==='Opponent Punt Returns') return 'stats.Punting-Ret';
       else if(name==='Total Offense') return 'stats.OffenseYds.D';
       else if(name==='Total Defense') return 'stats.PD.D';
-      else if(name==='Kick Returns') return 'stats.Yds.D';
-      else if(name==='Opponent Kick Returns') return 'stats.Yds.D';
+      else if(name==='Kick Returns') return 'stats.Kickoff Returns-Yds.D';
+      else if(name==='Opponent Kick Returns') return 'stats.Kickoff Returns-Yds.D';
       else if(name==='Sacks / Interceptions Offense') return 'stats.SackYds.D';     
       else if(name==='Sacks / Interceptions Defense') return 'stats.Sacks.D';
       else if(name==='Fumbles Forced') return 'stats.Forced.D';
@@ -53,8 +53,6 @@ class NFLStatsPage extends PureComponent{
       
   }
   handleLinkClick(functionParam,statType,orderBy,game){
-      console.log("statType here:",statType);
-      console.log("game here:",game);
       functionParam(game,undefined,undefined,orderBy,statType);
   }
 

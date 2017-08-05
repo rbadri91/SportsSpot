@@ -39,7 +39,6 @@ class StatsPanel extends PureComponent{
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
-                console.log("data here:",data);
                  this.setState({response:data,responseReceived:true,loaded: true});
          });
     }
@@ -414,17 +413,18 @@ class StatsPanel extends PureComponent{
                         break;
                     case "Receiving":
                         columns = [items.player.FirstName+" "+ items.player.LastName,items.player.Position,items.team.Name,
-                        items.stats.GamesPlayed["#text"],items.stats.Receptions["#text"],items.stats.RecYards["#text"],
-                        items.stats.RecAverage["#text"],items.stats.RecTD["#text"],items.stats.RecLng["#text"],
-                        items.stats.Rec20Plus["#text"],items.stats.Rec40Plus["#text"]];
+                        items.stats.GamesPlayed["#text"],(items.stats.Receptions)?items.stats.Receptions["#text"]:0,
+                        (items.stats.RecYards)?items.stats.RecYards["#text"]:0,(items.stats.RecAverage)?items.stats.RecAverage["#text"]:0,
+                        (items.stats.RecAverage)?items.stats.RecTD["#text"]:0,(items.stats.RecLng)?items.stats.RecLng["#text"]:0,
+                        (items.stats.Rec20Plus)?items.stats.Rec20Plus["#text"]:0,(items.stats.Rec40Plus)?items.stats.Rec40Plus["#text"]:0];
                         break;
                     case "Touchdowns":
                     case "Scoring": 
                         columns= [items.player.FirstName+" "+ items.player.LastName,items.player.Position,items.team.Name,
-                        items.stats.GamesPlayed["#text"],items.stats.RushTD["#text"],items.stats.RecTD["#text"],
-                        items.stats.PrTD["#text"],items.stats.KrTD["#text"],items.stats.IntTD["#text"],
-                        items.stats.FumTD["#text"],items.stats.XpMade["#text"],items.stats.FgBlk["#text"],
-                        items.stats.TwoPtAtt["#text"]] 
+                        items.stats.GamesPlayed["#text"],(items.stats.RushTD)?items.stats.RushTD["#text"]:0,(items.stats.RecTD)?items.stats.RecTD["#text"]:0,
+                        (items.stats.PrTD)?items.stats.PrTD["#text"]:0,(items.stats.KrTD)?items.stats.KrTD["#text"]:0,(items.stats.IntTD)?items.stats.IntTD["#text"]:0,
+                        (items.stats.FumTD)?items.stats.FumTD["#text"]:0,(items.stats.XpMade)?items.stats.XpMade["#text"]:0,(items.stats.FgBlk)?items.stats.FgBlk["#text"]:0,
+                        (items.stats.TwoPtAtt)?items.stats.TwoPtAtt["#text"]:0] 
                         break;
                     case "Tackles":
                     case "Sacks":
@@ -778,7 +778,7 @@ class StatsPanel extends PureComponent{
                     headers = this.getNFLPlayerRushingHeader();
                     break;
                 case "Receiving":
-                    headers = this.getNFLPlayerRushingHeader();
+                    headers = this.getNFLPlayerReceivingHeader();
                     break;
                 case "Touchdowns":
                 case "Scoring":

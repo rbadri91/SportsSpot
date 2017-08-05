@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
+import Pagination from './Pagination';
 var Loader = require('react-loader');
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
@@ -9,11 +10,19 @@ export default class SchedulePanel extends PureComponent{
     
     constructor(props){
         super(props);
-        this.state={response:{}}
+        this.state={
+            response:[],
+            pageOfItems: []
+        }
+        this.game='';
         var d = new Date();
         this.currentDate = d.getFullYear()+"-"+d.getMonth()+ "-"+ d.getDate();
         this.week ="0";
         this.scheduleGroup =[];
+        this.onChangePage = this.onChangePage.bind(this);
+    }
+    onChangePage(pageOfItems) {
+        this.setState({ pageOfItems: pageOfItems });
     }
     getSchedules(){
         return this.props.schedule ||[];
@@ -36,7 +45,7 @@ export default class SchedulePanel extends PureComponent{
     }
     getInitialState(){
         return {
-        response: {},
+        response: [],
         loaded:false
         }
     }
@@ -49,7 +58,7 @@ export default class SchedulePanel extends PureComponent{
     }
 
    setScheduleGroup(){
-       this.scheduleGroup = this.chunk(this.state.response);
+       this.scheduleGroup = this.chunk(this.state.pageOfItems);
    } 
     
     chunk(array){
@@ -71,12 +80,31 @@ export default class SchedulePanel extends PureComponent{
         result.push(array.slice(start, end));
         return result;
     }
+    getScheduleHeader(){
+         var currPath = window.location.href;
+         var lastSlashIndex = currPath.lastIndexOf("/");
+        var subcontent = currPath.substring(lastSlashIndex+1);
+        if(currPath.indexOf('nfl')!=-1){
+              this.game='nfl';
+        }else if(currPath.indexOf('nhl')!=-1){
+              this.game='nhl';
+        }else if(currPath.indexOf('mlb')!=-1){
+               this.game='mlb';
+        }else{
+               this.game='nba';
+        }
+        if(subcontent =='schedules'){
+            return this.game +" Schedules"; 
+        }else{
+            return 'Schedule for '+ subcontent.replace("_"," ");
+        }
+    }
     render() {
 
 
             return <Loader loaded={this.state.loaded}> 
                 <div className = 'schedulePanel'>
-                
+                <h3 className ="scheduleTitle">{this.getScheduleHeader()}</h3>
                 {
                     this.scheduleGroup.map((schedulelot,index) => (
                     <div key ={index}  className ="schedulePanelHolder">    
@@ -114,7 +142,7 @@ export default class SchedulePanel extends PureComponent{
                     </div>
                     ))   
                 }
-                
+                <Pagination items={this.state.response} onChangePage={this.onChangePage} />
                 </div>
                 </Loader>
     }

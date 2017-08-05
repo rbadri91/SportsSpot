@@ -1,4 +1,4 @@
-import { CURRENT_FEEDS, setCurrentNews, getCurrentAllNews, getCurrentNBANews, getCurrentNFLNews, getCurrentNHLNews, getCurrentMLBNews, getScores, getSchedules, getStandings, getStats, getTeamStats } from './core';
+import { CURRENT_FEEDS, setCurrentNews, getCurrentAllNews, getCurrentNBANews, getCurrentNFLNews, getCurrentNHLNews, getCurrentMLBNews, getScores, getSchedules, getStandings, getStats, getTeamStats, getRosterStats } from './core';
 
 var Promise = require('promise');
 
@@ -19,13 +19,18 @@ export default function reducer(curr_feeds = CURRENT_FEEDS, action) {
         case 'GET_SCORES':
             return getScores(curr_feeds, action.gameType, action.season, action.forDate);
         case 'GET_SCHEDULES':
-            return getSchedules(curr_feeds, action.game, action.season);
+            console.log("action.team here:", action.team);
+            return getSchedules(curr_feeds, action.game, action.season, action.team);
         case 'GET_STANDINGS':
             return getStandings(curr_feeds, action.game, action.season, action.teamStats, action.sortBy);
         case 'GET_STATS':
             return getStats(curr_feeds, action.game, action.season, action.playerStats, action.sortBy);
         case 'GET_TEAMSTATS':
             return getTeamStats(curr_feeds, action.game, action.season, action.teamStats, action.sortBy, action.statType);
+        case 'GET_TEAMS':
+            return getStandings(curr_feeds, action.game, action.season, action.teamStats);
+        case 'GET_ROSTER':
+            return getRosterStats(curr_feeds, action.game, action.season, action.team);
     }
     return Promise.resolve(curr_feeds);
 }

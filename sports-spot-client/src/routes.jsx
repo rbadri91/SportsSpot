@@ -10,6 +10,7 @@ import {SchedulePageContainer} from './components/Schedule.jsx';
 import {TeamsPageContainer} from './components/Teams.jsx';
 import {StandingsPageContainer} from './components/Standings.jsx';
 import StatsPanel from './components/StatsPanel.jsx';
+import RosterPanel from './components/RosterPanel.jsx';
 
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
@@ -41,6 +42,14 @@ const routes =  <div>
                     <Route  path="/mlb/schedules" component={SchedulePageContainer}/>
                     <Route  path="/nfl/schedules" component={SchedulePageContainer}/>
                     <Route  path="/nhl/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/nba/teams/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/mlb/teams/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/nfl/teams/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/nhl/teams/schedules" component={SchedulePageContainer}/>
+                    <Route  path="/nba/teams/roster" component={RosterPanel}/>
+                    <Route  path="/mlb/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nfl/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nhl/teams/roster" component={RosterPanel}/>
                     <Route  path="/nba/standings" component={StandingsPageContainer}/>
                     <Route  path="/mlb/standings" component={StandingsPageContainer}/>
                     <Route  path="/nfl/standings" component={StandingsPageContainer}/>
@@ -80,7 +89,14 @@ export const subNavroutes = <div>
                     <Route  path="/mlb/showStatPanel" component={StatsPanel}/>
                     <Route  path="/nfl/showStatPanel" component={StatsPanel}/>
                     <Route  path="/nhl/showStatPanel" component={StatsPanel}/>
-                    <Route  path ="/teams" component = {TeamsPageContainer}/>
+                    <Route  path="/nba/teams/roster" component={RosterPanel}/>
+                    <Route  path="/mlb/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nfl/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nhl/teams/roster" component={RosterPanel}/>
+                     <Route  path="/nba/teams" component={TeamsPageContainer}/>
+                    <Route  path="/mlb/teams" component={TeamsPageContainer}/>
+                    <Route  path="/nfl/teams" component={TeamsPageContainer}/>
+                    <Route  path="/nhl/teams" component={TeamsPageContainer}/>
                      <Route  path ="/home" component = {subHomePageContainer}/>
                 </Switch>
     </div>          

@@ -1,25 +1,23 @@
 import React ,{PureComponent}from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../action_creators';
-
+import TeamsPanel from './TeamsPanel';
 
 class TeamsPage extends PureComponent{
   render() {
-          return <div className="news-holder">
-            <div className="containerWrapper">
-              <div className="s-row">
-                <div className="col-sm-12">
-                    Teams Page
+          return <div className="standings-holder">
+            <div className="standings-content-wrapper">
+               <div className="standings-content">
+                    <TeamsPanel {...this.props} />
                 </div> 
               </div>
-            </div>
           </div>;
   }
 };
 
-function mapNewsToProps(curr_scores){
+function mapNewsToProps(curr_teams){
   return {
-    scores:curr_scores
+    teams:curr_teams
   }
 }
 
