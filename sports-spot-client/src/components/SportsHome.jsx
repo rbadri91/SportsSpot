@@ -3,7 +3,8 @@ import NewsPanel from './NewsPanel';
 import ImpNewsPanel from './ImpNewsPanel';
 import {connect} from 'react-redux';
 import io from 'socket.io-client';
-const socket = io(`${location.protocol}//${location.hostname}:8090`);
+// const socket = io(`${location.protocol}//${location.hostname}:8090`);
+var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
 import * as actionCreators from '../action_creators';
 
 

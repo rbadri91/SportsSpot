@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import * as actionCreators from '../action_creators';
 
 
-const socket = io(`${location.protocol}//${location.hostname}:8090`);
+// const socket = io(`${location.protocol}//${location.hostname}:8090`);
+var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
 
 class TeamsPanel extends PureComponent{
     constructor(props){

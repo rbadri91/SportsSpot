@@ -29,10 +29,6 @@ var options = {
 
 msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
 
-// msf.getData('mlb', '2016-playoff', 'full_game_schedule', 'json', {}).then((data) => {
-//     console.log("test data:", data.fullgameschedule.gameentry);
-// });
-
 setMSFConfig(msf);
 
 PythonShell.run('sportsEvent.py', options, function(err, results) {
@@ -45,21 +41,7 @@ PythonShell.run('sportsEvent.py', options, function(err, results) {
     });
 });
 
-
-export const store = makeStore();
-startServer(store);
-
-
-// getAllNews(http, process.env.NEWSAPI_API_KEY, Promise).then((data) => {
-//     store.dispatch({
-//         type: 'SET_CURRENT_ALL_NEWS',
-//         news: data
-//     });
-// });
-
-
-
-
+const PORT = process.env.PORT || 8090;
 
 const app = express();
 
@@ -67,15 +49,34 @@ const db = require("./config/database.js");
 
 const staticFiles = express.static(path.join(__dirname, '../../sports-spot-client/build'));
 
-// app.use(express.static('./static/'));
 app.use(staticFiles);
 app.use('/*', staticFiles);
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set('port', (process.env.PORT || 3001))
-app.listen(app.get('port'), () => {
-    console.log(`Listening on ${app.get('port')}`)
+
+const server = app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`)
 })
+
+app.get('*', isHTTPS, function(req, res, next) {
+    next();
+});
+
+app.post('*', isHTTPS, function(req, res, next) {
+    next();
+});
+
+function isHTTPS(req, res, next) {
+    //console.log(req.header['x-forwarded-proto']);
+    if (req.headers['x-forwarded-proto'] != 'https' && req.headers.host != 'localhost:8080') {
+        //console.log('https://'+ req.headers.host);
+        //console.log(req.url);
+        res.redirect('https://' + req.headers.host + req.url);
+    } else next();
+}
+
+export const store = makeStore();
+startServer(store, server);
 
 // const authRoutes = require('./routes/auth');
 // app.use('/auth', authRoutes);

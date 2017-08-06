@@ -1,12 +1,12 @@
-import Server from 'socket.io';
+import socketIO from 'socket.io';
 
-export default function startServer(store) {
-    const io = new Server().attach(8090);
+export default function startServer(store, server) {
+    const io = socketIO(server);
 
     store.subscribe(
         () => {
             store.getState().then(data => {
-                io.emit('curr_news', data.toJS())
+                io.emit('curr_news', data.toJS());
             }).catch(() => {
                 var list = new List();
                 io.emit('curr_news', list.toJS());
@@ -17,5 +17,6 @@ export default function startServer(store) {
     io.on('connection', (socket) => {
         store.getState().then(data => socket.emit('curr_news', data.toJS()));
         socket.on('action', store.dispatch.bind(store));
+        socket.on('disconnect', () => console.log('Client disconnected'));
     });
 }

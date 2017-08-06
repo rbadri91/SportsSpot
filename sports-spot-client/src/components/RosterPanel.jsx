@@ -3,7 +3,8 @@ import io from 'socket.io-client';
 import Pagination from './Pagination';
 var Loader = require('react-loader');
 
-const socket = io(`${location.protocol}//${location.hostname}:8090`);
+// const socket = io(`${location.protocol}//${location.hostname}:8090`);
+var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
 
 export default class RosterPanel extends PureComponent{
 

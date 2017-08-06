@@ -9,7 +9,8 @@ var Loader = require('react-loader');
 import Pagination from './Pagination';
 
 
-const socket = io(`${location.protocol}//${location.hostname}:8090`);
+// const socket = io(`${location.protocol}//${location.hostname}:8090`);
+var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
 
 class StatsPanel extends PureComponent{
     constructor(props){
