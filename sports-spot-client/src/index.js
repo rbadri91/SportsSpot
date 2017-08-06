@@ -23,6 +23,7 @@ injectTapEventPlugin();
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// const socket = io.connect('http://localhost:8090');
 
 socket.on('curr_news', curr_news =>
   store.dispatch(setCurrentNews(curr_news))

@@ -9,6 +9,7 @@ var Loader = require('react-loader');
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// var socket = io.connect('http://localhost:8090');
 
 class StatsPanel extends PureComponent{
     constructor(props){
@@ -57,7 +58,6 @@ class StatsPanel extends PureComponent{
     }
 
     getTableHeaders(){
-        console.log("tableHeaders here:",this.tableHeaders);
         return this.tableHeaders;
     }
 
@@ -392,7 +392,6 @@ class StatsPanel extends PureComponent{
 
     getNFLRowContent(items){
         var columns =[];
-        console.log("item here:",items);
         if(this.statFor==='player'){
                 switch(this.title){
                     case "Passing":

@@ -29,7 +29,6 @@ function reducer() {
         case 'GET_SCORES':
             return (0, _core.getScores)(curr_feeds, action.gameType, action.season, action.forDate);
         case 'GET_SCHEDULES':
-            console.log("action.team here:", action.team);
             return (0, _core.getSchedules)(curr_feeds, action.game, action.season, action.team);
         case 'GET_STANDINGS':
             return (0, _core.getStandings)(curr_feeds, action.game, action.season, action.teamStats, action.sortBy);

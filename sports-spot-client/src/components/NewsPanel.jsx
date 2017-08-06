@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 var Loader = require('react-loader');
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// var socket = io.connect('http://localhost:8090');
 
 
 export default class NewsPanel extends PureComponent{
@@ -15,7 +16,6 @@ export default class NewsPanel extends PureComponent{
         return this.state.response ||[];
     }
     getInitialState(){
-        console.log("initial state:");
         return {
         response: [],
         loaded:false

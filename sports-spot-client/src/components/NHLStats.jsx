@@ -31,9 +31,6 @@ class NHLStatsPage extends PureComponent{
       else if(name==='Shots') return 'stats.Sh.D';
   }
   handleLinkClick(functionParam,statType,orderBy,game){
-      console.log("statType here:",statType);
-      console.log("game here:",game);
-      console.log("orderBy here:",orderBy);
       functionParam(game,undefined,undefined,orderBy,statType);
   }
 

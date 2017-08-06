@@ -10,6 +10,7 @@ var Loader = require('react-loader');
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// var socket = io.connect('http://localhost:8090');
 
 class TeamsPanel extends PureComponent{
     constructor(props){
@@ -44,7 +45,6 @@ class TeamsPanel extends PureComponent{
             subResult=[],
             i=0,
             len =array.length;
-        console.log("array[0] here:",array[0]);    
         var currentDivision  = array[0]["@name"].substring(0,array[0]["@name"].indexOf('/'));   
         do{
             var division = array[i]["@name"].substring(0,array[0]["@name"].indexOf('/'))
@@ -164,15 +164,14 @@ class ScheduleItem extends PureComponent{
         _onClick() {
              var currPath = window.location.href;
             var fullName = this.props.city+"-"+this.props.team;
-            console.log("fullName here:",fullName);
             if(currPath.indexOf('nfl')!=-1){
-                this.props.scheduleClick('nfl','2017-2018-regular',fullName);
+                this.props.scheduleClick('nfl','2017-2018-regular',undefined,fullName);
             }else if(currPath.indexOf('nhl')!=-1){
-                this.props.scheduleClick('nhl','2017-2018-regular',fullName);
+                this.props.scheduleClick('nhl','2017-2018-regular',undefined,fullName);
             }else if(currPath.indexOf('mlb')!=-1){
-                this.props.scheduleClick('mlb','2017-2018-regular',fullName);
+                this.props.scheduleClick('mlb','2017-2018-regular',undefined,fullName);
             }else{
-                this.props.scheduleClick('nba','2017-2018-regular',fullName);
+                this.props.scheduleClick('nba','2017-playoff',undefined,fullName);
             }
         }
 }

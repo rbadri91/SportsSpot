@@ -5,6 +5,7 @@ var Loader = require('react-loader');
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// var socket = io.connect('http://localhost:8090');
 
 export default class ScorePanel extends PureComponent{
     constructor(props){
@@ -49,7 +50,7 @@ export default class ScorePanel extends PureComponent{
                 this.numQuarters = 4;
         }
     }    
-    getScores(){
+    getScoresValues(){
         return this.props.scores ||[];
     }
     getQuaterScore(score,j){
@@ -85,8 +86,8 @@ export default class ScorePanel extends PureComponent{
       var season = ["2016-2017-regular","2017-playoff","2015-2016-regular","2016-playoff"];
       var seasonName = ["2016 Regular",'2017 Playoff','2015 Regular'];
       if(this.game==='mlb'){
-          season = ["2017-regular","2017-playoff","2016-2017-regular","2016-playoff"];
-          seasonName = ["2017 Regular",'2017 Playoff','2016 Regular'];
+          season = ["2017-regular","2016-playoff","2016-2017-regular"];
+          seasonName = ["2017 Regular",'2016 Playoff','2016 Regular'];
       }
       for(var i=0;i<season.length;i++){
         var optionVal = startYear+"-"+endYear+'-regular';

@@ -60,33 +60,40 @@ export function getCurrentNHLNews() {
     };
 }
 
-export function getScores(game = 'nhl', season = 'default', forDate = 'default') {
-    if (season == 'default') {
-        season = '2017-2018-regular';
-    }
+export function getScores(game = 'nhl', season = '2017-2018-regular', forDate = 'default') {
+
     if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }
-    if (forDate == 'default') {
-        if (season == '2016-2017-regular') {
-            if (game == 'mlb') forDate = '20160404';
-            else if (game == 'nba') forDate = '20161025';
-            else if (game == 'nfl') forDate = '20160908';
+    if (forDate === 'default') {
+        if (season === '2016-2017-regular') {
+            if (game === 'mlb') forDate = '20160403';
+            else if (game === 'nba') forDate = '20161025';
+            else if (game === 'nfl') forDate = '20160908';
             else forDate = '20161012';
-        } else if (season == '2015-2016-regular') {
+        } else if (season === "2017 Playoff") {
+            if (game === 'nba') forDate = '20170415';
+            else if (game === 'nfl') forDate = '20170107';
+            else forDate = '20170412';
+        } else if (season === '2015-2016-regular') {
             if (game == 'mlb') forDate = '20150404';
-            else if (game == 'nba') forDate = '20151027';
-            else if (game == 'nfl') forDate = '20150910';
+            else if (game === 'nba') forDate = '20151027';
+            else if (game === 'nfl') forDate = '20150910';
             else forDate = '20151007';
-        } else if (season == '2014-2015-regular') {
+        } else if (season == "2016 Playoff") {
+            if (game == 'mlb') forDate = '20160410';
+            else if (game === 'nba') forDate = '20160416';
+            else if (game === 'nfl') forDate = '20160109';
+            else forDate = '20160413';
+        } else if (season === '2014-2015-regular') {
             if (game == 'mlb') forDate = '20140404';
-            else if (game == 'nba') forDate = '20141028';
-            else if (game == 'nfl') forDate = '20140904';
+            else if (game === 'nba') forDate = '20141028';
+            else if (game === 'nfl') forDate = '20140904';
             else forDate = '20141008';
-        } else if (season == '2017-2018-regular') {
-            if (game == 'mlb') forDate = '20170402';
-            else if (game == 'nba') forDate = '20171020';
-            else if (game == 'nfl') forDate = '20170907';
+        } else if (season === '2017-2018-regular') {
+            if (game === 'mlb') forDate = '20170402';
+            else if (game === 'nba') forDate = '20171020';
+            else if (game === 'nfl') forDate = '20170907';
             else forDate = '20171004';
         }
     }
@@ -99,17 +106,46 @@ export function getScores(game = 'nhl', season = 'default', forDate = 'default')
     };
 }
 
-export function getSchedule(game = 'nhl', season = '2017-2018-regular', team = 'default') {
-    console.log("team here:", team);
-    if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
-        season = '2016-2017-regular';
-    }
+export function getSchedule(game = 'nhl', season = '2017-2018-regular', forDate = 'default', team = 'default') {
 
+    if (forDate === 'default') {
+        if (season === '2016-2017-regular') {
+            if (game === 'mlb') forDate = '20160403';
+            else if (game === 'nba') forDate = '20161025';
+            else if (game === 'nfl') forDate = '20160908';
+            else forDate = '20161012';
+        } else if (season === "2017-playoff") {
+            if (game === 'nba') forDate = '20170415';
+            else if (game === 'nfl') forDate = '20170107';
+            else forDate = '20170412';
+        } else if (season === '2015-2016-regular') {
+            if (game == 'mlb') forDate = '20150404';
+            else if (game === 'nba') forDate = '20151027';
+            else if (game === 'nfl') forDate = '20150910';
+            else forDate = '20151007';
+        } else if (season == "2016-playoff") {
+            if (game == 'mlb') forDate = '20161004';
+            else if (game === 'nba') forDate = '20160416';
+            else if (game === 'nfl') forDate = '20160109';
+            else forDate = '20160413';
+        } else if (season === '2014-2015-regular') {
+            if (game == 'mlb') forDate = '20140404';
+            else if (game === 'nba') forDate = '20141028';
+            else if (game === 'nfl') forDate = '20140904';
+            else forDate = '20141008';
+        } else if (season === '2017-2018-regular') {
+            if (game === 'mlb') forDate = '20170402';
+            else if (game === 'nba') forDate = '20171020';
+            else if (game === 'nfl') forDate = '20170907';
+            else forDate = '20171004';
+        }
+    }
     return {
         meta: { remote: true },
         type: 'GET_SCHEDULES',
         game,
         season,
+        forDate,
         team
     };
 }

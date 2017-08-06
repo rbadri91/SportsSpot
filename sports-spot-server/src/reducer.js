@@ -20,7 +20,7 @@ export default function reducer(curr_feeds = CURRENT_FEEDS, action) {
             return getScores(curr_feeds, action.gameType, action.season, action.forDate);
         case 'GET_SCHEDULES':
             console.log("action.team here:", action.team);
-            return getSchedules(curr_feeds, action.game, action.season, action.team);
+            return getSchedules(curr_feeds, action.game, action.season, action.forDate, action.team);
         case 'GET_STANDINGS':
             return getStandings(curr_feeds, action.game, action.season, action.teamStats, action.sortBy);
         case 'GET_STATS':

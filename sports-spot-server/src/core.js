@@ -187,14 +187,14 @@ export function getScores(curr_feeds, game, season, forDate) {
     return curr_feeds;
 }
 
-export function getSchedules(curr_feeds, game, season, team) {
+export function getSchedules(curr_feeds, game, season, forDate, team) {
     console.log("team here:", team);
     console.log("game here:", game);
     console.log("season here:", season);
     team = team.trim();
     if (team != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
-            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, team: team }).then((data) => {
+            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, team: team, date: forDate }).then((data) => {
                 return resolve(List(data.fullgameschedule.gameentry.slice(0, 50)));
             }).catch(() => {
                 return reject();
@@ -202,8 +202,8 @@ export function getSchedules(curr_feeds, game, season, team) {
         });
     } else {
         curr_feeds = new Promise((resolve, reject) => {
-            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50 }).then((data) => {
-                return resolve(List(data.fullgameschedule.gameentry));
+            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, date: forDate }).then((data) => {
+                return resolve(List(data.fullgameschedule.gameentry.slice(0, 50)));
             }).catch(() => {
                 return reject();
             });

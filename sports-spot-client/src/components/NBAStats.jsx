@@ -44,9 +44,6 @@ class NBAStatsPage extends PureComponent{
       else if(name==='Fouls') return 'stats.F/G.D';
   }
   handleLinkClick(functionParam,statType,orderBy,game){
-      console.log("statType here:",statType);
-      console.log("game here:",game);
-      console.log("orderBy here:",orderBy);
       functionParam(statType,orderBy,game);
   }
 
@@ -75,8 +72,6 @@ class NBAStatsPage extends PureComponent{
           data3_sortAbb= this.getTeamSortAbbreviations(data3);
       }    
     }
-    console.log("data1_sortAbb:",data1_sortAbb);
-    console.log("function here:",this.props.getTeamStats);
     if(data1!=''){
       var location = '/nba/showStatPanel/'+statsFor+"_"+data1;
       if(statsFor==='player'){
