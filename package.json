@@ -14,9 +14,9 @@
     "scripts": {
         "heroku-postbuild": "yarn build",
         "install": "(cd sports-spot-client && yarn) && (cd sports-spot-server && yarn)",
-        "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules build\" \"cd server && rimraf node_modules build\"",
+        "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules build\" \"cd sports-spot-server && rimraf node_modules build\"",
         "build": "concurrently \"cd sports-spot-client && yarn build\" \"cd sports-spot-server && yarn build\"",
         "start": "concurrently \"cd sports-spot-client &&  webpack-dev-server\" \"cd sports-spot-server && yarn start\"",
-        "start:prod": "cd server && yarn start:prod"
+        "start:prod": "cd sports-spot-server && yarn start:prod"
     }
 }
