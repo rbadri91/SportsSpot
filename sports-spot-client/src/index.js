@@ -1,28 +1,21 @@
 /*jshint esversion: 6 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-const thunk = require('redux-thunk').default;
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore,applyMiddleware} from 'redux';
 import { HashRouter as Router} from 'react-router-dom';
-
 import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import io from 'socket.io-client';
-
 import remoteActionMiddleware from './remote_action_middleware';
 import routes,{subNavroutes} from './routes.jsx';
 import {setCurrentNews,setConnectionState} from './action_creators';
 import reducer from './reducer';
 import MainNav from './components/navbar.jsx';
 import SubNavigation from './components/SubNavigation.jsx';
-
-
-
+const thunk = require('redux-thunk').default;
 // import './index.css';
 // import App from './App';
 
