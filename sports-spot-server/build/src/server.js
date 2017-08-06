@@ -11,8 +11,8 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function startServer(store) {
-    var io = new _socket2.default().attach(8090);
+function startServer(store, server) {
+    var io = (0, _socket2.default)(server);
 
     store.subscribe(function () {
         store.getState().then(function (data) {
@@ -29,5 +29,8 @@ function startServer(store) {
             return socket.emit('curr_news', data.toJS());
         });
         socket.on('action', store.dispatch.bind(store));
+        socket.on('disconnect', function () {
+            return console.log('Client disconnected');
+        });
     });
 }
