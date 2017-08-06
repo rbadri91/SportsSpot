@@ -1,4 +1,6 @@
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Route,Switch  } from 'react-router-dom';
 import {HomePageContainer} from './components/SportsHome.jsx';
 import {subHomePageContainer} from './components/SubSportsHomePage.jsx';
 import {ScorePageContainer} from './components/Scores.jsx';
@@ -11,14 +13,10 @@ import {TeamsPageContainer} from './components/Teams.jsx';
 import {StandingsPageContainer} from './components/Standings.jsx';
 import StatsPanel from './components/StatsPanel.jsx';
 import RosterPanel from './components/RosterPanel.jsx';
-
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import MainNav from './components/navbar.jsx';
 import SubNavigation from './components/SubNavigation.jsx';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Route,Switch  } from 'react-router-dom';
 import App from './components/App';
 
 const routes =  <div>

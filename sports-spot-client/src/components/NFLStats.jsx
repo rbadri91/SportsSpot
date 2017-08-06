@@ -1,9 +1,9 @@
 import React ,{PureComponent}from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../action_creators';
-import StatsPanel from './StatsPanel';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import * as actionCreators from '../action_creators';
+import StatsPanel from './StatsPanel';
 var Loader = require('react-loader');
 
 class NFLStatsPage extends PureComponent{

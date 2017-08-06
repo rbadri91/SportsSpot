@@ -1,9 +1,9 @@
 import React ,{PureComponent}from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../action_creators';
-import StatsPanel from './StatsPanel';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import * as actionCreators from '../action_creators';
+import StatsPanel from './StatsPanel';
 var Loader = require('react-loader');
 
 class NHLStatsPage extends PureComponent{
@@ -27,7 +27,7 @@ class NHLStatsPage extends PureComponent{
       else if(name==='Goals Breakdown - Offensive') return 'stats.GF.D';
       else if(name==='Goals Against') return 'stats.GA.D';
       else if(name==='Penalty Minutes/Game') return 'stats.PIM.D';
-      else if(name==='Penalty Kill Percentage') return 'stats.PK%.D';
+      else if(name==='Penalty Kill Percentage') return 'stats.PK%.D';//Shots
       else if(name==='Shots') return 'stats.Sh.D';
   }
   handleLinkClick(functionParam,statType,orderBy,game){

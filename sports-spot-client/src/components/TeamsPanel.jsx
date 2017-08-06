@@ -1,11 +1,11 @@
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
-var chunk = require('lodash.chunk');
-var Loader = require('react-loader');
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actionCreators from '../action_creators';
+var chunk = require('lodash.chunk');
+var Loader = require('react-loader');
 
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);

@@ -1,7 +1,7 @@
 import React ,{PureComponent}from 'react';
-import NewsPanel from './NewsPanel';
 import {connect} from 'react-redux';
 import ImpNewsPanel from './ImpNewsPanel';
+import NewsPanel from './NewsPanel';
 import * as actionCreators from '../action_creators';
 
 class SubHomePage extends PureComponent{

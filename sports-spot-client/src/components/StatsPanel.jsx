@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import io from 'socket.io-client';
 import * as actionCreators from '../action_creators';
 import {connect} from 'react-redux';
-var Loader = require('react-loader');
-
 import Pagination from './Pagination';
-
+var Loader = require('react-loader');
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
