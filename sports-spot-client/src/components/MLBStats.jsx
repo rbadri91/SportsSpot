@@ -2,9 +2,9 @@ import React ,{PureComponent}from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-var Loader = require('react-loader');
 import * as actionCreators from '../action_creators';
 import StatsPanel from './StatsPanel';
+var Loader = require('react-loader');
 
 class MLBStatsPage extends PureComponent{
 
