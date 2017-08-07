@@ -38,7 +38,7 @@ export default class StandingsPanel extends PureComponent{
     }
 
     chunk(array){
-        if(!array || !array[0] || array[0]["@name"]) return [];
+        if(!array || !array[0] || !array[0]["@name"]) return [];
         var result = [], 
             subResult=[],
             i=0,
