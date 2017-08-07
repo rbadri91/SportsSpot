@@ -67,10 +67,7 @@ app.post('*', isHTTPS, function(req, res, next) {
 });
 
 function isHTTPS(req, res, next) {
-    //console.log(req.header['x-forwarded-proto']);
     if (req.headers['x-forwarded-proto'] != 'https' && req.headers.host != 'localhost:8080') {
-        //console.log('https://'+ req.headers.host);
-        //console.log(req.url);
         res.redirect('https://' + req.headers.host + req.url);
     } else next();
 }

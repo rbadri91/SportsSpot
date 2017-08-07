@@ -6,6 +6,7 @@ export default function startServer(store, server) {
     store.subscribe(
         () => {
             store.getState().then(data => {
+                console.log("data emitted here:");
                 io.emit('curr_news', data.toJS());
             }).catch(() => {
                 var list = new List();

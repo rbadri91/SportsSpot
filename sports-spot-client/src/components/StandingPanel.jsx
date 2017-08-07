@@ -145,13 +145,13 @@ export default class StandingsPanel extends PureComponent{
     getNHLStats(team){
         var stats =[];
         stats.push(<td>{team.team.Name}</td>);
-        stats.push(<td>{team.stats.Wins['#text']}</td>);
-        stats.push(<td>{team.stats.Losses['#text']}</td>);
-        stats.push(<td>{team.stats.OvertimeWins['#text']}</td>);
-        stats.push(<td>{team.stats.OvertimeLosses['#text']}</td>);
-        stats.push(<td>{team.stats.Points['#text']}</td>);
-        stats.push(<td>{team.stats.GoalsFor['#text']}</td>);
-        stats.push(<td>{team.stats.GoalsAgainst['#text']}</td>);
+        stats.push(<td>{(team.stats.Wins)?team.stats.Wins['#text']:0}</td>);
+        stats.push(<td>{(team.stats.Losses)?team.stats.Losses['#text']:0}</td>);
+        stats.push(<td>{(team.stats.OvertimeWins)?team.stats.OvertimeWins['#text']:0}</td>);
+        stats.push(<td>{(team.stats.OvertimeLosses)?team.stats.OvertimeLosses['#text']:0}</td>);
+        stats.push(<td>{(team.stats.Points)?team.stats.Points['#text']:0}</td>);
+        stats.push(<td>{(team.stats.GoalsFor)?team.stats.GoalsFor['#text']:0}</td>);
+        stats.push(<td>{(team.stats.GoalsAgainst)?team.stats.GoalsAgainst['#text']:0}</td>);
         return stats;
     }
     getNFLStats(team){
