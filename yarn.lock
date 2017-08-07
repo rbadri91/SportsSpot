@@ -10,6 +10,18 @@ ansi-styles@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-1.1.0.tgz#eaecbf66cd706882760b2f4691582b8f55d7a7de"
 
+better-inspect@~0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/better-inspect/-/better-inspect-0.0.1.tgz#d381c74e6a94e68d7f1fec631141bfca7a6dfe5f"
+
+buffer-crc32@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.1.1.tgz#7e110dc9953908ab7c32acdc70c9f945b1cbc526"
+
+bytes@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/bytes/-/bytes-0.1.0.tgz#c574812228126d6369d1576925a8579db3f8e5a2"
+
 chalk@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-0.5.1.tgz#663b3a648b68b55d04690d49167aa837858f2174"
@@ -19,6 +31,10 @@ chalk@0.5.1:
     has-ansi "^0.1.0"
     strip-ansi "^0.3.0"
     supports-color "^0.2.0"
+
+commander@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-0.6.1.tgz#fa68a14f6a945d54dbbe50d8cdb3320e9e3b1a06"
 
 commander@2.6.0:
   version "2.6.0"
@@ -37,13 +53,107 @@ concurrently@^3.5.0:
     supports-color "^3.2.3"
     tree-kill "^1.1.0"
 
+connect@2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/connect/-/connect-2.7.2.tgz#11799463bdaaaf99d5f9bef133bf2420b26e2680"
+  dependencies:
+    buffer-crc32 "0.1.1"
+    bytes "0.1.0"
+    cookie "0.0.5"
+    cookie-signature "0.0.1"
+    debug "*"
+    formidable "1.0.11"
+    fresh "0.1.0"
+    pause "0.0.1"
+    qs "0.5.1"
+    send "0.1.0"
+
+connect@~2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/connect/-/connect-2.6.2.tgz#2c66ea6583de62475fe15ba03e5f074e53050efb"
+  dependencies:
+    bytes "0.1.0"
+    cookie "0.0.4"
+    cookie-signature "0.0.1"
+    crc "0.2.0"
+    debug "*"
+    formidable "1.0.11"
+    fresh "0.1.0"
+    pause "0.0.1"
+    qs "0.5.1"
+    send "0.1.0"
+
+cookie-signature@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-0.0.1.tgz#13d3603b5cf63befbf85a8801e37aa900db46985"
+
+cookie@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.0.4.tgz#5456bd47aee2666eac976ea80a6105940483fe98"
+
+cookie@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.0.5.tgz#f9acf9db57eb7568c9fcc596256b7bb22e307c81"
+
+crc@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/crc/-/crc-0.2.0.tgz#f4486b9bf0a12df83c3fca14e31e030fdabd9454"
+
 date-fns@^1.23.0:
   version "1.28.5"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.5.tgz#257cfc45d322df45ef5658665967ee841cd73faf"
 
+debug@*:
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
+  dependencies:
+    ms "2.0.0"
+
+debug@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-0.8.1.tgz#20ff4d26f5e422cb68a1bacbbb61039ad8c1c130"
+
+dev-server@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/dev-server/-/dev-server-0.0.2.tgz#1aac835d0be057a92e50f9f0cc9b3a3316c34aea"
+  dependencies:
+    better-inspect "~0.0.1"
+    connect "~2.6.2"
+    debug "^0.8.1"
+    express "~3.0.2"
+    growl "~1.6.1"
+
 escape-string-regexp@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
+
+express@~3.0.2:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/express/-/express-3.0.6.tgz#d274fcb868b95788bf4af62168d75d13fd77d8b4"
+  dependencies:
+    buffer-crc32 "0.1.1"
+    commander "0.6.1"
+    connect "2.7.2"
+    cookie "0.0.5"
+    cookie-signature "0.0.1"
+    debug "*"
+    fresh "0.1.0"
+    methods "0.0.1"
+    mkdirp "0.3.3"
+    range-parser "0.0.4"
+    send "0.1.0"
+
+formidable@1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.0.11.tgz#68f63325a035e644b6f7bb3d11243b9761de1b30"
+
+fresh@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.1.0.tgz#03e4b0178424e4c2d5d19a54d8814cdc97934850"
+
+growl@~1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/growl/-/growl-1.6.1.tgz#c4d9bbae8f9a572295da062b03cd73e1ef2e14b2"
 
 has-ansi@^0.1.0:
   version "0.1.0"
@@ -59,9 +169,46 @@ lodash@^4.5.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+methods@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/methods/-/methods-0.0.1.tgz#277c90f8bef39709645a8371c51c3b6c648e068c"
+
+mime@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.6.tgz#b1f86c768c025fa87b48075f1709f28aeaf20365"
+
+mkdirp@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.3.3.tgz#595e251c1370c3a68bab2136d0e348b8105adf13"
+
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
+pause@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
+
+qs@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-0.5.1.tgz#9f6bf5d9ac6c76384e95d36d15b48980e5e4add0"
+
+range-parser@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-0.0.4.tgz#c0427ffef51c10acba0782a46c9602e744ff620b"
+
 rx@2.3.24:
   version "2.3.24"
   resolved "https://registry.yarnpkg.com/rx/-/rx-2.3.24.tgz#14f950a4217d7e35daa71bbcbe58eff68ea4b2b7"
+
+send@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/send/-/send-0.1.0.tgz#cfb08ebd3cec9b7fc1a37d9ff9e875a971cf4640"
+  dependencies:
+    debug "*"
+    fresh "0.1.0"
+    mime "1.2.6"
+    range-parser "0.0.4"
 
 spawn-command@^0.0.2-1:
   version "0.0.2"
