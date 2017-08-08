@@ -54,7 +54,6 @@ class TeamsInfoWrapper extends PureComponent{
     }
      handleSchedulesClick(){
         this.props.getSchedule(this.game,undefined,undefined,this.team.replace("_","-"));
-        location.URL =this.game+""
     }
     getDefaultIndex(){
         var currPath = window.location.href;
