@@ -73,6 +73,10 @@ class subNavigation extends Component{
         return path;
     }
   render() {
+      var currentPath = window.location.href;
+        if(currentPath.indexOf('nba')==-1 && currentPath.indexOf('nfl')==-1 && currentPath.indexOf('nhl')==-1 &&currentPath.indexOf('mlb')==-1 ){
+            return<div></div>;
+        }
     return (
             <Navbar collapseOnSelect>
                     <Navbar.Header>
