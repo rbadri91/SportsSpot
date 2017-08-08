@@ -2,16 +2,21 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'webpack-dev-server/client?https://sportsspot.herokuapp.com',
+        'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
         './src/index.js'
     ],
     module: {
         loaders: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'react-hot-loader!babel-loader'
-        }]
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'react-hot-loader!babel-loader'
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ],
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']

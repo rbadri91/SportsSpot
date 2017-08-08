@@ -48,7 +48,7 @@ export default class ImpNewsPanel extends PureComponent{
                                             {
                                                 
                                                     this.getImpNews().map(news =>
-                                                        <li className= "headlineContent" key= {news.id}>
+                                                        <li key= {news.id} className= "headlineContent" >
                                                             <a target ="_blank" className = "titleLink" href ={news.url}>{news.title}</a>
                                                         </li>
                                                     )

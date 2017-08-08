@@ -49,9 +49,9 @@ msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
 
 (0, _core.setMSFConfig)(msf);
 
-PythonShell.run('sportsEvent.py', options, function (err, results) {
+PythonShell.run('sportsEvent.py', options, function(err, results) {
     if (err) throw err;
-    (0, _core.getAllNews)(Promise).then(function (data) {
+    (0, _core.getAllNews)(Promise).then(function(data) {
         store.dispatch({
             type: 'SET_CURRENT_ALL_NEWS',
             news: data
@@ -72,15 +72,15 @@ app.use('/*', staticFiles);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var server = app.listen(PORT, function () {
+var server = app.listen(PORT, function() {
     console.log('Listening on ' + PORT);
 });
 
-app.get('*', isHTTPS, function (req, res, next) {
+app.get('*', isHTTPS, function(req, res, next) {
     next();
 });
 
-app.post('*', isHTTPS, function (req, res, next) {
+app.post('*', isHTTPS, function(req, res, next) {
     next();
 });
 

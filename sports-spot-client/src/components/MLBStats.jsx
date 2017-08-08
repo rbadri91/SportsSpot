@@ -74,14 +74,14 @@ class MLBStatsPage extends PureComponent{
                                       </tr>
                                       <tr className="tableContent">
                                         <td>
-                                          <Link to='/mlb/showStatPanel/player_Batting' onClick={() => this.props.getStats('batting','stats.AVG.D','mlb')}>Batting</Link>
+                                          <Link to='/mlb/showStatPanel/player_Batting' onClick={() => this.props.getStats('batting','stats.Batting-AVG.D','mlb')}>Batting</Link>
                                           <br/>
                                           <Link to='/mlb/showStatPanel/player_Pitching' onClick={() => this.props.getStats('pitching','stats.W.D','mlb')}>Pitching</Link>
                                           <br/>
                                           <Link to='/mlb/showStatPanel/player_Fielding' onClick={() => this.props.getStats('fielding','stats.FPCT.D','mlb')}>Fielding</Link>
                                         </td>
                                         <td>
-                                          <Link to='/mlb/showStatPanel/team_Batting' onClick={() => this.props.getTeamStats('batting','stats.AVG.D','mlb')}>Batting</Link>
+                                          <Link to='/mlb/showStatPanel/team_Batting' onClick={() => this.props.getTeamStats('batting','stats.Batting-AVG.D','mlb')}>Batting</Link>
                                           <br/>
                                           <Link to='/mlb/showStatPanel/team_Pitching' onClick={() => this.props.getTeamStats('pitching','stats.ERA.D','mlb')}>Pitching</Link>
                                           <br/>

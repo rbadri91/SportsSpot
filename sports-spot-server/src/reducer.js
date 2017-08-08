@@ -24,7 +24,7 @@ export default function reducer(curr_feeds = CURRENT_FEEDS, action) {
         case 'GET_STANDINGS':
             return getStandings(curr_feeds, action.game, action.season, action.teamStats, action.sortBy);
         case 'GET_STATS':
-            return getStats(curr_feeds, action.game, action.season, action.playerStats, action.sortBy);
+            return getStats(curr_feeds, action.game, action.season, action.playerStats, action.sortBy, action.team);
         case 'GET_TEAMSTATS':
             return getTeamStats(curr_feeds, action.game, action.season, action.teamStats, action.sortBy, action.statType);
         case 'GET_TEAMS':

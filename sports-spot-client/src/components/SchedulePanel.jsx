@@ -18,7 +18,8 @@ class SchedulePanel extends PureComponent{
     constructor(props){
         super(props);
         this.state={
-            response:[]
+            response:[],
+            loaded:false
         }
         this.game='';
         var d = new Date();
@@ -29,6 +30,7 @@ class SchedulePanel extends PureComponent{
         this.season='';
         this.date='';
         this.hasSeasonChanged =false;
+        this.team='';
     }
     onChangePage(pageOfItems) {
         this.setState({ pageOfItems: pageOfItems });
@@ -69,7 +71,11 @@ class SchedulePanel extends PureComponent{
         formattedValue: formattedValue
         });
 
-        this.props.getSchedule(this.game,this.season,formattedDate);
+        if(this.team !=''){
+                this.props.getSchedule(this.game,this.season,formattedDate,this.team);
+        }else{
+                this.props.getSchedule(this.game,this.season,formattedDate);
+        }
     
         
     }
@@ -88,24 +94,29 @@ class SchedulePanel extends PureComponent{
     }
     componentDidMount()
     {
+        console.log("in component did mount");
+        console.log("loaded state:",this.state.loaded);
         socket.on("curr_news",(data)=>{
+                console.log("data comes here:",data);
                  this.setState({response:data,loaded:true});
-                 this.setScheduleGroup();
+                //  this.setScheduleGroup();
          })
     }
 
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
-         this.setState({loaded:false});
+        //  this.setState({loaded:false});
     }
 
 
    setScheduleGroup(){
        this.scheduleGroup = this.chunk(this.state.response);
+       console.log("schedule group here:",this.scheduleGroup);
+       return this.scheduleGroup;
    } 
     
     chunk(array){
-        if(!array) return [];
+        if(!array|| array.length==0) return [];
         var result = [], 
             i=0,
             start=0,end=0,
@@ -124,6 +135,7 @@ class SchedulePanel extends PureComponent{
         return result;
     }
     getScheduleHeader(){
+            console.log("in get schedule header");
          var currPath = window.location.href;
          var lastSlashIndex = currPath.lastIndexOf("/");
         var subcontent = currPath.substring(lastSlashIndex+1);
@@ -139,6 +151,7 @@ class SchedulePanel extends PureComponent{
     if(subcontent =='schedules'){
         return this.game +" Schedules"; 
     }else{
+            this.team = subcontent.replace("_"," ");
             return 'Schedule for '+ subcontent.replace("_"," ");
         }
     }
@@ -205,7 +218,11 @@ class SchedulePanel extends PureComponent{
     handleSeasonChange(functionParam){
             this.season = document.getElementById("seasonSelector").value;
             this.hasSeasonChanged = true;
-            this.props.getSchedule(this.game,this.season);
+            if(this.team !=''){
+                     this.props.getSchedule(this.game,this.season,undefined,this.team);
+            }else{
+                    this.props.getSchedule(this.game,this.season);
+            }
     }
 
     getseasonOptions(){
@@ -240,6 +257,10 @@ class SchedulePanel extends PureComponent{
       }
       return options;
     }
+    setClassTest(){
+        console.log("it coms to this point");
+        return "schedulePanelHolder";
+    }
     render() {
 
 
@@ -256,8 +277,8 @@ class SchedulePanel extends PureComponent{
                     </FormGroup>
                 </div>
                 {
-                    this.scheduleGroup.map((schedulelot,index) => (
-                    <div key ={index}  className ="schedulePanelHolder">    
+                    this.setScheduleGroup().map((schedulelot,index) => (
+                    <div key ={index}  className ={this.setClassTest()}>
                         <h4 className="dateHeaderLabel">{schedulelot[0].date}</h4>
                         <div className ="outerTableWrapper">
                             <div className ="content-innerWrapper">

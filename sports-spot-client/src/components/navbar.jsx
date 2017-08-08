@@ -42,14 +42,6 @@ class MainNav extends Component {
                                <NavItem onClick={this.props.getCurrentNHLNews} eventKey={4}>NHL</NavItem>
                             </LinkContainer>   
                         </Nav>
-                    <Nav pullRight>
-                        <LinkContainer to={`/login`}>
-                                <NavItem>Login</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to={`/signup`}>
-                            <NavItem>Sign Up</NavItem>
-                        </LinkContainer>
-                    </Nav>
                     </Navbar.Collapse>
                 </Navbar>
                 </div>

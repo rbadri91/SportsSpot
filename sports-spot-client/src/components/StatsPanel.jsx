@@ -79,6 +79,20 @@ class StatsPanel extends PureComponent{
         return header;
     }
 
+    getNBAPerTeamOffenseHeader(){
+         var headers =["PLAYER","POS","GP","MPG","PTS","FGM","FGA","FG%","3PM","3PA","3P%","FTM","FTA","FT%"];
+        return headers;
+    }
+
+    getNBATeamDefenseHeader(){
+        var headers =["PLAYER","POS","GP","MPG","ORPG","DRPG","RPG","BLKPG","STLPG","TOPG","AST","ASTG","PF"];
+        return headers;
+    }
+    getNBATeamMiscHeader(){
+        var headers =["PLAYER","POS","GP","MPG","PFG","FLAGG","TG","EJE"];
+        return headers;
+    }
+
     getNBAPlayerOffenseHeader(){
         var headers =["PLAYER","POS","TEAM","GP","MPG","PTS","FGM","FGA","FG%","3PM","3PA","3P%","FTM","FTA","FT%"];
         return headers;
@@ -202,6 +216,25 @@ class StatsPanel extends PureComponent{
                                 items.stats.BlkPerGame["#text"],items.stats.Stl["#text"],items.stats.StlPerGame["#text"],
                                 items.stats.Tov["#text"],items.stats.TovPerGame["#text"],items.stats.FoulTech["#text"]];
                                 break;
+                        case "offense":
+                             columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.Pts["#text"],
+                            items.stats.FgMadePerGame["#text"],items.stats.FgAttPerGame["#text"],items.stats.FgPct["#text"],
+                            items.stats.Fg3PtMadePerGame["#text"],items.stats.Fg3PtAttPerGame["#text"],items.stats.Fg3PtPct["#text"],
+                            items.stats.FtMadePerGame["#text"],items.stats.FtAttPerGame["#text"],items.stats.FtPct["#text"]];
+                        break;
+                        case "defense":
+                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.OffRebPerGame["#text"],
+                            items.stats.DefRebPerGame["#text"],items.stats.RebPerGame["#text"],items.stats.BlkPerGame["#text"],
+                            items.stats.StlPerGame["#text"],items.stats.TovPerGame["#text"],items.stats.Ast["#text"],
+                            items.stats.AstPerGame["#text"],items.stats.FoulPers["#text"]];
+                        case 'miscellanious':
+                            var headers =["PLAYER","POS","GP","MPG","PFG","FLAGG","TG","EJE"];
+                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.FoulsPerGame["#text"],
+                            items.stats.FoulFlag1PerGame["#text"],items.stats.FoulTech["#text"],items.stats.Ejections["#text"]];
+
                         default:
                             break;
                     }
@@ -656,6 +689,15 @@ class StatsPanel extends PureComponent{
                     case "Opponent 3-Point Field Goals":
                         headers= this.getNBATeamOffenseHeader();
                         break;
+                    case "offense":
+                        headers = this.getNBAPerTeamOffenseHeader();
+                        break;
+                    case "defense":
+                        headers = this.getNBATeamDefenseHeader();
+                        break; 
+                    case "miscellanious":
+                        headers = this.getNBATeamMiscHeader();
+                        break;            
                     case "Fouls":
                         headers = this.getNBATeamFoulsHeader();
                         break;    

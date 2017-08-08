@@ -27,12 +27,14 @@ class TeamsPanel extends PureComponent{
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
+                console.log("data here:",data);
                  this.setState({response:data,loaded:true});
                  this.setStandingsMainGroups();
          });
     }
 
     componentWillUnmount(){
+        this.state.loaded = false;
         socket.removeAllListeners("curr_news");
     }
 
@@ -93,7 +95,7 @@ class TeamsPanel extends PureComponent{
         return "/"+this.game+"/teams/roster/"+city+"_"+teamName;
     }
     getStatsPath(city,teamName){
-        return "/"+this.game+"/teams/stats"+city+"_"+teamName;
+        return "/"+this.game+"/teams/stats/"+city+"_"+teamName;
     }
 
     getTeamRow(team){
@@ -194,7 +196,7 @@ class RosterItem extends PureComponent{
             }else if(currPath.indexOf('nhl')!=-1){
                 this.props.rosterClick('nhl','2017-2018-regular',fullName);
             }else if(currPath.indexOf('mlb')!=-1){
-                this.props.rosterClick('mlb','2017-2018-regular',fullName);
+                this.props.rosterClick('mlb','2016-2017-regular',fullName);
             }else{
                 this.props.rosterClick('nba','2017-2018-regular',fullName);
             }

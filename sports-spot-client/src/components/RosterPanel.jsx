@@ -29,7 +29,8 @@ export default class RosterPanel extends PureComponent{
     }
     componentDidMount()
     {
-        socket.on("curr_news",(data)=>{
+        socket.once("curr_news",(data)=>{
+            console.log("data here:",data);
                  this.setState({response:data,loaded:true});
          });
     }

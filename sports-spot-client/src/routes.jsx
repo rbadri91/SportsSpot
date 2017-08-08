@@ -18,6 +18,7 @@ import SignUpPage from './containers/SignUpPage.jsx';
 import MainNav from './components/navbar.jsx';
 import SubNavigation from './components/SubNavigation.jsx';
 import App from './components/App';
+import TeamsInfoWrapper from './components/TeamInfoWrapper';
 
 const routes =  <div>
                 <Switch>
@@ -40,14 +41,18 @@ const routes =  <div>
                     <Route  path="/mlb/schedules" component={SchedulePageContainer}/>
                     <Route  path="/nfl/schedules" component={SchedulePageContainer}/>
                     <Route  path="/nhl/schedules" component={SchedulePageContainer}/>
-                    <Route  path="/nba/teams/schedules" component={SchedulePageContainer}/>
-                    <Route  path="/mlb/teams/schedules" component={SchedulePageContainer}/>
-                    <Route  path="/nfl/teams/schedules" component={SchedulePageContainer}/>
-                    <Route  path="/nhl/teams/schedules" component={SchedulePageContainer}/>
-                    <Route  path="/nba/teams/roster" component={RosterPanel}/>
-                    <Route  path="/mlb/teams/roster" component={RosterPanel}/>
-                    <Route  path="/nfl/teams/roster" component={RosterPanel}/>
-                    <Route  path="/nhl/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nba/teams/schedules" component={TeamsInfoWrapper}/>
+                    <Route  path="/mlb/teams/schedules" component={TeamsInfoWrapper}/>
+                    <Route  path="/nfl/teams/schedules" component={TeamsInfoWrapper}/>
+                    <Route  path="/nhl/teams/schedules" component={TeamsInfoWrapper}/>
+                    <Route  path="/nba/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/mlb/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/nfl/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/nhl/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/nba/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/mlb/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/nfl/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/nhl/teams/roster" component={TeamsInfoWrapper}/>
                     <Route  path="/nba/standings" component={StandingsPageContainer}/>
                     <Route  path="/mlb/standings" component={StandingsPageContainer}/>
                     <Route  path="/nfl/standings" component={StandingsPageContainer}/>
@@ -87,10 +92,14 @@ export const subNavroutes = <div>
                     <Route  path="/mlb/showStatPanel" component={StatsPanel}/>
                     <Route  path="/nfl/showStatPanel" component={StatsPanel}/>
                     <Route  path="/nhl/showStatPanel" component={StatsPanel}/>
-                    <Route  path="/nba/teams/roster" component={RosterPanel}/>
-                    <Route  path="/mlb/teams/roster" component={RosterPanel}/>
-                    <Route  path="/nfl/teams/roster" component={RosterPanel}/>
-                    <Route  path="/nhl/teams/roster" component={RosterPanel}/>
+                    <Route  path="/nba/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/mlb/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/nfl/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/nhl/teams/roster" component={TeamsInfoWrapper}/>
+                    <Route  path="/nba/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/mlb/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/nfl/teams/stats" component={TeamsInfoWrapper}/>
+                    <Route  path="/nhl/teams/stats" component={TeamsInfoWrapper}/>
                      <Route  path="/nba/teams" component={TeamsPageContainer}/>
                     <Route  path="/mlb/teams" component={TeamsPageContainer}/>
                     <Route  path="/nfl/teams" component={TeamsPageContainer}/>

@@ -107,7 +107,9 @@ export function getScores(game = 'nhl', season = '2017-2018-regular', forDate = 
 }
 
 export function getSchedule(game = 'nhl', season = '2017-2018-regular', forDate = 'default', team = 'default') {
-
+    if (season === '2017-2018-regular' && (game === 'nba')) {
+        season = '2017-playoff';
+    }
     if (forDate === 'default') {
         if (season === '2016-2017-regular') {
             if (game === 'mlb') forDate = '20160403';
@@ -195,7 +197,7 @@ export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018
     };
 }
 
-export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', playerStats = 'default') {
+export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', playerStats = 'default', team = 'default') {
 
     if (playerStats === 'default') {
         if (game === 'mlb') {
@@ -228,6 +230,7 @@ export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-reg
         season,
         sortBy,
         playerStats,
+        team
     };
 }
 
@@ -245,7 +248,8 @@ export function getTeams(game = 'nhl', season = '2017-2018-regular') {
     };
 }
 
-export function getRoster(game = 'nhl', season = '2017-2018-regular', team = 'default') {
+export function getRoster(game = 'nhl', season = '2016-2017-regular', team = 'default') {
+    console.log("season here in getRoster:", season);
     if (season === '2017-2018-regular' && (game === 'nba' || game === 'nhl' || game === 'nfl')) {
         season = '2016-2017-regular';
     }

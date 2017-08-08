@@ -194,7 +194,7 @@ export function getSchedules(curr_feeds, game, season, forDate, team) {
     team = team.trim();
     if (team != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
-            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, team: team, date: forDate }).then((data) => {
+            msf.getData(game, season, 'full_game_schedule', 'json', { limit: 50, team: team }).then((data) => {
                 return resolve(List(data.fullgameschedule.gameentry.slice(0, 50)));
             }).catch(() => {
                 return reject();
@@ -340,11 +340,19 @@ export function getStandings(curr_feeds, game, season, teamStats, sortBy) {
     return curr_feeds;
 }
 
-export function getStats(curr_feeds, game, season, playerStats, sortBy) {
+export function getStats(curr_feeds, game, season, playerStats, sortBy, team) {
     console.log("playerStats here:", playerStats);
     console.log("sortBy here:", sortBy);
     console.log("game here:", game);
     console.log("season here:", season);
+    var msf;
+    if (team != 'default') {
+        msf = new MySportsFeeds("1.0", true, "file", "results/" + team + "/");
+    } else {
+        msf = new MySportsFeeds("1.0", true);
+    }
+    msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
+
     if (sortBy != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
             msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy }).then((data) => {

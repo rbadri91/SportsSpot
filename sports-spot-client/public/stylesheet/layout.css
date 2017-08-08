@@ -883,7 +883,6 @@ table.optionData tbody .odd td {
 }
 
 .rosterPanel {
-    margin: 4%;
     background: #fff;
 }
 
@@ -943,4 +942,117 @@ table.optionData tbody .odd td {
 
 .seasonController {
     display: flex;
+}
+
+.optionsContianer {
+    display: table;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 15px 0;
+    background: #5a5ac7;
+    border-top: 2px solid #fff;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+}
+
+ul.PrimaryOptions.optionsTab {
+    padding-left: 10px;
+    background: #5a5ac7;
+    display: table;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin: 0 0 15px 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1em;
+    background: #1d1d1d;
+    color: #fff;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    border-top: 2px solid #fff;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    list-style: none;
+}
+
+div.optionsContianer ul.PrimaryOptions.optionsTab {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    border-top: 0;
+}
+
+ul.PrimaryOptions.optionsTab li {
+    display: table-cell;
+    list-style-type: none;
+    height: 30px;
+    margin: 0;
+    padding: 2px 0 0 0;
+    font-size: 12px;
+    line-height: 30px;
+    float: left;
+    color: #fff;
+    font-weight: 400;
+}
+
+ul.PrimaryOptions.optionsTab li a.options {
+    font-weight: 400;
+    display: block;
+    padding: 0;
+    color: #fff;
+}
+
+ul.PrimaryOptions.optionsTab li.active {
+    background: white
+}
+
+.TeamInfoContainer {
+    width: 934px;
+    margin: 0 auto;
+    display: block;
+}
+
+.TeamInfoContainer:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.react-tabs__tab-list {
+    margin: 0 !important;
+    border-bottom: 1px solid #efefef !important;
+}
+
+#mainNavbar .navbar-inverse .navbar-nav>.active>a:after {
+    content: '';
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-bottom: solid 10px #f8f8f8;
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
+}
+
+#mainNavbar .navbar-inverse .navbar-nav>.active>a {
+    background: rgb(89, 89, 197);
+}
+
+.react-tabs__tab a {
+    text-decoration: none;
+}
+
+.schedulePanel {
+    background: #fff;
 }
