@@ -57,7 +57,7 @@ class TeamsInfoWrapper extends PureComponent{
     }
     getDefaultIndex(){
         var currPath = window.location.href;
-        if(currPath.indexOf('roster')!=-1){
+        if(currPath.indexOf('roster')!==-1){
             return 2;
         }else if(currPath.indexOf('schedules')!=-1){
             return 1;
