@@ -75,9 +75,9 @@ class NBAStatsPage extends PureComponent{
     if(data1!=''){
       var location = '/nba/showStatPanel/'+statsFor+"_"+data1;
       if(statsFor==='player'){
-           columns.push(<td key ={data1}><Link to={location} onClick={() => this.props.getStats('offence',data1_sortAbb,'nba')}>{data1}</Link></td>);
+           columns.push(<td key ={data1}><Link to={location} onClick={() => this.props.getStats('offense',data1_sortAbb,'nba')}>{data1}</Link></td>);
       }else{
-          columns.push(<td key ={data1}><Link to={location} onClick={() => this.props.getTeamStats('offence',data1_sortAbb,'nba')}>{data1}</Link></td>);
+          columns.push(<td key ={data1}><Link to={location} onClick={() => this.props.getTeamStats('offense',data1_sortAbb,'nba')}>{data1}</Link></td>);
       }
     }else{
       columns.push(<td>&nbsp;</td>);
@@ -88,7 +88,7 @@ class NBAStatsPage extends PureComponent{
       if(statsFor==='player'){
          columns.push(<td key ={data2}><Link to={location} onClick={() => this.props.getStats('defence',data2_sortAbb,'nba')}>{data2}</Link></td>);
       }else{
-         columns.push(<td key ={data2}><Link to={location} onClick={() => this.props.getTeamStats('offence_opp',data2_sortAbb,'nba')}>{data2}</Link></td>);
+         columns.push(<td key ={data2}><Link to={location} onClick={() => this.props.getTeamStats('offense_opp',data2_sortAbb,'nba')}>{data2}</Link></td>);
       }
     }else{
       columns.push(<td>&nbsp;</td>);

@@ -293,6 +293,8 @@ function getSortedData(statType, sortBy, game, data) {
 export function getTeamStats(curr_feeds, game, season, teamStats, sortBy, statType) {
     if (teamStats != 'default') {
         curr_feeds = new Promise((resolve, reject) => {
+            var msf = new MySportsFeeds("1.0", true);
+            msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
             return msf.getData(game, season, 'overall_team_standings', 'json', { teamstats: teamStats, sort: sortBy }).then((data) => {
                 return resolve(List(data.overallteamstandings.teamstandingsentry));
             }).catch((reason) => {
@@ -302,6 +304,8 @@ export function getTeamStats(curr_feeds, game, season, teamStats, sortBy, statTy
         });
     } else {
         curr_feeds = new Promise((resolve, reject) => {
+            var msf = new MySportsFeeds("1.0", true);
+            msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
             return msf.getData(game, season, 'overall_team_standings', 'json', { sort: sortBy }).then((data) => {
                 console.log("data fetched");
                 return resolve(List(data.overallteamstandings.teamstandingsentry));
@@ -320,6 +324,8 @@ export function getStandings(curr_feeds, game, season, teamStats, sortBy) {
 
     if (!sortBy || sortBy == 'default') {
         curr_feeds = new Promise((resolve, reject) => {
+            var msf = new MySportsFeeds("1.0", true);
+            msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
             return msf.getData(game, season, 'division_team_standings', 'json', { teamstats: teamStats }).then((data) => {
                 console.log("data here");
                 return resolve(List(data.divisionteamstandings.division));
@@ -376,6 +382,12 @@ export function getStats(curr_feeds, game, season, playerStats, sortBy, team) {
 export function getRosterStats(curr_feeds, game, season, team) {
     console.log("team here:", team);
     curr_feeds = new Promise((resolve, reject) => {
+        if (team != 'default') {
+            msf = new MySportsFeeds("1.0", true, "file", "results/" + team + "/");
+        } else {
+            msf = new MySportsFeeds("1.0", true);
+        }
+        msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
         msf.getData(game, season, 'roster_players', 'json', { team: team }).then((data) => {
             return resolve(List(data.rosterplayers.playerentry));
         }).catch(() => {

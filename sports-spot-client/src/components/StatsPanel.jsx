@@ -39,6 +39,7 @@ class StatsPanel extends PureComponent{
     componentDidMount()
     {
         socket.on("curr_news",(data)=>{
+                    console.log("data here:",data);
                  this.setState({response:data,responseReceived:true,loaded: true});
          });
     }
@@ -53,7 +54,7 @@ class StatsPanel extends PureComponent{
         var lastUnderscoreIndex = location.lastIndexOf("_");
         this.title = location.substring(lastUnderscoreIndex+1);
         var titleArr =[];
-        titleArr.push(<td colSpan ={this.getTableHeaderCount()} key="titleheader">{this.title}</td>);
+        titleArr.push(<td colSpan ={this.getTableHeaderCount()} key={this.title}>{this.title}</td>);
         return titleArr;
     }
 
@@ -80,6 +81,7 @@ class StatsPanel extends PureComponent{
     }
 
     getNBAPerTeamOffenseHeader(){
+        console.log("it comes to getNBAPerTeamOffenseHeader");
          var headers =["PLAYER","POS","GP","MPG","PTS","FGM","FGA","FG%","3PM","3PA","3P%","FTM","FTA","FT%"];
         return headers;
     }
@@ -178,6 +180,25 @@ class StatsPanel extends PureComponent{
                         items.stats.GamesPlayed["#text"],items.stats.MinSeconds["#text"],
                         items.stats.MinSecondsPerGame["#text"]]
                         break;
+                    case "offense":
+                             columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.Pts["#text"],
+                            items.stats.FgMadePerGame["#text"],items.stats.FgAttPerGame["#text"],items.stats.FgPct["#text"],
+                            items.stats.Fg3PtMadePerGame["#text"],items.stats.Fg3PtAttPerGame["#text"],items.stats.Fg3PtPct["#text"],
+                            items.stats.FtMadePerGame["#text"],items.stats.FtAttPerGame["#text"],items.stats.FtPct["#text"]];
+                        break;
+                    case "defense":
+                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.OffRebPerGame["#text"],
+                            items.stats.DefRebPerGame["#text"],items.stats.RebPerGame["#text"],items.stats.BlkPerGame["#text"],
+                            items.stats.StlPerGame["#text"],items.stats.TovPerGame["#text"],items.stats.Ast["#text"],
+                            items.stats.AstPerGame["#text"],items.stats.FoulPers["#text"]];
+                            break;
+                    case 'miscellanious':
+                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.FoulsPerGame["#text"],
+                            items.stats.FoulFlag1PerGame["#text"],items.stats.FoulTech["#text"],items.stats.Ejections["#text"]];    
+                            break;
                     default:
                             break;
                 }
@@ -216,25 +237,6 @@ class StatsPanel extends PureComponent{
                                 items.stats.BlkPerGame["#text"],items.stats.Stl["#text"],items.stats.StlPerGame["#text"],
                                 items.stats.Tov["#text"],items.stats.TovPerGame["#text"],items.stats.FoulTech["#text"]];
                                 break;
-                        case "offense":
-                             columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
-                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.Pts["#text"],
-                            items.stats.FgMadePerGame["#text"],items.stats.FgAttPerGame["#text"],items.stats.FgPct["#text"],
-                            items.stats.Fg3PtMadePerGame["#text"],items.stats.Fg3PtAttPerGame["#text"],items.stats.Fg3PtPct["#text"],
-                            items.stats.FtMadePerGame["#text"],items.stats.FtAttPerGame["#text"],items.stats.FtPct["#text"]];
-                        break;
-                        case "defense":
-                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
-                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.OffRebPerGame["#text"],
-                            items.stats.DefRebPerGame["#text"],items.stats.RebPerGame["#text"],items.stats.BlkPerGame["#text"],
-                            items.stats.StlPerGame["#text"],items.stats.TovPerGame["#text"],items.stats.Ast["#text"],
-                            items.stats.AstPerGame["#text"],items.stats.FoulPers["#text"]];
-                        case 'miscellanious':
-                            var headers =["PLAYER","POS","GP","MPG","PFG","FLAGG","TG","EJE"];
-                            columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
-                            items.stats.GamesPlayed["#text"],items.stats.MinSecondsPerGame["#text"],items.stats.FoulsPerGame["#text"],
-                            items.stats.FoulFlag1PerGame["#text"],items.stats.FoulTech["#text"],items.stats.Ejections["#text"]];
-
                         default:
                             break;
                     }
@@ -420,6 +422,16 @@ class StatsPanel extends PureComponent{
     }
     getNFLTeamPuntingHeaders(){
         var headers=["TEAM","PUNTS","YDS","LNG","AVG","NET","IN20","TB","FC","RET","RETY","RETAVG"];
+        return headers;
+    }
+
+    getNFLTeamSpecificOffenseHeaders(){
+         var headers =["PLAYER","POS","TEAM","G","PATT","PPCT","PYDS","PYDS/A","PTD","RUYDS","RUAVG","RUTD","REYDS","REAVG","RETD","PrTD","KrTD","Fum"];
+         return headers;
+    }
+    
+    getNFLTeamSpecialTeamsHeaders(){
+        var headers =["PLAYER","POS","TEAM","FGM","FGA","FGPCT","XPM","XPA","XPCT","PUNTS","PUNTYDS","PUNTAVG","RET","RETAVG","KRET","KYDS","KAVG","PR","PYDS","PTD"];
         return headers;
     }
 
@@ -676,6 +688,7 @@ class StatsPanel extends PureComponent{
     getNBAHeaders(){
         var headers =[];
         if(this.statFor==='team'){
+                console.log("this.title:",this.title);
                 switch(this.title){
                     case "Points":
                     case "Opponent Points":
@@ -689,15 +702,6 @@ class StatsPanel extends PureComponent{
                     case "Opponent 3-Point Field Goals":
                         headers= this.getNBATeamOffenseHeader();
                         break;
-                    case "offense":
-                        headers = this.getNBAPerTeamOffenseHeader();
-                        break;
-                    case "defense":
-                        headers = this.getNBATeamDefenseHeader();
-                        break; 
-                    case "miscellanious":
-                        headers = this.getNBATeamMiscHeader();
-                        break;            
                     case "Fouls":
                         headers = this.getNBATeamFoulsHeader();
                         break;    
@@ -738,7 +742,16 @@ class StatsPanel extends PureComponent{
                             break; 
                     case  "Minutes":
                             headers = this.getNBAPlayerMinutesHeader();
-                            break; 
+                            break;
+                     case "offense":
+                        headers = this.getNBAPerTeamOffenseHeader();
+                        break;
+                    case "defense":
+                        headers = this.getNBATeamDefenseHeader();
+                        break; 
+                    case "miscellanious":
+                        headers = this.getNBATeamMiscHeader();
+                        break;             
                     default:
                         break;           
                 }
@@ -839,8 +852,19 @@ class StatsPanel extends PureComponent{
                     break;
                 case "Kickoff Returns":
                 case "Punt Returns":
-                    headers =this.getNFLPlayersKickbackAndPuntReturnHeaders();        
-
+                    headers =this.getNFLPlayersKickbackAndPuntReturnHeaders();  
+                    break; 
+                case "offense":
+                    headers = this.getNFLTeamSpecificOffenseHeaders();
+                    break;
+                case "defense":
+                    headers = this.getNFLPlayerDefenceHeader();
+                    break;
+                case "special_teams":
+                    headers = this.getNFLTeamSpecialTeamsHeaders();
+                    break;
+                default:
+                    break;
             }
         }else{
             switch(this.title){
@@ -938,20 +962,15 @@ class StatsPanel extends PureComponent{
     }
 
     getseasonOptions(){
-      var startYear = 2017;
-      var endYear = 2018;
       var options =[];
       var season = ["2016-2017-regular","2017-playoff","2015-2016-regular","2016-playoff"];
-      var seasonName = ["2016 Regular",'2017 Playoff','2015 Regular'];
+      var seasonName = ["2016 Regular",'2017 Playoff','2015 Regular','2016 Playoff'];
       if(this.game==='mlb'){
-          season = ["2017-regular","2017-playoff","2016-2017-regular","2016-playoff"];
+          season = ["2017-regular","2017-playoff","2016-2017-regular"];
           seasonName = ["2017 Regular",'2017 Playoff','2016 Regular'];
       }
       for(var i=0;i<season.length;i++){
-        var optionVal = startYear+"-"+endYear+'-regular';
-        options.push(<option value ={season[i]}>{seasonName[i]} Season</option>)
-        startYear--;
-        endYear--;
+        options.push(<option key={season[i]} value ={season[i]}>{seasonName[i]} Season</option>);
       }
       return options;
     }
@@ -962,13 +981,13 @@ class StatsPanel extends PureComponent{
         var lastSlashIndex = currPath.lastIndexOf("/");
         var subcontent = currPath.substring(lastSlashIndex+1);
         this.statFor = subcontent.substring(0,subcontent.indexOf(this.title)-1);
-        if(currPath.indexOf('nfl')!=-1){
+        if(currPath.indexOf('nfl')!==-1){
               this.game='nfl';
               this.tableHeaders = this.getNFLHeaders();
-        }else if(currPath.indexOf('nhl')!=-1){
+        }else if(currPath.indexOf('nhl')!==-1){
               this.game='nhl';
               this.tableHeaders = this.getNHLHeaders();
-        }else if(currPath.indexOf('mlb')!=-1){
+        }else if(currPath.indexOf('mlb')!==-1){
                this.game='mlb';
                this.tableHeaders=this.getMLBHeaders();
         }else{
@@ -1149,21 +1168,21 @@ class StatsPanel extends PureComponent{
                             </tr>
                             <tr className="ss-row tableLabel">
                                 {this.getTableHeaders().map((header,index) => (
-                                       <th key={index+10000}>{header}</th> 
+                                       <th key={"header_"+index}>{header}</th> 
                                 ))
                                 }
                             </tr>
                              {this.state.pageOfItems.map((item,index) =>
-                                <tr key={this.getID(item)} className={"ss-row "+ (index%2==0 ?'even':'odd')}>
+                                <tr key={"contentRow_"+this.getID(item)} className={"ss-row "+ (index%2==0 ?'even':'odd')}>
                                     {this.handleRowContent(item).map((subItem,index) =>(
-                                        <td key={index}>{subItem}</td>
+                                        <td key={"content_"+index}>{subItem}</td>
                                     ))}
                                 </tr>
                             )}
 
                         </tbody>
                     </table>
-                    <Pagination items={this.state.response} onChangePage={this.onChangePage} />
+                    <Pagination key="Pagination" items={this.state.response} onChangePage={this.onChangePage} />
                 </div>
             </div>
              </Loader>

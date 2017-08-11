@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actionCreators from '../action_creators';
-import TeamStatsPanel from './TeamStatsPanel';
+import TeamStatsWrapper from './TeamStatsWrapper';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import RosterPanel from './RosterPanel.jsx';
 import 'react-tabs/style/react-tabs.css';
 import SchedulePanel from './SchedulePanel';
-var chunk = require('lodash.chunk');
-var Loader = require('react-loader');
 
 class TeamsInfoWrapper extends PureComponent{
 
@@ -24,7 +22,13 @@ class TeamsInfoWrapper extends PureComponent{
         var currPath = window.location.href;
         var lastSlashIndex = currPath.lastIndexOf("/");
         var subcontent = currPath.substring(lastSlashIndex+1);
+        if(currPath.indexOf('stats')!==-1){
+            var subPath = currPath.substring(0,lastSlashIndex);
+            var lastSlashIndex2 = subPath.lastIndexOf("/");
+            subcontent = subPath.substring(lastSlashIndex2+1);
+        }
         this.team = subcontent;
+        console.log("team here:",this.team);
         if(currPath.indexOf('nfl')!=-1){
               this.game='nfl';
         }else if(currPath.indexOf('nhl')!=-1){
@@ -38,35 +42,49 @@ class TeamsInfoWrapper extends PureComponent{
    
     handleRosterClick(){
         console.log("in handleRosterClick");
-        this.props.getRoster(this.game,undefined,this.team.replace('_','-'));
+        this.props.getRoster(this.game,undefined,this.team.replace(/_/g,"-"));
     }
     handleStatsClick(){
+        console.log("in handleStatsClick");
+        console.log("team here in stats click:",this.team);
         if(this.game=='mlb'){
-            this.props.getStats('batting','stats.Batting-AVG.D',this.game,undefined,this.team);
+            this.props.getStats('batting','stats.Batting-AVG.D',this.game,undefined,'default',this.team.replace(/_/g,"-"));
         }else if(this.game=='nhl'){
-            this.props.getStats('scoring','stats.G.D',this.game,undefined,this.team);
+            this.props.getStats('scoring','stats.G.D',this.game,undefined,'default',this.team.replace(/_/g,"-"));
         }else if(this.game=='nfl'){
-            this.props.getStats('offense','stats.Passing-Yds.D',this.game,undefined,this.team);
+            this.props.getStats('offense','stats.Passing-Yds.D',this.game,undefined,'default',this.team.replace(/_/g,"-"));
         }else if(this.game=='nba'){
-            this.props.getStats('offense','stats.PTS.D',this.game,undefined,this.team);
+            this.props.getStats('offense','stats.PTS.D',this.game,undefined,'default',this.team.replace(/_/g,"-"));
         }
         
     }
      handleSchedulesClick(){
-        this.props.getSchedule(this.game,undefined,undefined,this.team.replace("_","-"));
+        this.props.getSchedule(this.game,undefined,undefined,this.team.replace(/_/g,"-"));
     }
     getDefaultIndex(){
         var currPath = window.location.href;
         if(currPath.indexOf('roster')!==-1){
             return 2;
-        }else if(currPath.indexOf('schedules')!=-1){
+        }else if(currPath.indexOf('schedules')!==-1){
             return 1;
-        }else if(currPath.indexOf('stats')!=-1){
+        }else if(currPath.indexOf('stats')!==-1){
             return 0;
         }
     }
     getLinkTo(navTo){
-            return '/'+this.game+'/teams/'+navTo+"/"+this.team;
+            var navUrl = '/'+this.game+'/teams/'+navTo+"/"+this.team;
+            if(navTo === 'stats'){
+                if(this.game === 'nba'){
+                    navUrl +='/player_offense';
+                }else if(this.game === 'nfl'){
+                    navUrl +='/player_offense';
+                }else if(this.game === 'nhl'){
+                    navUrl +='/player_scoring';
+                }else if(this.game === 'mlb'){
+                    navUrl +='/player_Batting';
+                }
+            }
+            return navUrl;
     }
     render() {
 
@@ -79,7 +97,7 @@ class TeamsInfoWrapper extends PureComponent{
                     </TabList>
                 
                     <TabPanel>
-                    <h2>Any content 1</h2>
+                         <TeamStatsWrapper team ={this.team} {...this.props}/>
                     </TabPanel>
                     <TabPanel>
                         <SchedulePanel {...this.props} />

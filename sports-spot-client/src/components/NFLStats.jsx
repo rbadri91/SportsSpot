@@ -87,39 +87,39 @@ class NFLStatsPage extends PureComponent{
     if(data1!=''){
       var location1 = '/nfl/showStatPanel/'+statsFor+"_"+data1;
       if(statsFor==='player'){
-        columns.push(<td><Link to={location1} onClick={() => this.props.getStats('offence',data1_sortAbb,'nfl')}>{data1}</Link></td>);
+        columns.push(<td key={data1}><Link to={location1} onClick={() => this.props.getStats('offense',data1_sortAbb,'nfl')}>{data1}</Link></td>);
       }else{
-         columns.push(<td><Link to={location1} onClick={() => this.props.getTeamStats('offence',data1_sortAbb,'nfl')}>{data1}</Link></td>);
+         columns.push(<td key={data1}><Link to={location1} onClick={() => this.props.getTeamStats('offense',data1_sortAbb,'nfl')}>{data1}</Link></td>);
       }
     }else{
-      columns.push(<td>&nbsp;</td>);
+      columns.push(<td key="nodata1">&nbsp;</td>);
     }
     
     if(data2!=''){
       var location2 = '/nfl/showStatPanel/'+statsFor+"_"+data2;
       if(statsFor==='player'){
-          columns.push(<td><Link to={location2} onClick={() => this.props.getStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
+          columns.push(<td key={data2}><Link to={location2} onClick={() => this.props.getStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
       }else{
-          columns.push(<td><Link to={location2} onClick={() => this.props.getTeamStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
+          columns.push(<td key={data2}><Link to={location2} onClick={() => this.props.getTeamStats('defence',data2_sortAbb,'nfl')}>{data2}</Link></td>);
       }
       }else{
-      columns.push(<td>&nbsp;</td>);
+      columns.push(<td key="nodata2">&nbsp;</td>);
     }
 
     if(data3!=''){
         var location3 = '/nfl/showStatPanel/'+statsFor+"_"+data3;
         if(statsFor==='player'){
-            columns.push(<td><Link to={location3} onClick={() => this.props.getStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
+            columns.push(<td key={data3}><Link to={location3} onClick={() => this.props.getStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
         }else{
-            columns.push(<td><Link to={location3} onClick={() => this.props.getTeamStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
+            columns.push(<td key={data3}><Link to={location3} onClick={() => this.props.getTeamStats('special_teams',data3_sortAbb,'nfl')}>{data3}</Link></td>);
         }
     }else{
-       columns.push(<td>&nbsp;</td>);
+       columns.push(<td key="nodata3">&nbsp;</td>);
     }
     
     if(data4){
       var location4 = '/nfl/showStatPanel/'+statsFor+"_"+data4;
-      columns.push(<td><Link to={location4} onClick={() => this.props.getTeamStats('sp_teams_opp',data4_sortAbb,'nfl')}>{data4}</Link></td>);
+      columns.push(<td key={data4}><Link to={location4} onClick={() => this.props.getTeamStats('sp_teams_opp',data4_sortAbb,'nfl')}>{data4}</Link></td>);
     }
 
     return columns;

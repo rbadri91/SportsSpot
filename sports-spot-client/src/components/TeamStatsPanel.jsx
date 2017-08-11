@@ -85,3 +85,4 @@ class TeamsInfoWrapper extends PureComponent{
         </div>
     }
 }
+

@@ -89,13 +89,23 @@ class TeamsPanel extends PureComponent{
     }
 
     getSchedulePath(city,teamName){
-        return "/"+this.game+"/teams/schedules/"+city+"_"+teamName;
+        return "/"+this.game+"/teams/schedules/"+city.replace(/ /g,"_")+"_"+teamName.replace(/ /g,"_");
     }
     getRosterPath(city,teamName){
-        return "/"+this.game+"/teams/roster/"+city+"_"+teamName;
+        return "/"+this.game+"/teams/roster/"+city.replace(/ /g,"_")+"_"+teamName.replace(/ /g,"_");
     }
     getStatsPath(city,teamName){
-        return "/"+this.game+"/teams/stats/"+city+"_"+teamName;
+        var navUrl = '/'+this.game+'/teams/stats/'+city.replace(/ /g,"_")+"_"+teamName.replace(/ /g,"_");
+        if(this.game === 'nba'){
+                    navUrl +='/player_offense';
+        }else if(this.game === 'nfl'){
+                    navUrl +='/player_offense';
+        }else if(this.game === 'nhl'){
+                    navUrl +='/player_scoring';
+        }else if(this.game === 'mlb'){
+                    navUrl +='/player_batting';
+        }
+        return navUrl;
     }
 
     getTeamRow(team){
@@ -103,8 +113,8 @@ class TeamsPanel extends PureComponent{
         columns.push(<td key={team.team.Name}>
             <a>{team.team.City} {team.team.Name}</a> &nbsp;&nbsp;
             <span className="setPosRight">
-            <ScheduleItem team ={team.team.Name} city={team.team.City} location ={this.getSchedulePath(team.team.City,team.team.Name)} scheduleClick = {this.props.getSchedule}/> | 
-            <Link to ={this.getStatsPath(team.team.City,team.team.Name)} >Stats</Link> | 
+            <ScheduleItem location ={this.getSchedulePath(team.team.City,team.team.Name)} team ={team.team.Name} city={team.team.City} scheduleClick = {this.props.getSchedule}/> | 
+            <StatsItem location = {this.getStatsPath(team.team.City,team.team.Name)} team ={team.team.Name} city={team.team.City} statsClick ={this.props.getStats}>Stats</StatsItem> | 
             <RosterItem location={this.getRosterPath(team.team.City,team.team.Name)} team ={team.team.Name} city={team.team.City} rosterClick={this.props.getRoster}/>
             </span></td>)
 
@@ -166,6 +176,7 @@ class ScheduleItem extends PureComponent{
         _onClick() {
              var currPath = window.location.href;
             var fullName = this.props.city+"-"+this.props.team;
+            console.log("fullName here;",fullName);
             if(currPath.indexOf('nfl')!=-1){
                 this.props.scheduleClick('nfl','2017-2018-regular',undefined,fullName);
             }else if(currPath.indexOf('nhl')!=-1){
@@ -191,6 +202,7 @@ class RosterItem extends PureComponent{
         _onClick() {
              var currPath = window.location.href;
             var fullName = this.props.city+"-"+this.props.team;
+            console.log("fullName here for roster:",fullName);
             if(currPath.indexOf('nfl')!=-1){
                 this.props.rosterClick('nfl','2017-2018-regular',fullName);
             }else if(currPath.indexOf('nhl')!=-1){
@@ -199,6 +211,31 @@ class RosterItem extends PureComponent{
                 this.props.rosterClick('mlb','2016-2017-regular',fullName);
             }else{
                 this.props.rosterClick('nba','2017-2018-regular',fullName);
+            }
+        }
+}
+
+class StatsItem extends PureComponent{
+        constructor(props){
+            super(props);
+            this._onClick = this._onClick.bind(this);
+        }
+        render() {
+            return (
+                <Link to = {this.props.location} onClick={this._onClick}>Stats</Link>
+            );
+        }
+        _onClick() {
+             var currPath = window.location.href;
+            var fullName = this.props.city+"-"+this.props.team;
+            if(currPath.indexOf('nfl')!==-1){
+                this.props.statsClick('offense','default','nfl','2017-2018-regular','default',fullName);
+            }else if(currPath.indexOf('nhl')!==-1){
+                this.props.statsClick('scoring','default','nhl','2017-2018-regular','default',fullName);
+            }else if(currPath.indexOf('mlb')!==-1){
+                this.props.statsClick('batting','stats.Batting-AVG.D','mlb','2016-2017-regular','default',fullName);
+            }else{
+                this.props.statsClick('offense','default','nba','2017-2018-regular','default',fullName);
             }
         }
 }

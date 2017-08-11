@@ -1009,7 +1009,7 @@ ul.PrimaryOptions.optionsTab li a.options {
 }
 
 ul.PrimaryOptions.optionsTab li.active {
-    background: white
+    background: white;
 }
 
 .TeamInfoContainer {
@@ -1055,4 +1055,131 @@ ul.PrimaryOptions.optionsTab li.active {
 
 .schedulePanel {
     background: #fff;
+}
+
+div.optionsWrapper div {
+    display: table;
+    position: relative;
+    vertical-align: middle;
+    text-align: left;
+    zoom: 1;
+    margin: 0 auto;
+}
+
+.optionsInnerWrapper {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    -webkit-border-radius: .3em;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.optionsButtons {
+    display: inline-block;
+    padding: 10px 10px 10px 3px;
+}
+
+.optionsButtons:before {
+    content: "";
+    position: relative;
+    top: 2px;
+    left: -3px;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #f1f1f1;
+}
+
+.buttonSet {
+    /* font-size: .1px; */
+    height: auto;
+}
+
+.buttonConfig {
+    font-size: 12px;
+    color: #666!important;
+    border-color: #aaa;
+    text-shadow: 0 1px 0 #fff;
+    background-color: #E2E2E2;
+    box-shadow: none!important;
+}
+
+.optionList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.optionList li {
+    float: left;
+    margin: 0 5px 0 0;
+    width: 150px;
+    height: 40px;
+    position: relative;
+}
+
+.optionList label,
+.optionList input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.optionList input[type="radio"] {
+    opacity: 0.01;
+    z-index: 100;
+}
+
+.optionList input[type="radio"]:checked+label,
+.Checked+label {
+    background: rgb(89, 89, 197);
+    color: #fff;
+}
+
+.optionList label {
+    padding: 5px;
+    border: 1px solid #CCC;
+    cursor: pointer;
+    z-index: 90;
+}
+
+.optionList label:hover {
+    background: #DDD;
+}
+
+.teamStatsWrapper {
+    width: 934px;
+    margin: 0 auto;
+    display: block;
+    background: #fff;
+}
+
+.navbar-inverse {
+    border-bottom-color: #f8f8f8;
+}
+
+.react-tabs__tab-list {
+    background: #efefef;
+}
+
+.statsHeader {
+    background: #fff;
+}
+
+.teamStatsWrapper .react-tabs__tab {
+    margin-left: 0.5%;
+    border: 1px solid #c7afaf;
+    border-bottom-color: #fff;
+}
+
+.tableContent td>a {
+    font-size: 1.1rem;
 }

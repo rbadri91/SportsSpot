@@ -108,7 +108,7 @@ export function getScores(game = 'nhl', season = '2017-2018-regular', forDate = 
 
 export function getSchedule(game = 'nhl', season = '2017-2018-regular', forDate = 'default', team = 'default') {
     if (season === '2017-2018-regular' && (game === 'nba')) {
-        season = '2017-playoff';
+        season = '2016-2017-regular';
     }
     if (forDate === 'default') {
         if (season === '2016-2017-regular') {
@@ -142,6 +142,7 @@ export function getSchedule(game = 'nhl', season = '2017-2018-regular', forDate 
             else forDate = '20171004';
         }
     }
+    console.log("team here:", team);
     return {
         meta: { remote: true },
         type: 'GET_SCHEDULES',
@@ -198,18 +199,19 @@ export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018
 }
 
 export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', playerStats = 'default', team = 'default') {
-
+    console.log("statType here:", statType);
+    console.log("playerStats here:", playerStats);
     if (playerStats === 'default') {
         if (game === 'mlb') {
             if (statType === 'batting') playerStats = 'AVG,AB,R,H,2B,3B,HR,RBI,SB,CS,BB,K/9,OBP,SLG,OPS';
             else if (statType === 'pitching') playerStats = 'IP,W,L,SV,SVO,H,R,HR,ER,ERA,BB,K/9,FTP,WHIP';
             else playerStats = 'TC,E,FPO,A,BDP,OF,PK,FDP';
         } else if (game === 'nba') {
-            if (statType === 'offence') playerStats = 'MIN/G,PTS,FGA/G,FGM/G,FG%,3PM/G,3PA/G,3P%,FTM/G,FTA/G,FT%,AST,AST/G';
-            else if (statType === 'defence') playerStats = 'MIN/G,OREB,OREB/G,DREB,DREB/G,REB,REB/G,BS,BS/G';
-            else playerStats = 'MIN/G,PF,PF/G,FF1,TF,EJE,FF1/G';
+            if (statType === 'offense') playerStats = 'MIN/G,PTS,FGA/G,FGM/G,FTA/G,FG%,3PM/G,3PA/G,3P%,FTM/G,FTA/G,FT%,AST,AST/G,PTS';
+            else if (statType === 'defense') playerStats = 'MIN/G,OREB,OREB/G,DREB,DREB/G,REB,REB/G,BS,BS/G,STL/G,TOV/G,AST,AST/G,PF/G,PF';
+            else playerStats = 'MIN/G,PF,PF/G,FF1,TF,EJE,FF1/G,F/G';
         } else if (game === 'nfl') {
-            if (statType === 'offence') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,Yards/Att,Ret,20+,40+,Rec,Made,Blk,2PTAtt';
+            if (statType === 'offense') playerStats = 'Att,Comp,Pct,Yds,Avg,Lng,TD,Int,Sacks,SackY,QBRating,Yards/Att,Ret,20+,40+,Rec,Made,Blk,2PTAtt';
             else if (statType === 'defence') playerStats = 'Ast,Total,Sacks,SackYds,PD,Int,Yds,Lng,TD,Forced,RecYds,OwnRec,Ret,20+,40+';
             else playerStats = 'Made,Att,FG%,Lng,Made1-19,Att1-19,Made20-29,Att20-29,Made30-39,Att30-39,Made50+,Att50+,Xp%,Ret,Yds,Avg,TD,20+';
         } else {
