@@ -9,7 +9,6 @@ var Loader = require('react-loader');
 var localforage = require('localforage');
 
 
-// const socket = io(`${location.protocol}//${location.hostname}:8090`);
 var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
