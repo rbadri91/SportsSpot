@@ -578,13 +578,28 @@ class StatsPanel extends PureComponent{
         return headers;
     }
 
+    getNHLTeamSpecificPlayerScoringHeaders(){
+        var headers =["PLAYER","POS","GP","G","A","PTS","+/-","PIM","SHOTS","SHOTPCT","GWG","GTG","PPG","PPA","SHG","SHA"];
+        return headers;
+    }
+
     getNHLPlayerGoalTendingHeaders(){
         var headers =["PLAYER","TEAM","POS","GP","W","L","OTL","GAA","GA","SA","SV","SVPCT","SO"];
         return headers;
     }
 
+    getNHLTeamSpecificPlayerGoalTendingHeaders(){
+        var headers =["PLAYER","POS","GP","W","L","OTL","GAA","GA","SA","SV","SVPCT","SO"];
+        return headers;
+    }
+
     getNHLPlayerPenaltyHeaders(){
         var headers =["PLAYER","TEAM","POS","PIM"];
+        return headers;
+    }
+
+     getNHLTeamSpecificPlayerPenaltyHeaders(){
+        var headers =["PLAYER","POS","PIM"];
         return headers;
     }
 
@@ -617,6 +632,15 @@ class StatsPanel extends PureComponent{
                         items.stats.stats.GameWinningGoals["#text"],items.stats.stats.GameTyingGoals["#text"],items.stats.stats.PowerplayGoals["#text"],items.stats.stats.PowerplayAssists["#text"],
                         items.stats.stats.ShorthandedGoals["#text"],items.stats.stats.ShorthandedAssists["#text"]];
                         break;
+                    case "scoring":
+                        columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                        items.stats.GamesPlayed["#text"],items.stats.stats.Goals["#text"],items.stats.stats.Assists["#text"],items.stats.stats.Points["#text"],
+                        (items.stats.stats.PlusMinus)?items.stats.stats.PlusMinus["#text"]:0,items.stats.stats.PenaltyMinutes["#text"],(items.stats.stats.Shots)?items.stats.stats.Shots["#text"]:0,
+                        (items.stats.stats.ShotPercentage)?items.stats.stats.ShotPercentage["#text"]:0,(items.stats.stats.GameWinningGoals)?items.stats.stats.GameWinningGoals["#text"]:0,
+                        (items.stats.stats.GameTyingGoals)?items.stats.stats.GameTyingGoals["#text"]:0,(items.stats.stats.PowerplayGoals)?items.stats.stats.PowerplayGoals["#text"]:0,
+                        (items.stats.stats.PowerplayAssists)?items.stats.stats.PowerplayAssists["#text"]:0,(items.stats.stats.ShorthandedGoals)?items.stats.stats.ShorthandedGoals["#text"]:0,
+                        (items.stats.stats.ShorthandedAssists)?items.stats.stats.ShorthandedAssists["#text"]:0];
+                        break;
                     case "Wins":
                     case "Goals Against Avg.":
                     case "Save Percentage":
@@ -628,9 +652,22 @@ class StatsPanel extends PureComponent{
                         (items.stats.stats.ShotsAgainst)?items.stats.stats.ShotsAgainst["#text"]:0,(items.stats.stats.Saves)?items.stats.stats.Saves["#text"]:0,
                         (items.stats.stats.SavePercentage)?items.stats.stats.SavePercentage["#text"]:0,(items.stats.stats.Shutouts)?items.stats.stats.Shutouts["#text"]:0];
                         break; 
+                    case "goaltending":
+                        columns =[items.player.FirstName+" "+items.player.LastName,items.player.Position,
+                        items.stats.GamesPlayed["#text"],(items.stats.stats.Wins)?items.stats.stats.Wins["#text"]:0,
+                        (items.stats.stats.Losses)?items.stats.stats.Losses["#text"]:0,(items.stats.stats.OvertimeLosses)?items.stats.stats.OvertimeLosses["#text"]:0,
+                        (items.stats.stats.GoalsAgainstAverage)?items.stats.stats.GoalsAgainstAverage["#text"]:0,
+                        (items.stats.stats.GoalsAgainst)?items.stats.stats.GoalsAgainst["#text"]:0,
+                        (items.stats.stats.ShotsAgainst)?items.stats.stats.ShotsAgainst["#text"]:0,(items.stats.stats.Saves)?items.stats.stats.Saves["#text"]:0,
+                        (items.stats.stats.SavePercentage)?items.stats.stats.SavePercentage["#text"]:0,(items.stats.stats.Shutouts)?items.stats.stats.Shutouts["#text"]:0];
+                        break; 
                     case "Penalty Minutes":
                     case "Penalty Minutes/Game":
                         columns = [items.player.FirstName+" "+items.player.LastName,items.team.Name,items.player.Position,
+                        items.stats.stats.PenaltyMinutes["#text"]];
+                        break;
+                    case "penalties":
+                        columns = [items.player.FirstName+" "+items.player.LastName,items.player.Position,
                         items.stats.stats.PenaltyMinutes["#text"]];
                         break;
                     default:
@@ -910,6 +947,8 @@ class StatsPanel extends PureComponent{
 
     getNHLHeaders(){
         var headers =[];
+        console.log("stats for here:",this.statFor);
+        console.log("title for here:",this.title);
         if(this.statFor==='player'){
             switch(this.title){
                 case "Goals":
@@ -918,15 +957,24 @@ class StatsPanel extends PureComponent{
                 case "Goals Breakdown":
                     headers= this.getNHLPlayerScoringHeaders();
                     break;
+                case "scoring":
+                    headers = this.getNHLTeamSpecificPlayerScoringHeaders();
+                    break;    
                 case "Wins":
                 case "Goals Against Avg.":
                 case "Save Percentage":
                     headers =this.getNHLPlayerGoalTendingHeaders();
                     break;
+                case "goaltending":
+                    headers = this.getNHLTeamSpecificPlayerGoalTendingHeaders();
+                    break;      
                 case "Penalty Minutes":
                 case "Penalty Minutes/Game":
                     headers = this.getNHLPlayerPenaltyHeaders();  
                     break;
+                 case "penalties":
+                    headers = this.getNHLTeamSpecificPlayerPenaltyHeaders();
+                    break;      
                 default:
                     break;    
             }
@@ -981,6 +1029,7 @@ class StatsPanel extends PureComponent{
         var lastSlashIndex = currPath.lastIndexOf("/");
         var subcontent = currPath.substring(lastSlashIndex+1);
         this.statFor = subcontent.substring(0,subcontent.indexOf(this.title)-1);
+        console.log("in getTableHeaderCount:");
         if(currPath.indexOf('nfl')!==-1){
               this.game='nfl';
               this.tableHeaders = this.getNFLHeaders();
@@ -994,6 +1043,7 @@ class StatsPanel extends PureComponent{
                this.game='nba';
                this.tableHeaders= this.getNBAHeaders();
         }
+            console.log("table headers here:",this.tableHeaders);
         return this.tableHeaders.length;
     }
     getNBAPlayerSortAbbreviation(name){

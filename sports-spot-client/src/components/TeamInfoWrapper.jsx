@@ -28,7 +28,8 @@ class TeamsInfoWrapper extends PureComponent{
             subcontent = subPath.substring(lastSlashIndex2+1);
         }
         this.team = subcontent;
-        console.log("team here:",this.team);
+        
+        console.log("team here in team info wrapper:",this.team);
         if(currPath.indexOf('nfl')!=-1){
               this.game='nfl';
         }else if(currPath.indexOf('nhl')!=-1){
@@ -38,8 +39,7 @@ class TeamsInfoWrapper extends PureComponent{
         }else{
                this.game='nba';
         }   
-    }
-   
+    }  
     handleRosterClick(){
         console.log("in handleRosterClick");
         this.props.getRoster(this.game,undefined,this.team.replace(/_/g,"-"));
@@ -62,6 +62,8 @@ class TeamsInfoWrapper extends PureComponent{
         this.props.getSchedule(this.game,undefined,undefined,this.team.replace(/_/g,"-"));
     }
     getDefaultIndex(){
+        this.setTeamName();
+        console.log("in getDefaultIndex");
         var currPath = window.location.href;
         if(currPath.indexOf('roster')!==-1){
             return 2;
@@ -85,6 +87,18 @@ class TeamsInfoWrapper extends PureComponent{
                 }
             }
             return navUrl;
+    }
+    setTeamName(){
+        console.log("in set team name");
+        var currPath = window.location.href;
+        var lastSlashIndex = currPath.lastIndexOf("/");
+        var subcontent = currPath.substring(lastSlashIndex+1);
+        if(currPath.indexOf('stats')!==-1){
+            var subPath = currPath.substring(0,lastSlashIndex);
+            var lastSlashIndex2 = subPath.lastIndexOf("/");
+            subcontent = subPath.substring(lastSlashIndex2+1);
+        }
+        this.team = subcontent;
     }
     render() {
 

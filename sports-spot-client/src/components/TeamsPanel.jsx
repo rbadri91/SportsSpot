@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import * as actionCreators from '../action_creators';
 var chunk = require('lodash.chunk');
 var Loader = require('react-loader');
+var localforage = require('localforage');
 
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
@@ -16,7 +17,8 @@ class TeamsPanel extends PureComponent{
     constructor(props){
         super(props);
         this.state={response:{},loaded:false};
-        this.standingsMainGroups =[];
+        this.teamsMainGroups =[];
+        this.teamsList =[];
     }
     getInitialState(){
         return {
@@ -29,7 +31,7 @@ class TeamsPanel extends PureComponent{
         socket.on("curr_news",(data)=>{
                 console.log("data here:",data);
                  this.setState({response:data,loaded:true});
-                 this.setStandingsMainGroups();
+                 this.setTeamsMainGroups();
          });
     }
 
@@ -38,8 +40,8 @@ class TeamsPanel extends PureComponent{
         socket.removeAllListeners("curr_news");
     }
 
-    setStandingsMainGroups(){
-        this.standingsMainGroups = this.chunk(this.state.response);
+    setTeamsMainGroups(){
+        this.teamsMainGroups = this.chunk(this.state.response);
     }
     chunk(array){
         if(!array || !array[0] || !array[0]["@name"]) return [];
@@ -110,6 +112,16 @@ class TeamsPanel extends PureComponent{
 
     getTeamRow(team){
         var columns =[];
+
+        this.teamsList.push(team.team.City +" "+ team.team.Name);
+
+        // localforage.getItem("teams").then(function(teamsList) {
+        //     if(!teamsList){
+        //         teamsList =[];
+        //     }
+        //     teamsList.push(team.team.City +" "+ team.team.Name);
+        //     localforage.setItem("teams",teamsList);
+        // }
         columns.push(<td key={team.team.Name}>
             <a>{team.team.City} {team.team.Name}</a> &nbsp;&nbsp;
             <span className="setPosRight">
@@ -119,6 +131,9 @@ class TeamsPanel extends PureComponent{
             </span></td>)
 
         return columns;
+    }
+    setTeamList(){
+        localforage.setItem("teams",this.teamsList);
     }
 
     render() {
@@ -131,11 +146,11 @@ class TeamsPanel extends PureComponent{
                                     <tbody>
                                         <tr className="mainGroupRow">
                                            {
-                                                this.standingsMainGroups.map((standingSubGroups) =>(
-                                                    <td key ={this.getDivision(standingSubGroups[0]['@name'])} className="mainGroupSubSection">
-                                                        <h3 className="main-section-title">{this.getDivision(standingSubGroups[0]['@name'])}</h3>
+                                                this.teamsMainGroups.map((teamsSubGroups) =>(
+                                                    <td key ={this.getDivision(teamsSubGroups[0]['@name'])} className="mainGroupSubSection">
+                                                        <h3 className="main-section-title">{this.getDivision(teamsSubGroups[0]['@name'])}</h3>
                                                          {
-                                                            standingSubGroups.map((division) => (
+                                                            teamsSubGroups.map((division) => (
                                                                 <table key ={this.getSubDivision(division['@name'])} className="outputData teamSectionMain">
                                                                     <thead>
                                                                         <tr><th className="sub-section-title setTitleHeight">{this.getSubDivision(division['@name'])}</th></tr>
@@ -154,7 +169,10 @@ class TeamsPanel extends PureComponent{
                                                     </td>
                                                 )) 
                                             }                   
-                                         </tr>   
+                                         </tr> 
+                                         {
+                                             this.setTeamList()
+                                         }  
                                     </tbody>
                                  </table> 
                     }
@@ -228,6 +246,7 @@ class StatsItem extends PureComponent{
         _onClick() {
              var currPath = window.location.href;
             var fullName = this.props.city+"-"+this.props.team;
+            console.log("fullName here:",fullName);
             if(currPath.indexOf('nfl')!==-1){
                 this.props.statsClick('offense','default','nfl','2017-2018-regular','default',fullName);
             }else if(currPath.indexOf('nhl')!==-1){

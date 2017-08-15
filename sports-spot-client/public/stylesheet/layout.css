@@ -259,7 +259,27 @@ a:hover {
     line-height: inherit;
     margin: inherit;
     padding: inherit;
-    text-transform: default;
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.teamsPanel {
+    margin-right: 30px;
+    border: 0;
+    display: inline-flex;
+    float: right;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    top: 0;
+    border: inherit;
+    font-size: inherit;
+    height: auto;
+    letter-spacing: inherit;
+    line-height: inherit;
+    margin: inherit;
+    padding: inherit;
     position: relative;
     text-transform: uppercase;
     margin: 0;
@@ -944,6 +964,10 @@ table.optionData tbody .odd td {
     display: flex;
 }
 
+.subNavConfig .navbar-default {
+    border-top: none;
+}
+
 .optionsContianer {
     display: table;
     width: 100%;
@@ -1170,8 +1194,15 @@ div.optionsWrapper div {
     background: #efefef;
 }
 
-.statsHeader {
-    background: #fff;
+.TeamStatsHeader {
+    overflow: auto;
+    display: inline-flex;
+}
+
+.teamHeaderWrapper {
+    background: linear-gradient(180deg, #fff, #efefef);
+    overflow: visible;
+    height: auto;
 }
 
 .teamStatsWrapper .react-tabs__tab {
@@ -1182,4 +1213,8 @@ div.optionsWrapper div {
 
 .tableContent td>a {
     font-size: 1.1rem;
+}
+
+.react-tabs__tab {
+    text-transform: uppercase;
 }

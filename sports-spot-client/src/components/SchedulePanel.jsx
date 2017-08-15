@@ -10,8 +10,8 @@ var DatePicker = require("react-bootstrap-date-picker");
 var Loader = require('react-loader');
 
 // const socket = io(`${location.protocol}//${location.hostname}:8090`);
-// var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
-var socket = io.connect('http://localhost:8090');
+var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+// var socket = io.connect('http://localhost:8090');
 
 class SchedulePanel extends PureComponent{
     

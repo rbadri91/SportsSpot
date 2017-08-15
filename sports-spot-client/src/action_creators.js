@@ -201,6 +201,7 @@ export function getTeamStats(statType, sortBy, game = 'nhl', season = '2017-2018
 export function getStats(statType, sortBy, game = 'nhl', season = '2017-2018-regular', playerStats = 'default', team = 'default') {
     console.log("statType here:", statType);
     console.log("playerStats here:", playerStats);
+    console.log("team here in get stats:", team);
     if (playerStats === 'default') {
         if (game === 'mlb') {
             if (statType === 'batting') playerStats = 'AVG,AB,R,H,2B,3B,HR,RBI,SB,CS,BB,K/9,OBP,SLG,OPS';

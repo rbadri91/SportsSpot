@@ -351,6 +351,7 @@ export function getStats(curr_feeds, game, season, playerStats, sortBy, team) {
     console.log("sortBy here:", sortBy);
     console.log("game here:", game);
     console.log("season here:", season);
+    console.log("team here:", team);
     var msf;
     if (team != 'default') {
         msf = new MySportsFeeds("1.0", true, "file", "results/" + team + "/");
@@ -360,21 +361,43 @@ export function getStats(curr_feeds, game, season, playerStats, sortBy, team) {
     msf.authenticate(process.env.MY_SF_LOGIN, process.env.MY_SF_PASSWORD);
 
     if (sortBy != 'default') {
-        curr_feeds = new Promise((resolve, reject) => {
-            msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy }).then((data) => {
-                return resolve(List(data.cumulativeplayerstats.playerstatsentry));
-            }).catch(() => {
-                return reject();
+        if (team != "default") {
+            curr_feeds = new Promise((resolve, reject) => {
+                msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy, team: team }).then((data) => {
+                    return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+                }).catch(() => {
+                    return reject();
+                });
             });
-        });
+        } else {
+            curr_feeds = new Promise((resolve, reject) => {
+                msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, sort: sortBy }).then((data) => {
+                    return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+                }).catch(() => {
+                    return reject();
+                });
+            });
+        }
+
     } else {
-        curr_feeds = new Promise((resolve, reject) => {
-            msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats }).then((data) => {
-                return resolve(List(data.cumulativeplayerstats.playerstatsentry));
-            }).catch(() => {
-                return reject();
+        if (team != "default") {
+            curr_feeds = new Promise((resolve, reject) => {
+                msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats, team: team }).then((data) => {
+                    return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+                }).catch(() => {
+                    return reject();
+                });
             });
-        });
+        } else {
+
+            curr_feeds = new Promise((resolve, reject) => {
+                msf.getData(game, season, 'cumulative_player_stats', 'json', { playerstats: playerStats }).then((data) => {
+                    return resolve(List(data.cumulativeplayerstats.playerstatsentry));
+                }).catch(() => {
+                    return reject();
+                });
+            });
+        }
     }
     return curr_feeds;
 }
