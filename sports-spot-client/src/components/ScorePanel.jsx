@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 var chunk = require('lodash.chunk');
 var Loader = require('react-loader');
 
-var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
 export default class ScorePanel extends PureComponent{

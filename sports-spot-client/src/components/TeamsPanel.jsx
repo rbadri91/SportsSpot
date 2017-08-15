@@ -9,7 +9,7 @@ var Loader = require('react-loader');
 var localforage = require('localforage');
 
 
-var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
 class TeamsPanel extends PureComponent{

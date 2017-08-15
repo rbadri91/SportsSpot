@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import Pagination from './Pagination';
 var Loader = require('react-loader');
 
-var socket = io.connect('https://sportsspot.herokuapp.com', {secure: true});
+var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
 class StatsPanel extends PureComponent{
