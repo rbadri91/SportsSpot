@@ -5,11 +5,10 @@ var Loader = require('react-loader');
 var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
-
 export default class ImpNewsPanel extends PureComponent{
     constructor(props){
         super(props);
-        this.state={response:[]}
+        this.state={response:[]};
     }
     getImpNews(){
         this.state.dataloaded = false;

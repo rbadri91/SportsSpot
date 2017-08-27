@@ -2,6 +2,7 @@
 import React ,{PureComponent} from 'react';
 import io from 'socket.io-client';
 var Loader = require('react-loader');
+var PubSub = require('pubsub-js');
 
 var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
@@ -10,7 +11,10 @@ var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 export default class NewsPanel extends PureComponent{
     constructor(props){
         super(props);
-        this.state={response:[],loaded:false}
+        this.state={response:[],loaded:false};
+        PubSub.subscribe( 'Reset_Loader', ()=>{
+            this.setState({loaded:false});
+        });
     }
     getNews(){
         return this.state.response ||[];
@@ -22,9 +26,6 @@ export default class NewsPanel extends PureComponent{
         }
     
     }
-    resetLoaded(){
-        // this.state.loaded = false;
-    }
      componentDidMount()
     {
         socket.on("curr_news",(data)=>{
@@ -34,9 +35,12 @@ export default class NewsPanel extends PureComponent{
          });
     }
 
+    
+
     componentWillUnmount(){
         socket.removeAllListeners("curr_news");
-         this.setState({loaded:false});
+        this.setState({loaded:false});
+        PubSub.unsubscribe('Reset_Loader');
     }
 
     render() {
@@ -70,7 +74,6 @@ export default class NewsPanel extends PureComponent{
                     </article>
                    
             )}
-            {this.resetLoaded()}
            </Loader> 
         </div>;
     }

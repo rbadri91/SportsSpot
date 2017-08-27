@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+var PubSub = require('pubsub-js');
 
 export function signUp(name, email, password) {
     return {
@@ -33,6 +34,7 @@ export function getCurrentALLNews() {
 }
 
 export function getCurrentNFLNews() {
+    PubSub.publish('Reset_Loader');
     return {
         meta: { remote: true },
         type: 'GET_CURRENT_NFL_NEWS'
@@ -40,6 +42,7 @@ export function getCurrentNFLNews() {
 }
 
 export function getCurrentMLBNews() {
+    PubSub.publish('Reset_Loader');
     return {
         meta: { remote: true },
         type: 'GET_CURRENT_MLB_NEWS'
@@ -47,6 +50,7 @@ export function getCurrentMLBNews() {
 }
 
 export function getCurrentNBANews() {
+    PubSub.publish('Reset_Loader');
     return {
         meta: { remote: true },
         type: 'GET_CURRENT_NBA_NEWS'
@@ -54,6 +58,7 @@ export function getCurrentNBANews() {
 }
 
 export function getCurrentNHLNews() {
+    PubSub.publish('Reset_Loader');
     return {
         meta: { remote: true },
         type: 'GET_CURRENT_NHL_NEWS'
