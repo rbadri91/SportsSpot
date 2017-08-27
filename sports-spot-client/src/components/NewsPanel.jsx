@@ -7,7 +7,6 @@ var PubSub = require('pubsub-js');
 var socket = io.connect('https://sportsspot.herokuapp.com:443', {secure: true});
 // var socket = io.connect('http://localhost:8090');
 
-
 export default class NewsPanel extends PureComponent{
     constructor(props){
         super(props);
